@@ -5,7 +5,7 @@ import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 
 
-const Register = () => {
+const Login = () => {
   let [fontsLoaded] = useFonts({
     Inter_900Black, OpenSans_500Medium
   });
@@ -16,24 +16,22 @@ const Register = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontFamily: 'Inter_900Black', fontSize: 40, color: '#FDC319' }}>REGISTER</Text>
+      <Text style={{ fontFamily: 'Inter_900Black', fontSize: 70, color: '#FDC319' }}>TungTY</Text>
       <View style = {{marginTop:25}}>
         <Text style={styles.fontEngInputHeader}>Name</Text>
         <Input style={styles.fontEngInput} />
       </View>
-      <View style = {{marginTop:20}}>
+      <View style = {{marginTop:10}}>
         <Text style={styles.fontEngInputHeader}>Username</Text>
         <Input style={styles.fontEngInput} />
       </View>
-      <View style = {{marginTop:20}}>
-        <Text style={styles.fontEngInputHeader}>Password</Text>
-        <Input style={styles.fontEngInput} />
+      <Button style = {{marginTop:10}} title="SIGN IN" titleStyle={styles.fontEng} buttonStyle={styles.buttonStyle}></Button>
+      <View style = {{marginTop:10}}>
+        <Text style={{styles.fontTh}}>สมาชิกใหม่?</Text>
+        <View styles={{backgroundColor:'#FFFFFF'}}>
+
+        </View>
       </View>
-      <View style = {{marginTop:20}}>
-        <Text style={styles.fontEngInputHeader}>Confirm Password</Text>
-        <Input style={styles.fontEngInput} />
-      </View>
-      <Button style = {{marginTop:40}} title="SIGN UP" titleStyle={styles.fontEng} buttonStyle={styles.buttonStyle}></Button>
     </View>
   );
 };
@@ -75,4 +73,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Register
+export default Login
