@@ -27,7 +27,7 @@ const Login = () => {
       </View>
       <Button style = {{marginTop:10}} title="SIGN IN" titleStyle={styles.fontEng} buttonStyle={styles.buttonStyle}></Button>
       <View style = {{marginTop:10}}>
-        <Text style={{styles.fontTh}}>สมาชิกใหม่?</Text>
+        <Text style={styles.fontTh}>สมาชิกใหม่?</Text>
         <View styles={{backgroundColor:'#FFFFFF'}}>
 
         </View>

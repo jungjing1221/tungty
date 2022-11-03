@@ -4,6 +4,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 
+
+
 const Main_Page = () => {
   let [fontsLoaded] = useFonts({
     Inter_900Black, OpenSans_500Medium
@@ -13,6 +15,7 @@ const Main_Page = () => {
     return null;
   }
 
+  
   return (
     <View style={styles.container}>
       <Text style={{ fontFamily: 'Inter_900Black', fontSize: 70, color: '#FDC319' }}>TungTY</Text>
