@@ -7,7 +7,8 @@ import Login from './frontend/LoginPage';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Register></Register>
+      {/* <Register></Register> */}
+      <Login></Login>
     </View>
   );
 }
