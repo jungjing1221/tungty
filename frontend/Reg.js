@@ -82,11 +82,11 @@ const Register = () => {
       </View>
       <View style={{ marginTop: 20 }}>
         <Text style={styles.fontEngInputHeader}>Password</Text>
-        <Input style={styles.fontEngInput} onChangeText={text => setPassword(text)} />
+        <Input secureTextEntry={true}  style={styles.fontEngInput} onChangeText={text => setPassword(text)} />
       </View>
       <View style={{ marginTop: 20 }}>
         <Text style={styles.fontEngInputHeader}>Confirm Password</Text>
-        <Input style={styles.fontEngInput} onChangeText={text => setConfirmPassword(text)} />
+        <Input secureTextEntry={true}  style={styles.fontEngInput} onChangeText={text => setConfirmPassword(text)} />
       </View>
       <Button style={{ marginTop: 40 }} title="SIGN UP" titleStyle={styles.fontEng} buttonStyle={styles.buttonStyle} onPress={signup}></Button>
     </View>

@@ -36,15 +36,16 @@ const Login = () => {
     <View style={styles.container}>
       <Text style={{ fontFamily: 'Inter_900Black', fontSize: 70, color: '#FDC319' }}>TungTY</Text>
       <View style = {{marginTop:25}}>
-        <Text style={styles.fontEngInputHeader}>Name</Text>
+        <Text style={styles.fontEngInputHeader}>Username</Text>
         <Input style={styles.fontEngInput} onChangeText={text => setUsername(text)}/>
       </View>
       <View style = {{marginTop:10}}>
-        <Text style={styles.fontEngInputHeader}>Username</Text>
-        <Input style={styles.fontEngInput} onChangeText={text => setPassword(text)}/>
+        <Text style={styles.fontEngInputHeader}>Password</Text>
+        <Input secureTextEntry={true} style={styles.fontEngInput} onChangeText={text => setPassword(text)}/>
       </View>
       <Button style = {{marginTop:10}} title="SIGN IN" titleStyle={styles.fontEng} buttonStyle={styles.buttonStyle} onPress={login}></Button>
       <View style = {{marginTop:10}}>
+        <Text style={styles.fontTh}>ยังไม่มีสมาชิก</Text>
         <Text style={styles.fontTh}>สมาชิกใหม่?</Text>
         <View styles={{backgroundColor:'#FFFFFF'}}>
 
