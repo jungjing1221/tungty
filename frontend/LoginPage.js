@@ -77,7 +77,9 @@ const styles = StyleSheet.create({
     color: '#000000',
     backgroundColor: '#FFFFFF',
     borderRadius: '30px',
-    width: 280
+    width: 280,
+    padding: 10,
+    marginRight: 10,
   },
   fontTh: {
     fontFamily: 'OpenSans_500Medium',
