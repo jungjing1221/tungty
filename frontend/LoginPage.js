@@ -19,19 +19,33 @@ const Login = () => {
   }
 
   const login = async()=>{
+    var passwordText
     var CryptoJS = require("crypto-js");
     const userSnapshot = await getDocs(collection(db, "users"));
     userSnapshot.forEach((doc) => {
       console.log(doc.data().username);
       if (doc.data().username == username) {
         var decryptpassword  = CryptoJS.AES.decrypt(doc.data().password, 'tungty');
-        var passwordText = decryptpassword.toString(CryptoJS.enc.Utf8);
+        passwordText = decryptpassword.toString(CryptoJS.enc.Utf8);
         console.log(passwordText)
         return;
       }});
-    // var bytes  = CryptoJS.AES.decrypt(cipherpassword, 'tungty');
-    // var originalText = bytes.toString(CryptoJS.enc.Utf8);
+      
+      if(passwordText==password){
+          console.log("Logined")
+          setToken();
+          //add codeไปหน้าหลัก
+      }
+      else{
+        console.log("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง")
+      }
   }
+  
+  const setToken = async()=>{
+    var token = Math.random().toString(36);
+    localStorage.setItem("token",token);
+  }
+
   return (
     <View style={styles.container}>
       <Text style={{ fontFamily: 'Inter_900Black', fontSize: 70, color: '#FDC319' }}>TungTY</Text>
