@@ -35,14 +35,7 @@ const Register = () => {
     if (password == confirmpassword) {
       if (validUsername) {
         var CryptoJS = require("crypto-js");
-        // Encrypt
         var cipherpassword = CryptoJS.AES.encrypt(password, 'tungty').toString();
-
-        // Decrypt
-        // var bytes  = CryptoJS.AES.decrypt(cipherpassword, 'tungty');
-        // var originalText = bytes.toString(CryptoJS.enc.Utf8);
-
-        // console.log(cipherpassword,originalText);
         try {
           const docRef = await addDoc(collection(db, "users"), {
             name: name,
@@ -51,6 +44,8 @@ const Register = () => {
             party:[]
           });
           console.log("Document written with ID: ", docRef.id);
+          //add codeลิ้งก์ไปหน้าlogin
+
         } catch (e) {
           console.error("Error adding document: ", e);
         }
@@ -64,9 +59,6 @@ const Register = () => {
     }
 
   }
-  //   const unsub = onSnapshot(doc(db, "users","GZGW8GA7Y9MCbDEpdcu3" ), (doc) => {
-  //     console.log(doc.data());
-  // });
 
   return (
     <View style={styles.container}>
