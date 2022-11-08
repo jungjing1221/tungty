@@ -7,7 +7,7 @@ import { collection, addDoc, doc, getDocs, onSnapshot } from "firebase/firestore
 import { db } from '../firebase/firebase-config';
 
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   let [fontsLoaded] = useFonts({
@@ -19,7 +19,7 @@ const Login = () => {
   }
 
   const login = async()=>{
-    var passwordText
+    var passwordTexts
     var CryptoJS = require("crypto-js");
     const userSnapshot = await getDocs(collection(db, "users"));
     userSnapshot.forEach((doc) => {
@@ -27,6 +27,7 @@ const Login = () => {
       if (doc.data().username == username) {
         var decryptpassword  = CryptoJS.AES.decrypt(doc.data().password, 'tungty');
         passwordText = decryptpassword.toString(CryptoJS.enc.Utf8);
+        
         console.log(passwordText)
         return;
       }});
@@ -60,9 +61,9 @@ const Login = () => {
       <Button style = {{marginTop:10}} title="SIGN IN" titleStyle={styles.fontEng} buttonStyle={styles.buttonStyle} onPress={login}></Button>
       <View style = {{marginTop:10}}>
         <Text style={styles.fontTh}>ยังไม่มีสมาชิก</Text>
-        <Text style={styles.fontTh}>สมาชิกใหม่?</Text>
+        <Text onPress={ () => { navigation.navigate("Register");}} style={styles.fontTh} color="#4542C1">สมัครสมาชิกใหม่?</Text>
         <View styles={{backgroundColor:'#FFFFFF'}}>
-
+        
         </View>
       </View>
     </View>
@@ -98,6 +99,7 @@ const styles = StyleSheet.create({
   fontTh: {
     fontFamily: 'OpenSans_500Medium',
     fontSize: 14,
+    color: "#ffffff"
   },
   buttonStyle: {
     backgroundColor: '#FDC319',

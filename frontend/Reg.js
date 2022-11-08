@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Button } from '@rneui/themed';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 import { collection, addDoc, doc, getDocs, onSnapshot } from "firebase/firestore";
@@ -119,6 +119,14 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: "9000px",
     width: 240
+  },
+  logo:{
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    width: 30,
+    height: 30,
+    alignSelf: 'flex-start',
+    // top: '-50px'
   }
 });
 

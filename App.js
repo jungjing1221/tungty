@@ -3,13 +3,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import Register from './frontend/reg';
 import Main_Page from './frontend/MainPage';
 import Login from './frontend/LoginPage';
+import MyNavigator from './navigation/Navigator';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      {/* <Register></Register> */}
-      <Login></Login>
-    </View>
+    // <View style={styles.container}>
+      
+    // </View>
+    <MyNavigator/>
   );
 }
 
@@ -19,5 +20,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#4542C1',
     alignItems: 'center',
     justifyContent: 'center',
+    
   },
 });
