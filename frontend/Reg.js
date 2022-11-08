@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Input, Button } from '@rneui/themed';
 import { StyleSheet, Text, View } from 'react-native';
-import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
-import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
+import { useFonts, Kanit_400Regular } from '@expo-google-fonts/kanit';
 import { collection, addDoc, doc, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from '../firebase/firebase-config';
+import { Input, Button} from '@ui-kitten/components';
 
 
 const Register = () => {
@@ -13,7 +12,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmpassword, setConfirmPassword] = useState('');
   let [fontsLoaded] = useFonts({
-    Inter_900Black, OpenSans_500Medium
+    Kanit_400Regular
   });
 
   if (!fontsLoaded) {
@@ -71,7 +70,7 @@ const Register = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontFamily: 'Inter_900Black', fontSize: 40, color: '#FDC319' }}>REGISTER</Text>
+      <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 40, color: '#FDC319' }}>REGISTER</Text>
       <View style={{ marginTop: 25 }}>
         <Text style={styles.fontEngInputHeader}>Name</Text>
         <Input style={styles.fontEngInput} onChangeText={text => setName(text)} />
@@ -88,29 +87,32 @@ const Register = () => {
         <Text style={styles.fontEngInputHeader}>Confirm Password</Text>
         <Input secureTextEntry={true}  style={styles.fontEngInput} onChangeText={text => setConfirmPassword(text)} />
       </View>
-      <Button style={{ marginTop: 40 }} title="SIGN UP" titleStyle={styles.fontEng} buttonStyle={styles.buttonStyle} onPress={signup}></Button>
+      <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={signup}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>Sign Up</Text>}</Button>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#4542C1',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        fontFamily: 'Kanit_400Regular',
+        backgroundColor: '#4542C1',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 50,
+        width: "100%"
+      },
   fontEng: {
-    fontFamily: 'Inter_900Black',
+    fontFamily: 'Kanit_400Regular',
     fontSize: 14,
     color: '#4542C1',
   },
   fontEngInputHeader: {
-    fontFamily: 'Inter_900Black',
+    fontFamily: 'Kanit_400Regular',
     fontSize: 14,
     color: '#ffffff',
   },
   fontEngInput: {
-    fontFamily: 'Inter_900Black',
+    fontFamily: 'Kanit_400Regular',
     fontSize: 14,
     color: '#000000',
     backgroundColor: '#FFFFFF',
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
     width: 280
   },
   fontTh: {
-    fontFamily: 'OpenSans_500Medium',
+    fontFamily: 'Kanit_400Regular',
     fontSize: 14,
   },
   buttonStyle: {

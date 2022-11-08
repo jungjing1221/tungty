@@ -1,22 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Register from './frontend/reg';
 import Main_Page from './frontend/MainPage';
 import Login from './frontend/LoginPage';
+import CreateNewParty from './frontend/CreateParty';
+import './assets/base.css'
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      {/* <Register></Register> */}
-      <Login></Login>
-    </View>
+    <ApplicationProvider {...eva} theme={eva.dark}>
+      <View style={styles.container}>
+        {/* <Register></Register> */}
+        <Register></Register>
+        {/* <Text>testsetset</Text> */}
+      </View>
+    </ApplicationProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#4542C1',
+    backgroundColor: '#f5f5f5',
     alignItems: 'center',
     justifyContent: 'center',
   },
