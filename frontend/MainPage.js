@@ -1,5 +1,4 @@
 import React from 'react';
-import { Input, Button } from '@rneui/themed';
 import { StyleSheet, Text, View } from 'react-native';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
@@ -15,7 +14,7 @@ const Main_Page = () => {
     return null;
   }
 
-  
+
   return (
     <View style={styles.container}>
       <Text style={{ fontFamily: 'Inter_900Black', fontSize: 70, color: '#FDC319' }}>TungTY</Text>
@@ -23,16 +22,19 @@ const Main_Page = () => {
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#4542C1',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        fontFamily: 'Kanit_400Regular',
+        backgroundColor: '#4542C1',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 50,
+        width: "100%"
+      },
   fontEng: {
     fontFamily: 'Inter_900Black',
     fontSize: 14,
-    color:'#4542C1',
+    color: '#4542C1',
   },
   fontEngInputHeader: {
     fontFamily: 'Inter_900Black',
