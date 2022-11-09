@@ -9,13 +9,13 @@ import { Ionicons } from '@expo/vector-icons';
 import Login from "../frontend/LoginPage";
 import Register from "../frontend/reg";
 import Main_Page from "../frontend/MainPage";
+import Create from "../frontend/CreateParty"
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator();
 // const Tab = createBottomTabNavigator();
 // const Drawer = createDrawerNavigator();
 // สร้าง function สำหรับการกำหนด Navigator แต่ละตัว เช่น
 function 	MainNavigator() {
-
   return (
     // กำหนดรายละเอียดของ navigator
     <Stack.Navigator initialRouteName="Categories"
@@ -29,11 +29,37 @@ function 	MainNavigator() {
         />
         <Stack.Screen
           name="Register"
-          component={Register}
+          component={Create}
+          options={{
+            title: "",
+            }}
         />
       </Stack.Navigator>
   );
 }
+// function 	MainNavigator2() {
+//   return (
+//     // กำหนดรายละเอียดของ navigator
+//     <Stack.Navigator initialRouteName="Categories"
+//       screenOptions={{ headerStyle: { backgroundColor: "#4542C1", borderBottomColor: "#4542C1" },headerTintColor: "white", headerShown:true}}>
+//         <Stack.Screen
+//           name="Login"
+//           component={Login}
+//           options={{
+//             title: "",
+//             }}
+//         />
+//         <Stack.Screen
+//           name="Register"
+//           component={Create}
+//           options={{
+//             title: "",
+//             }}
+//         />
+//       </Stack.Navigator>
+//   );
+// }
+
 
 
 // สร้าง Navigator หลัก
@@ -42,7 +68,7 @@ export default function MyNavigator() {
     <NavigationContainer>
       {/* รายละเอียดของ Navigator หลัก (MainNavigator) */}
       {/* <MealsFavTabNavigator /> */}
-      <MainNavigator />
+      <MainNavigator/>
     </NavigationContainer>
   );
 }

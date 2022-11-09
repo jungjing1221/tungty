@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
   fontEngInput: {
     fontFamily: 'Kanit_400Regular',
     fontSize: 14,
-    color: '#000000',
-    backgroundColor: '#FFFFFF',
+    color: 'black',
+    // backgroundColor: '#FFFFFF',
     borderRadius: '30px',
     width: 280
   },
