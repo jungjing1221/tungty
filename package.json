@@ -13,17 +13,12 @@
     "@expo-google-fonts/inter": "^0.2.2",
     "@expo-google-fonts/kanit": "^0.2.2",
     "@expo-google-fonts/open-sans": "^0.2.2",
-<<<<<<< HEAD
     "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/drawer": "^6.5.0",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
-    "@rneui/base": "^4.0.0-rc.7",
-    "@rneui/themed": "^4.0.0-rc.7",
-=======
     "@react-native-community/datetimepicker": "^6.5.4",
     "@ui-kitten/components": "^5.1.2",
->>>>>>> c91ed27f9a6b206f86c906dbb74eabb5434f5b81
     "crypto-js": "^4.1.1",
     "expo": "~46.0.16",
     "expo-app-loading": "~2.1.0",
