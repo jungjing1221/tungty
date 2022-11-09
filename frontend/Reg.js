@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   fontEngInputHeader: {
     fontFamily: 'Kanit_400Regular',
-    fontSize: 14,
+    fontbSize: 14,
     color: '#ffffff',
   },
   fontEngInput: {

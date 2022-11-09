@@ -4,16 +4,16 @@ import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 import { collection, addDoc, doc, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from '../firebase/firebase-config';
-import { Radio, RadioGroup, IndexPath, Layout, Select, SelectItem, Input } from '@ui-kitten/components';
-
+import { Radio, RadioGroup, IndexPath, Layout, Select, SelectItem, Input, Datepicker, Button } from '@ui-kitten/components';
 
 const CreateNewParty = () => {
     const [partyName, setPartyName] = useState('');
-    const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
+    const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
     const [about, setAbout] = useState('');
-    const [selectedPrivate, setSelectedPrivate] = React.useState(0);
+    const [selectedPrivate, setSelectedPrivate] = useState(0);
+    const [date, setDate] = React.useState(new Date());
     let [fontsLoaded] = useFonts({
         Inter_900Black, OpenSans_500Medium
     });
@@ -47,17 +47,29 @@ const CreateNewParty = () => {
             </View>
             <View style={styles.row}>
                 <Text style={styles.fontEngInputHeader}>About :</Text>
-                <Input style={[styles.fontEngInput, styles.fontTh, { height: 190, }]} onChangeText={text => setAbout(text)} multiline='true' />
+                <Input style={[styles.fontEngInput, styles.fontTh, styles.textarea]} onChangeText={text => setAbout(text)} multiline='true' numberOfLines="4" />
             </View>
-            <React.Fragment>
-                <RadioGroup
-                    selectedPrivate={selectedPrivate}
-                    onChange={index => setSelectedPrivate(index)}>
-                    <Radio><Text category='p2' style={{ color:'black' }}>Public</Text></Radio>
-                    <Radio><Text category='p2' style={{ color:'black' }}>Private</Text></Radio>
-                </RadioGroup>
-
-            </React.Fragment>
+            <View style={styles.row}>
+            <Text style={styles.fontEngInputHeader}>Date : </Text>
+            <Layout style={{marginTop: 10}} level='1'>
+                <Datepicker
+                    placeholder='Pick Date'
+                    date={date}
+                    style={styles.fontEngInput}
+                    onSelect={nextDate => setDate(nextDate)}
+                />
+            </Layout>
+            </View>
+            <RadioGroup
+                selectedIndex={selectedPrivate}
+                style={[styles.row, { backgroundColor: 'black' }, { marginTop: '20' }]}
+                onChange={index => setSelectedPrivate(index)}>
+                <Radio>Public</Radio>
+                <Radio>Private</Radio>
+            </RadioGroup>
+            <View style={styles.row}>
+            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={'Save'}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>SAVE</Text>}</Button>
+        </View>
         </View>
     );
 };
@@ -89,7 +101,6 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter_900Black',
         fontSize: 14,
         color: '#000000',
-        backgroundColor: '#D9D9D9',
         borderRadius: '30px',
         alignSelf: 'stretch',
         width: "auto !important",
@@ -138,6 +149,9 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#333',
     },
+    textBlack: {
+        color: "black !important"
+    }
 });
 
 export default CreateNewParty
