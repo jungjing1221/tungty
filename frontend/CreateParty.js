@@ -21,7 +21,23 @@ const CreateNewParty = () => {
     if (!fontsLoaded) {
         return null;
     }
-
+    const save = async()=>{
+        console.log(partyName,about,selectedPrivate,date)
+        try {
+            const docRef = await addDoc(collection(db, "parties"), {
+                partyName: partyName,
+                about:about,
+                selectedPrivate:selectedPrivate,
+                date:date,
+                head:localStorage.getItem("Username")
+            });
+            console.log("Document written with ID: ", docRef.id);
+            //add codeลิ้งก์ไปหน้าlogin
+  
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
+    }
     return (
         <View style={styles.container}>
             <View style={styles.row}>
@@ -68,7 +84,7 @@ const CreateNewParty = () => {
                 <Radio>Private</Radio>
             </RadioGroup>
             <View style={styles.row}>
-            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={'Save'}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>SAVE</Text>}</Button>
+            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={save}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>SAVE</Text>}</Button>
         </View>
         </View>
     );
