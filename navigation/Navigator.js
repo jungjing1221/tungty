@@ -30,6 +30,9 @@ function 	MainNavigator() {
         <Stack.Screen
           name="Register"
           component={Register}
+          options={{
+            title: "",
+            }}
         />
       </Stack.Navigator>
   );
