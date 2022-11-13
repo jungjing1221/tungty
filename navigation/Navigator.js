@@ -9,7 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Login from "../frontend/LoginPage";
 import Register from "../frontend/reg";
 import Main_Page from "../frontend/MainPage";
-import Create from "../frontend/CreateParty"
+import FindParty from "../frontend/FindParty"
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator();
 // const Tab = createBottomTabNavigator();
@@ -27,13 +27,10 @@ function 	MainNavigator() {
             title: "",
             }}
         />
-        <Stack.Screen
-          name="Register"
-          component={Create}
-          options={{
+        <Stack.Screen name="Register" component={FindParty} options={{
             title: "",
-            }}
-        />
+        }}/>
+        
       </Stack.Navigator>
   );
 }
