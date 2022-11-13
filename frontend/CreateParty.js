@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 import { collection, addDoc, doc, getDocs, onSnapshot } from "firebase/firestore";
@@ -9,11 +9,18 @@ import { Radio, RadioGroup, IndexPath, Layout, Select, SelectItem, Input, Datepi
 const CreateNewParty = () => {
     const [partyName, setPartyName] = useState('');
     const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
-    const [value, setValue] = useState(null);
-    const [isFocus, setIsFocus] = useState(false);
     const [about, setAbout] = useState('');
     const [selectedPrivate, setSelectedPrivate] = useState(0);
     const [date, setDate] = React.useState(new Date());
+    const data = [
+        'อาหาร',
+        'ท่องเที่ยว',
+        'พักผ่อน',
+        'เรียน/ทำงาน',
+        'อื่น ๆ'
+    ];
+    const displayValue = data[selectedIndex.row];
+
     let [fontsLoaded] = useFonts({
         Inter_900Black, OpenSans_500Medium
     });
@@ -21,30 +28,39 @@ const CreateNewParty = () => {
     if (!fontsLoaded) {
         return null;
     }
-    const save = async()=>{
-        console.log(partyName,about,selectedPrivate,date)
+    const save = async () => {
+        console.log(partyName, about, selectedPrivate, date)
         try {
             const docRef = await addDoc(collection(db, "parties"), {
                 partyName: partyName,
-                about:about,
-                selectedPrivate:selectedPrivate,
-                date:date,
-                head:localStorage.getItem("Username")
+                about: about,
+                selectedPrivate: selectedPrivate,
+                date: date,
+                head: localStorage.getItem("Username")
             });
             console.log("Document written with ID: ", docRef.id);
             //add codeลิ้งก์ไปหน้าlogin
-  
-          } catch (e) {
+
+        } catch (e) {
             console.error("Error adding document: ", e);
-          }
+        }
     }
     return (
         <View style={styles.container}>
+            <Image
+                source={{
+                    uri:
+                        'https://media.discordapp.net/attachments/833549334573744159/1041290174086266920/v1031-064.jpg?width=1000&height=667',
+                }}
+                style={{ width: 100, height: 100, borderRadius: 10 }}
+            />
+
             <View style={styles.row}>
                 <Text style={styles.fontEngInputHeader}>Party Type : </Text>
                 <View style={styles.container}>
                     <Layout style={styles.container} level='1'>
                         <Select
+                            value={displayValue}
                             selectedIndex={selectedIndex}
                             onSelect={index => setSelectedIndex(index)}>
                             <SelectItem title='อาหาร' />
@@ -66,15 +82,15 @@ const CreateNewParty = () => {
                 <Input style={[styles.fontEngInput, styles.fontTh, styles.textarea]} onChangeText={text => setAbout(text)} multiline='true' numberOfLines="4" />
             </View>
             <View style={styles.row}>
-            <Text style={styles.fontEngInputHeader}>Date : </Text>
-            <Layout style={{marginTop: 10}} level='1'>
-                <Datepicker
-                    placeholder='Pick Date'
-                    date={date}
-                    style={styles.fontEngInput}
-                    onSelect={nextDate => setDate(nextDate)}
-                />
-            </Layout>
+                <Text style={styles.fontEngInputHeader}>Date : </Text>
+                <Layout style={{ marginTop: 10 }} level='1'>
+                    <Datepicker
+                        placeholder='Pick Date'
+                        date={date}
+                        style={styles.fontEngInput}
+                        onSelect={nextDate => setDate(nextDate)}
+                    />
+                </Layout>
             </View>
             <RadioGroup
                 selectedIndex={selectedPrivate}
@@ -84,8 +100,8 @@ const CreateNewParty = () => {
                 <Radio>Private</Radio>
             </RadioGroup>
             <View style={styles.row}>
-            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={save}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>SAVE</Text>}</Button>
-        </View>
+                <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={save}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>SAVE</Text>}</Button>
+            </View>
         </View>
     );
 };
