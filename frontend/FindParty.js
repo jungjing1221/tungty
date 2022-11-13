@@ -34,7 +34,6 @@ if (!fontsLoaded) {
           <Text category='h6' style={[styles.fontTh, { color: '#4542C1', }]}>โค้ดสำหรับเข้าร่วมปาร์ตี้ส่วนตัว :</Text>
           <Input style={[styles.fontEng, styles.fontEngInput, {backgroundColor : '#D9D9D9'}]} onChangeText={text => setUsername(text)} />
           <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]}>join</Button>
-          
         </Layout>
       </Tab>
     </TabView>

@@ -27,37 +27,19 @@ function 	MainNavigator() {
             title: "",
             }}
         />
-        <Stack.Screen name="Register" component={FindParty} options={{
+        <Stack.Screen name="Register" component={Register} options={{
             title: "",
         }}/>
-        
+        <Stack.Screen name="FindParty" component={FindParty} options={{
+            title: "",
+        }}/>
+        <Stack.Screen name="Main_Page" component={Main_Page} options={{
+            title: "",
+        }}/>
       </Stack.Navigator>
+
   );
 }
-// function 	MainNavigator2() {
-//   return (
-//     // กำหนดรายละเอียดของ navigator
-//     <Stack.Navigator initialRouteName="Categories"
-//       screenOptions={{ headerStyle: { backgroundColor: "#4542C1", borderBottomColor: "#4542C1" },headerTintColor: "white", headerShown:true}}>
-//         <Stack.Screen
-//           name="Login"
-//           component={Login}
-//           options={{
-//             title: "",
-//             }}
-//         />
-//         <Stack.Screen
-//           name="Register"
-//           component={Create}
-//           options={{
-//             title: "",
-//             }}
-//         />
-//       </Stack.Navigator>
-//   );
-// }
-
-
 
 // สร้าง Navigator หลัก
 export default function MyNavigator() {

@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
         marginTop: '2%',
         width: '89%',
         color: 'black',
-
     },
     // vwClear: {
     //     flex: 0.2,
@@ -82,27 +81,27 @@ const styles = StyleSheet.create({
         color: 'white',
         width: '100%',
         height: '100%',
-        backgroundColor: 'tomato',
+        backgroundColor: '#4542C1',
         borderColor: 'transparent',
-        
+        borderRadius: '30px',
     },
-
     vwSearch: {
         justifyContent: 'center',
         alignItems: 'center',
         width: 40,
-        backgroundColor: 'purple',
-        // borderRadius: '0.8rem',
+        backgroundColor: '#4542C1',
+        borderRadius: '30px',
     },
     icSearch: {
-        height: 18, width: 18,backgroundColor: 'purple'
+        height: 18, width: 18,backgroundColor: '#4542C1'
     },
     searchContainer:
     {
         height: 40,
+        width: '100%',
         flexDirection: 'row',
-        backgroundColor: 'tomato',
-        // borderRadius: '0.8rem',
+        backgroundColor: '#4542C1',
+        borderRadius: '30px',
         
     },
     container: {
