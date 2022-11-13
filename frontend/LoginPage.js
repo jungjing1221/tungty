@@ -16,23 +16,24 @@ const Login = ({navigation}) => {
   if (!fontsLoaded) {
     return null;
   }
-
+  var user
   const login = async()=>{
-    var passwordTexts
+    var passwordText
     var CryptoJS = require("crypto-js");
+    
     const userSnapshot = await getDocs(collection(db, "users"));
     userSnapshot.forEach((doc) => {
       console.log(doc.data().username);
       if (doc.data().username == username) {
         var decryptpassword  = CryptoJS.AES.decrypt(doc.data().password, 'tungty');
         passwordText = decryptpassword.toString(CryptoJS.enc.Utf8);
-        
+        user = doc.data()
         console.log(passwordText)
         return;
       }});
       
       if(passwordText==password){
-          console.log("Logined")
+          console.log(user.username)
           setToken();
           //add codeไปหน้าหลัก
       }
@@ -44,6 +45,7 @@ const Login = ({navigation}) => {
   const setToken = async()=>{
     var token = Math.random().toString(36);
     localStorage.setItem("token",token);
+    localStorage.setItem("Username",user.username);
   }
 
   return (
