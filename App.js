@@ -12,7 +12,7 @@ import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
 export default function App() {
   return (
     <ApplicationProvider {...eva} theme={eva.dark}>
-      <MyNavigator />
+      <MyNavigator/>
     </ApplicationProvider>
   );
 }
