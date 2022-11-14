@@ -44,14 +44,14 @@ export default function Searchbar({ value, updateSearch, style }) {
                             style={styles.vwClear}>
                             <Image
                                 style={styles.icClear}
-                                source={require('../assets/search_icon.png')} />
+                                source={require('../component/search_icon.png')} />
                         </TouchableOpacity>
                         : <View style={styles.vwClear} />
                 }
             <View style={styles.vwSearch}>
                     <Image
                         style={styles.icSearch}
-                        source={require('../assets/search_icon.png')} />
+                        source={require('../component/search_icon.png')} />
                 </View>
             </View>
             
@@ -101,12 +101,12 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         backgroundColor: '#4542C1',
-        borderRadius: '30px',
-        
+        borderRadius: '30px', 
     },
     container: {
         alignItems: 'center',
-        // height: '100%', width: '100%' ,
+        // height: '80%', 
+        width: '80%' ,
         backgroundColor: 'white',
     },
 });
