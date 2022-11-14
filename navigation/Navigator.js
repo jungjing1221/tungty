@@ -10,6 +10,7 @@ import Login from "../frontend/LoginPage";
 import Register from "../frontend/reg";
 import Main_Page from "../frontend/MainPage";
 import FindParty from "../frontend/FindParty"
+import CreateNewParty from "../frontend/CreateParty"
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator();
 // const Tab = createBottomTabNavigator();
@@ -34,6 +35,9 @@ function 	MainNavigator() {
             title: "",
         }}/>
         <Stack.Screen name="Main_Page" component={Main_Page} options={{
+            title: "",
+        }}/>
+        <Stack.Screen name="CreateNewParty" component={CreateNewParty} options={{
             title: "",
         }}/>
       </Stack.Navigator>

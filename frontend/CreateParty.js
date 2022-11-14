@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
-import { collection, addDoc, doc, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import { db } from '../firebase/firebase-config';
 import { Radio, RadioGroup, IndexPath, Layout, Select, SelectItem, Input, Datepicker, Button } from '@ui-kitten/components';
 
@@ -29,21 +29,38 @@ const CreateNewParty = () => {
         return null;
     }
     const save = async () => {
-        console.log(partyName, about, selectedPrivate, date)
-        try {
-            const docRef = await addDoc(collection(db, "parties"), {
-                partyName: partyName,
-                about: about,
-                selectedPrivate: selectedPrivate,
-                date: date,
-                head: localStorage.getItem("Username")
-            });
-            console.log("Document written with ID: ", docRef.id);
-            //add codeลิ้งก์ไปหน้าlogin
+        const username = localStorage.getItem("Username")
+        const ref = doc(db, "users", username);
+        const snap = await getDoc(ref);
 
-        } catch (e) {
-            console.error("Error adding document: ", e);
+        if (snap.exists()) {
+        console.log(snap.data().party);
+        let user = snap.data()
+        user.party.push("test")
+        console.log(user.party);
+        } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
         }
+        console.log(partyName, about, selectedPrivate, date)
+        // try {
+        //     const docRef = await addDoc(collection(db, "parties"), {
+        //         partyName: partyName,
+        //         about: about,
+        //         selectedPrivate: selectedPrivate,
+        //         date: date,
+        //         head: username
+        //     });
+        //     console.log("Document written with ID: ", docRef.id);
+
+        // } catch (e) {
+        //     console.error("Error adding document: ", e);
+        // }
+        // const docRef = await setDoc(doc(db, "users","jjamee"), {
+        //     name:"jjamee",
+        //     username:"jame"
+        // });
+
     }
     return (
         <View style={styles.container}>
