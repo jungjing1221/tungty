@@ -8,7 +8,7 @@ import { Radio, RadioGroup, IndexPath, Layout, Select, SelectItem, Input, Datepi
 import images from '../assets/images';
 
 
-const CreateNewParty = () => {
+const EditParty = () => {
     const [partyName, setPartyName] = useState('');
     const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
     const [about, setAbout] = useState('');
@@ -119,6 +119,7 @@ const CreateNewParty = () => {
             </RadioGroup>
             <View style={styles.row}>
                 <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={save}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>SAVE</Text>}</Button>
+                <Button style={[styles.fontEng, styles.buttonStyle2, { margin: 10 }]} onPress={'delete'}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>DELETE PARTY</Text>}</Button>
             </View>
         </View>
     );
@@ -166,7 +167,14 @@ const styles = StyleSheet.create({
         borderColor: 'transparent',
         borderWidth: 0,
         borderRadius: "9000px",
-        width: 240
+        width: 150
+    },
+    buttonStyle2: {
+        backgroundColor: '#E21E1E',
+        borderColor: 'transparent',
+        borderWidth: 0,
+        borderRadius: "9000px",
+        width: 150
     },
     dropdown: {
         height: 50,
@@ -204,4 +212,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CreateNewParty
+export default EditParty

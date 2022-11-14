@@ -11,6 +11,7 @@ import Register from "../frontend/reg";
 import Main_Page from "../frontend/MainPage";
 import FindParty from "../frontend/FindParty"
 import CreateNewParty from "../frontend/CreateParty"
+import EditParty from "../frontend/EditParty";
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator();
 // const Tab = createBottomTabNavigator();
