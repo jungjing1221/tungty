@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useFonts, Kanit_400Regular } from '@expo-google-fonts/kanit';
-import { collection, addDoc, doc, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, doc, getDocs, onSnapshot,setDoc } from "firebase/firestore";
 import { db } from '../firebase/firebase-config';
 import { Input, Button} from '@ui-kitten/components';
 
@@ -37,15 +37,13 @@ const Register = () => {
         var CryptoJS = require("crypto-js");
         var cipherpassword = CryptoJS.AES.encrypt(password, 'tungty').toString();
         try {
-          const docRef = await addDoc(collection(db, "users"), {
+          const docRef = await setDoc(doc(db, "users",username), {
             name: name,
             username:username,
             password:cipherpassword,
             party:[]
           });
-          console.log("Document written with ID: ", docRef.id);
-          //add codeลิ้งก์ไปหน้าlogin
-
+          navigation.navigate("Login")
         } catch (e) {
           console.error("Error adding document: ", e);
         }
