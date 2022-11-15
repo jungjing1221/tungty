@@ -33,10 +33,9 @@ const MyChat = ({ navigation }) => {
         //   onSelect={index => setSelectedIndex(index)}>
         <View style={styles.tabContainer }>
             <Searchbar></Searchbar>
-            <Text category='h1' style={[styles.fontTh, { color: '#FDC319'}]}>แชทของฉัน</Text>
             <View style={[styles.containerCardparty]}>
                 {data.map((item, index) =>
-                    <View style={[{ paddingBottom: '10px' }]}>
+                    <View style={[{ paddingBottom: '10px' , paddingTop: '10px'}]}>
                         <View style={[styles.row, styles.card, ]}>
                             <View style={[styles.column3, { padding: 5 }]}>
                                 <ImageBackground source={require('../assets/circlebg.png')} style={{ width: '80px', height: '80px', justifyContent: 'center', alignItems: 'center',}}>
@@ -128,7 +127,7 @@ const styles = StyleSheet.create({
     card: {
         padding: 10,
         backgroundColor: '#FFF9E5',
-        borderRadius: "15px",
+        borderRadius: "30px",
         borderColor: "transparent",
     },
     containerCardparty: {
