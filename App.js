@@ -14,6 +14,8 @@ export default function App() {
     <ApplicationProvider {...eva} theme={eva.dark}>
       <MyNavigator/>
     </ApplicationProvider>
+    
+    
   );
 }
 

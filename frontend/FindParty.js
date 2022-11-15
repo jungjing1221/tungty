@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image} from 'react-native';
 import { Layout, Tab, TabView, Text , Input, Button, Card} from '@ui-kitten/components';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
+import { Kanit_400Regular } from '@expo-google-fonts/kanit';
+
 
 import Searchbar from '../assets/component/searchbar';
 
 const FindParty = ({navigation}) => {
 
   const [selectedIndex, setSelectedIndex] = React.useState(0);
-  
+  const [data, setData] = useState([
+    {id: 1, name:"Hello1", description:"1234567890"},
+    {id: 2, name:"Hello2", description:"1234567890"},
+    {id: 3, name:"Hello3", description:"1234567890"},
+  ])
   let [fontsLoaded] = useFonts({
-    Inter_900Black, OpenSans_500Medium
+    Inter_900Black, OpenSans_500Medium, Kanit_400Regular
+
 });
 
 if (!fontsLoaded) {
@@ -19,7 +26,7 @@ if (!fontsLoaded) {
 }
 
   return (
-    <TabView style={styles.tabView}
+    <TabView style={[styles.tabView]}
       selectedIndex={selectedIndex}
       onSelect={index => setSelectedIndex(index)}>
       <Tab title='PUBLIC PARTY' style={{backgroundColor: 'white'}}>
@@ -30,16 +37,19 @@ if (!fontsLoaded) {
               <Image source={require('../assets/filter_icon.png')} style={{ width: 30, height: 30 }}/>
           </View>
           <View style={styles.containerCardparty}>
-            <View style={{paddingBottom: '10px'}}>
-              <Card style={[styles.card, {backgroundColor: "#FDE619",}, ]}>
-                <Image source={require('../assets/foodparty_icon.png')} style={{ width: 50, height: 50 }}/>
+            {data.map((item, index)=>
+            <View style={[{paddingBottom: '10px'}]}>
+              <Card style={[styles.card, {backgroundColor: "#FDE619", }, ]}>
+                <View style={[styles.row, styles.card]}>
+                  <Image source={require('../assets/foodparty_icon.png')} style={{ width: 50, height: 50,  }}/>
+                  <View style={{paddingLeft: '20px'}}>
+                    <Text category='h1' style={[styles.fontTh, { color: '#FDC319', paddingRight: '150px'}]}>{item.name}</Text>
+                    <Text category='h4' style={[styles.fontTh, { color: '#FDC319', paddingRight: '150px'}]}>{item.description}</Text>
+                  </View>
+                </View>
               </Card>
             </View>
-            <View style={{paddingBottom: '100px'}}>
-              <Card style={[styles.card, {backgroundColor: "#FDE619",}, ]}>
-                <Image source={require('../assets/foodparty_icon.png')} style={{ width: 50, height: 50 }}/>
-              </Card>
-            </View>
+            )}
           </View>
         </Layout>
       </Tab>
@@ -59,6 +69,7 @@ const styles = StyleSheet.create({
   tabView: {
     backgroundColor: 'white',
     flex: 1,
+
   },
   tabContainer: {
     height: '100%',
@@ -125,10 +136,15 @@ const styles = StyleSheet.create({
     height: '100px',
     borderRadius: '15px',
     borderColor: 'transparent',
-    flexDirection: 'row',
+    flexDirection: 'row',  
   },
   containerCardparty: {
     width: '90%',
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    display: "flex",
   }
 });
 

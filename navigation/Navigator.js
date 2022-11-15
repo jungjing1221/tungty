@@ -9,11 +9,13 @@ import { Ionicons } from '@expo/vector-icons';
 import Login from "../frontend/LoginPage";
 import Register from "../frontend/reg";
 import Main_Page from "../frontend/MainPage";
-import FindParty from "../frontend/FindParty"
+import FindParty from "../frontend/FindParty";
+import MyParty from "../frontend/MyParty";
+import MyChat from "../frontend/MyChat";
 import CreateNewParty from "../frontend/CreateParty";
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator();
-// const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 // const Drawer = createDrawerNavigator();
 // สร้าง function สำหรับการกำหนด Navigator แต่ละตัว เช่น
 function 	MainNavigator() {
@@ -38,6 +40,12 @@ function 	MainNavigator() {
             title: "",
         }}/>
         <Stack.Screen name="CreateNewParty" component={CreateNewParty} options={{
+            title: "",
+        }}/>
+        <Stack.Screen name="MyParty" component={MyParty} options={{
+            title: "",
+        }}/>
+        <Stack.Screen name="MyChat" component={MyChat} options={{
             title: "",
         }}/>
       </Stack.Navigator>
