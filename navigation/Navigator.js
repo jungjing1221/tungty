@@ -9,19 +9,11 @@ import { Ionicons } from '@expo/vector-icons';
 import Login from "../frontend/LoginPage";
 import Register from "../frontend/reg";
 import Main_Page from "../frontend/MainPage";
-<<<<<<< HEAD
-import FindParty from "../frontend/FindParty";
 import MyParty from "../frontend/MyParty";
 import MyChat from "../frontend/MyChat";
-=======
 import FindParty from "../frontend/FindParty"
-<<<<<<< HEAD
 import CreateNewParty from "../frontend/CreateParty"
 import EditParty from "../frontend/EditParty";
-=======
->>>>>>> 6eea574dc501c9c7fe3cb064f8a4d9b1c1aa143f
-import CreateNewParty from "../frontend/CreateParty";
->>>>>>> d7ed7e410201a20ff13014437fd7380ea8bd7ed8
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
