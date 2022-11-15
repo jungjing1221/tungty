@@ -26,33 +26,27 @@ const Notification = ({ navigation }) => {
     }
 
     return (
-
-        // <TabView style={[styles.tabView]}
-        //   selectedIndex={selectedIndex}
-        //   onSelect={index => setSelectedIndex(index)}>
         <View style={[styles.containerCardparty]}>
             <View style={{alignItems: 'flex-end', paddingRight: '10px', height: '25px', shadowColor: '#000000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.3,shadowRadius: 3,}}>
                 <Text style={[styles.fontTh, { color: 'black', fontSize: '15px', fontWeight: 'bold' }]}>Read all({data.length})</Text>
             </View>
             {data.map((item, index) =>
                 <View style={[{ paddingBottom: '2px', paddingTop: '5px'}]}>
-                    <View style={[styles.row, styles.card,]}>
+                    <View style={[styles.row, styles.card]}>
                         <View style={[styles.column3, { padding: 5 }]}>
-                            <Image source={require('../assets/foodparty_icon.png')} style={{ width: 30, height: 30, }} />
+                            <Image source={require('../assets/foodparty_icon.png')} style={{ width: 40, height: 40, }} />
                         </View>
                         <View style={[styles.column9,]}>
                             <Text style={[styles.fontTh, { color: 'black', fontSize: '20px', fontWeight: 'bold' }]}>{item.name}</Text>
                             <Text style={[styles.fontTh, { color: 'black', fontSize: '15px', fontWeight: 'bold' }]}>ปลุกแจ้งเตือนแบบกลุ่มแล้ว</Text>
-                            <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '14px', fontWeight: 'bold', }]}>{item.datetimeNoti}</Text>
+                            <View style={{alignItems: 'flex-end'}}>
+                                <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '14px', fontWeight: 'bold', }]}>{item.datetimeNoti}</Text>
+                            </View>
                         </View>
                     </View>
                 </View>
             )}
         </View>
-
-
-
-        // </TabView>
     );
 };
 
