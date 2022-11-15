@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter_900Black',
         fontSize: 14,
         color: '#4542C1',
-        marginTop: 10
+        marginTop: 3
     },
     row: {
         flexDirection: "row",
