@@ -28,6 +28,7 @@ const MyParty = ({ navigation }) => {
     }
 
     return (
+        
         // <TabView style={[styles.tabView]}
         //   selectedIndex={selectedIndex}
         //   onSelect={index => setSelectedIndex(index)}>
