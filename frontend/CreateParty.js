@@ -29,37 +29,38 @@ const CreateNewParty = () => {
         return null;
     }
     const save = async () => {
+        //logined user
         const username = localStorage.getItem("Username")
+
         const ref = doc(db, "users", username);
         const snap = await getDoc(ref);
-
+        let user
         if (snap.exists()) {
         console.log(snap.data().party);
-        let user = snap.data()
-        user.party.push("test")
+        user = snap.data()
         console.log(user.party);
         } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
         }
         console.log(partyName, about, selectedPrivate, date)
-        // try {
-        //     const docRef = await addDoc(collection(db, "parties"), {
-        //         partyName: partyName,
-        //         about: about,
-        //         selectedPrivate: selectedPrivate,
-        //         date: date,
-        //         head: username
-        //     });
-        //     console.log("Document written with ID: ", docRef.id);
+        try {
+            const docRef = await setDoc(doc(db, "parties",partyName), {
+                partyName: partyName,
+                about: about,
+                selectedPrivate: selectedPrivate,
+                date: date,
+                head: username
+            });
+            console.log("Document written with ID: ", docRef.id);
+            user.party.push(partyName)
 
-        // } catch (e) {
-        //     console.error("Error adding document: ", e);
-        // }
-        // const docRef = await setDoc(doc(db, "users","jjamee"), {
-        //     name:"jjamee",
-        //     username:"jame"
-        // });
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+        const docRef = await setDoc(doc(db, "users",username), {
+            ...user
+        });
 
     }
     return (
