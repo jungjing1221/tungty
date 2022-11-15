@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import { useState, Component } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
@@ -13,8 +13,8 @@ const CreateNewParty = () => {
     const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
     const [about, setAbout] = useState('');
     const [selectedPrivate, setSelectedPrivate] = useState(0);
-    const [date, setDate] = React.useState(new Date());
-    const RandomNumber = Math.floor(Math.random() * 5) + 1;
+    const [date, setDate] = useState(new Date());
+    const [RandomNumber] = useState(Math.floor(Math.random() * 5) + 1);
     const data = [
         'อาหาร',
         'ท่องเที่ยว',
