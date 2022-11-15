@@ -12,7 +12,7 @@ const EditProfile = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmpassword, setConfirmPassword] = useState('');
-    const RandomNumber = Math.floor(Math.random() * 4) + 1;
+    const [RandomNumber] = useState(Math.floor(Math.random() * 4));
     let [fontsLoaded] = useFonts({
         Kanit_400Regular
     });
