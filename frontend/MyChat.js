@@ -37,17 +37,16 @@ const MyChat = ({ navigation }) => {
             <View style={[styles.containerCardparty]}>
                 {data.map((item, index) =>
                     <View style={[{ paddingBottom: '10px' }]}>
-                        
-                        <Card style={[styles.card, { backgroundColor: "#FFF9E5", },]}>
-                            <View style={[styles.row, styles.card]}>
+                        <View style={[styles.row, styles.card, ]}>
+                            <View style={[styles.column3, { padding: 5 }]}>
                                 <ImageBackground source={require('../assets/circlebg.png')} style={{ width: '80px', height: '80px', justifyContent: 'center', alignItems: 'center',}}>
                                     <Image source={require('../assets/foodparty_icon.png')} style={{ width: 50, height: 50, }} />
                                 </ImageBackground>
-                                <View style={{ paddingLeft: '20px' }}>
-                                    <Text category='h3' style={[styles.fontTh, { color: '#4542C1', paddingRight: '150px' }]}>{item.name}</Text>
-                                </View>
                             </View>
-                        </Card>
+                            <View style={[styles.column9, {paddingLeft: '10px'}]}>
+                                <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '20px', fontWeight: 'bold' }]}>{item.name}</Text>
+                            </View>
+                        </View>
                     </View>
                 )}
             </View>
@@ -127,20 +126,29 @@ const styles = StyleSheet.create({
         // borderRadius: '30px', 
     },
     card: {
-        alignItems: 'center',
-        height: '100px',
-        borderRadius: '15px',
-        borderColor: 'transparent',
-        flexDirection: 'row',
+        padding: 10,
+        backgroundColor: '#FFF9E5',
+        borderRadius: "15px",
+        borderColor: "transparent",
     },
     containerCardparty: {
         width: '90%',
 
     },
     row: {
-        flexDirection: "row",
         flexWrap: "wrap",
         display: "flex",
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        width: '100%',
+        height: '10'
+    },
+    column3: {
+        width: "25%"
+    },
+    column9: {
+        width: "75%"
     }
 });
 
