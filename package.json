@@ -18,6 +18,7 @@
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
     "@ui-kitten/components": "^5.1.2",
+    "@ui-kitten/eva-icons": "^5.1.2",
     "crypto-js": "^4.1.1",
     "expo": "~46.0.16",
     "expo-app-loading": "~2.1.0",

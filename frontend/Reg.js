@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useFonts, Kanit_400Regular } from '@expo-google-fonts/kanit';
 import { collection, addDoc, doc, getDocs, onSnapshot,setDoc } from "firebase/firestore";

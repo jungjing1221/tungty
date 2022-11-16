@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input, Button, Text } from '@ui-kitten/components';
 import { useFonts, Kanit_400Regular } from '@expo-google-fonts/kanit';

@@ -14,7 +14,7 @@ const EditParty = () => {
     const [about, setAbout] = useState('');
     const [selectedPrivate, setSelectedPrivate] = useState(0);
     const [date, setDate] = React.useState(new Date());
-    const RandomNumber = Math.floor(Math.random() * 5) + 1;
+    const [RandomNumber] = useState(Math.floor(Math.random() * 5) + 1);
     const data = [
         'อาหาร',
         'ท่องเที่ยว',
@@ -127,7 +127,7 @@ const EditParty = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#121212',
+        backgroundColor: '#ffffff',
         alignItems: 'center',
         justifyContent: 'center',
         padding: 10

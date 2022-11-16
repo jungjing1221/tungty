@@ -8,12 +8,18 @@ import MyNavigator from './navigation/Navigator';
 import './assets/base.css'
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
+import { IconRegistry } from '@ui-kitten/components';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 export default function App() {
   return (
-    <ApplicationProvider {...eva} theme={eva.dark}>
-      <MyNavigator/>
-    </ApplicationProvider>
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <MyNavigator />
+      </ApplicationProvider>
+    </>
+
   );
 }
 
