@@ -4,13 +4,17 @@ import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/comp
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 import { Kanit_400Regular } from '@expo-google-fonts/kanit';
+import { collection, getDoc, doc, getDocs, onSnapshot, setDoc } from "firebase/firestore";
+import { db } from '../firebase/firebase-config';
 
 
 import Searchbar from '../assets/component/searchbar';
+import { async } from '@firebase/util';
 
 const FindParty = ({ navigation }) => {
 
   const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [code, setCode] = useState(0);
   const [data, setData] = useState([
     { id: 1, name: "เราพวกผองชาวสจล.ไปหาข้าวกิน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
     { id: 2, name: "ไปเรียนคณะกันชาวไอที", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
@@ -26,6 +30,49 @@ const FindParty = ({ navigation }) => {
   if (!fontsLoaded) {
     return null;
   }
+
+    // let partyList = []
+  //   let entered
+  //   const partySnapshot = getDocs(collection(db, "parties"));
+  //   // partySnapshot.forEach((doc) => {
+  //   //   partyList.push(doc.data())
+  //   // });
+  //   // console.log(partyList)
+  //   console.log(partySnapshot)
+
+  const joinParty = async () => {
+    let user
+    const username = localStorage.getItem("Username")
+    const ref = doc(db, "users", username);
+    const snap = await getDoc(ref);
+    if (snap.exists()) {
+      user = snap.data()}
+
+    let partyList = []
+    let entered
+    const partySnapshot = await getDocs(collection(db, "parties"));
+    partySnapshot.forEach((doc) => {
+      partyList.push(doc.data())
+    });
+    console.log(partyList)
+
+    //CHECK ENTER CODE WITH PARTY LIST
+    partyList.forEach((party) => {
+      if (code == party.enterCode) {
+        entered = party
+        console.log(entered)
+        user.party.push(party.partyName)
+        console.log(user.party)
+        return;
+      }
+    })
+
+    //ADD PARTY TO USER
+    const docRef = await setDoc(doc(db, "users",username), {
+      ...user
+  });
+  }   
+  
 
   return (
     <TabView style={[styles.tabView]}

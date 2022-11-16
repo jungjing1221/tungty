@@ -47,16 +47,21 @@ const CreateNewParty = () => {
             // doc.data() will be undefined in this case
             console.log("No such document!");
         }
-        console.log(partyName, about, selectedPrivate, date)
+        console.log(partyName, about, selectedPrivate, date,displayValue)
+        let code;
+        if(selectedPrivate){
+            code = Math.floor(100000 + Math.random() * 900000)
+        }
         try {
-            const docRef = await setDoc(doc(db, "parties",partyName), {
+            const partyref = await setDoc(doc(db, "parties",partyName), {
                 partyName: partyName,
                 about: about,
                 selectedPrivate: selectedPrivate,
                 date: date,
-                head: username
+                head: username,
+                type: displayValue,
+                enterCode : code
             });
-            console.log("Document written with ID: ", docRef.id);
             user.party.push(partyName)
 
         } catch (e) {
@@ -67,6 +72,8 @@ const CreateNewParty = () => {
         });
 
     }
+
+    
     return (
         <View style={styles.container}>
             <Image
