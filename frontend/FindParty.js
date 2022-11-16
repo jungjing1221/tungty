@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
 import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/components';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
@@ -22,6 +22,26 @@ const FindParty = ({ navigation }) => {
     { id: 4, name: "ไปตลาดหอในกัน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
     { id: 5, name: "เล่นเกมกันเพื่อนๆ", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
   ])
+  useEffect(() => {
+    //FETCH PUBLIC PARTY DATA
+    const partyList = async () => {
+      let puclicParty = []
+      let entered
+      const partySnapshot =await getDocs(collection(db, "parties"));
+      partySnapshot.forEach((doc) => {
+        if(!doc.data().selectedPrivate)
+        puclicParty.push(doc.data())
+      });
+
+      //EX OF USING DATA
+      //LIST OF KEY : about,date,head,partyName,type
+      console.log(puclicParty[0].partyName)
+
+    }
+    
+    partyList()
+    
+  })
   let [fontsLoaded] = useFonts({
     Inter_900Black, OpenSans_500Medium, Kanit_400Regular
 
@@ -30,6 +50,8 @@ const FindParty = ({ navigation }) => {
   if (!fontsLoaded) {
     return null;
   }
+
+  
 
   // let partyList = []
   //   let entered
@@ -51,6 +73,7 @@ const FindParty = ({ navigation }) => {
     let partyList = []
     let entered
     const partySnapshot = await getDocs(collection(db, "parties"));
+    console.log(partySnapshot)
     partySnapshot.forEach((doc) => {
       partyList.push(doc.data())
     });
