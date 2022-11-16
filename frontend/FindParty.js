@@ -15,13 +15,7 @@ const FindParty = ({ navigation }) => {
 
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [code, setCode] = useState(0);
-  const [data, setData] = useState([
-    { id: 1, name: "เราพวกผองชาวสจล.ไปหาข้าวกิน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-    { id: 2, name: "ไปเรียนคณะกันชาวไอที", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-    { id: 3, name: "ไปเตะบอลกัน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-    { id: 4, name: "ไปตลาดหอในกัน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-    { id: 5, name: "เล่นเกมกันเพื่อนๆ", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-  ])
+  const [data, setData] = useState([])
   useEffect(() => {
     //FETCH PUBLIC PARTY DATA
     const partyList = async () => {
@@ -85,7 +79,11 @@ const FindParty = ({ navigation }) => {
       if (code == party.enterCode) {
         entered = party
         console.log(entered)
+        user.party.push(party.about)
+        user.party.push(party.date)
+        user.party.push(party.head)
         user.party.push(party.partyName)
+        user.party.push(party.type)
         console.log(user.party)
         return;
       }
@@ -113,18 +111,16 @@ const FindParty = ({ navigation }) => {
             {data.map((item, index) =>
               <View style={[{ paddingBottom: '10px' }]}>
                 <View style={[styles.row, styles.card]}>
-                  
                   <View style={[styles.column3, { padding: 5 }]}>
                     <Image source={require('../assets/foodparty_icon.png')} style={{ width: "50px", height: '50px', aspectRatio: "1/1", objectFit: "cover" }} />
                   </View>
                   <View style={[styles.column9]}>
-                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px'}]}>{item.name}</Text>
-                    <Text style={[styles.fontTh, { color: 'black', fontSize: '13px'}]}>{item.description}</Text>
+                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px'}]}>{item.partyName}</Text>
+                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px'}]}>{item.about}</Text>
                     <View style={{alignSelf: 'flex-end'}}>
-                      <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px'}]}>👤 18</Text>
+                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px'}]}>👤 18</Text>
                     </View>
                   </View>
-
                 </View>
               </View>
             )}
