@@ -48,7 +48,7 @@ const CreateNewParty = () => {
             console.log("No such document!");
         }
         console.log(partyName, about, selectedPrivate, date,displayValue)
-        let code;
+        let code = 0;
         if(selectedPrivate){
             code = Math.floor(100000 + Math.random() * 900000)
         }

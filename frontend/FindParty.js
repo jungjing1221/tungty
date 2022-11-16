@@ -41,8 +41,8 @@ const FindParty = ({ navigation }) => {
     }
     
     partyList()
-    
-  })
+  },[])
+
   let [fontsLoaded] = useFonts({
     Inter_900Black, OpenSans_500Medium, Kanit_400Regular
 
