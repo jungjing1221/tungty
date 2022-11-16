@@ -36,6 +36,7 @@ const FindParty = ({ navigation }) => {
       //EX OF USING DATA
       //LIST OF KEY : about,date,head,partyName,type
       console.log(puclicParty[0].partyName)
+      setData([...puclicParty]);
 
     }
     
