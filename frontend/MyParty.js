@@ -4,6 +4,8 @@ import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/comp
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 import { Kanit_400Regular } from '@expo-google-fonts/kanit';
+import { collection, getDoc, doc, getDocs, onSnapshot, setDoc } from "firebase/firestore";
+import { db } from '../firebase/firebase-config';
 
 
 import Searchbar from '../assets/component/searchbar';
@@ -18,6 +20,27 @@ const MyParty = ({ navigation }) => {
         { id: 4, name: "ไปตลาดหอในกัน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
         { id: 5, name: "เล่นเกมกันเพื่อนๆ", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
     ])
+    useEffect(() => {
+        //FETCH PUBLIC PARTY DATA
+        const partyList = async () => {
+          let puclicParty = []
+          let entered
+          const partySnapshot =await getDocs(collection(db, "parties"));
+          partySnapshot.forEach((doc) => {
+            if(!doc.data().selectedPrivate)
+            puclicParty.push(doc.data())
+          });
+    
+          //EX OF USING DATA
+          //LIST OF KEY : about,date,head,partyName,type
+          console.log(puclicParty[0].partyName)
+          setData([...puclicParty]);
+    
+        }
+        
+        partyList()
+      },[])
+
     let [fontsLoaded] = useFonts({
         Inter_900Black, OpenSans_500Medium, Kanit_400Regular
 

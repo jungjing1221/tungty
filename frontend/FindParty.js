@@ -15,9 +15,10 @@ const FindParty = ({ navigation }) => {
 
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [code, setCode] = useState(0);
+  const [text, setText] = useState('');
   const [data, setData] = useState([])
   useEffect(() => {
-    //FETCH PUBLIC PARTY DATA
+    //FETCH TARGET PARTY DATA
     const partyList = async () => {
       let puclicParty = []
       let entered
@@ -29,7 +30,7 @@ const FindParty = ({ navigation }) => {
 
       //EX OF USING DATA
       //LIST OF KEY : about,date,head,partyName,type
-      console.log(puclicParty[0].partyName)
+      console.log(puclicParty[0].date)
       setData([...puclicParty]);
 
     }
@@ -46,16 +47,21 @@ const FindParty = ({ navigation }) => {
     return null;
   }
 
-  
+  // const findParty = async () => {
+  //   let target = []
+  //     let entered
+  //     const partySnapshot =await getDocs(collection(db, "parties"));
+  //     partySnapshot.forEach((doc) => {
+  //       if(!doc.data().partyName.includes(text))
+  //       target.push(doc.data())
+  //     });
 
-  // let partyList = []
-  //   let entered
-  //   const partySnapshot = getDocs(collection(db, "parties"));
-  //   // partySnapshot.forEach((doc) => {
-  //   //   partyList.push(doc.data())
-  //   // });
-  //   // console.log(partyList)
-  //   console.log(partySnapshot)
+  //     //EX OF USING DATA
+  //     //LIST OF KEY : about,date,head,partyName,type
+  //     console.log(target[0].partyName)
+  //     setData([...target]);
+
+  // }
 
   const joinParty = async () => {
     let user
@@ -79,11 +85,7 @@ const FindParty = ({ navigation }) => {
       if (code == party.enterCode) {
         entered = party
         console.log(entered)
-        user.party.push(party.about)
-        user.party.push(party.date)
-        user.party.push(party.head)
         user.party.push(party.partyName)
-        user.party.push(party.type)
         console.log(user.party)
         return;
       }
@@ -102,7 +104,7 @@ const FindParty = ({ navigation }) => {
       onSelect={index => setSelectedIndex(index)}>
       <Tab title='PUBLIC PARTY' style={{ backgroundColor: 'white' }}>
         <Layout style={styles.tabContainer}>
-          <Searchbar></Searchbar>
+          <Searchbar onChangeText={text => setText(text)}></Searchbar>
           <View style={styles.containerFilter}>
               <Text category='h1' style={[styles.fontTh, { color: '#FDC319', paddingRight: '150px' }]}>หาปาร์ตี้</Text>
               <Image source={require('../assets/filter_icon.png')} style={{ width: 30, height: 30 }} />
@@ -131,7 +133,7 @@ const FindParty = ({ navigation }) => {
         <Layout style={styles.tabContainer}>
           <Text category='h1' style={[styles.fontTh, { color: '#FDC319', }]}>ปาร์ตี้ส่วนตัว</Text>
           <Text category='h6' style={[styles.fontTh, { color: '#4542C1', }]}>โค้ดสำหรับเข้าร่วมปาร์ตี้ส่วนตัว :</Text>
-          <Input style={[styles.fontEng, styles.fontEngInput, { backgroundColor: '#D9D9D9' }]} onChangeText={text => setUsername(text)} />
+          <Input style={[styles.fontEng, styles.fontEngInput, { backgroundColor: '#D9D9D9' }]} onChangeText={text => setCode(text)} />
           <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]}>join</Button>
         </Layout>
       </Tab>
