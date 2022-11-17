@@ -18,16 +18,16 @@ const PartyInfo = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 15, color: '#FDC319' }}>4 SEPTEMBER 2022 08:30</Text>
+            <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 20, color: '#FDC319' }}>4 SEPTEMBER 2022 08:30</Text>
             <Image
                 style={{ width: 100, height: 100, marginTop: 45 }}
                 source={images.image1}
             />
             <View style={styles.row}>
             <Icon
-                style={styles.icon}
+                style={[styles.icon, {marginTop:10}]}
                 fill='#8F9BB3'
-                name='person-outline'/><Text style={{fontFamily: 'Kanit_400Regular', color:'grey', fontSize: 18}}>10</Text>
+                name='person-outline'/><Text style={{fontFamily: 'Kanit_400Regular', color:'grey', fontSize: 18, marginTop: 10}}>10</Text>
                 </View>
             <View style={{ marginTop: 10 }}>
                 <Divider style={styles.bgWhite} />
@@ -54,12 +54,12 @@ const styles = StyleSheet.create({
     },
     fontEng: {
         fontFamily: 'Kanit_400Regular',
-        fontSize: 16,
+        fontSize: 18,
         color: '#4542C1',
     },
     fontEngInputHeader: {
         fontFamily: 'Kanit_400Regular',
-        fontSize: 20,
+        fontSize: 30,
         color: '#FDC319',
         margin: 10
     },
