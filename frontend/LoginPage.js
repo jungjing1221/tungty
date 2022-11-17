@@ -70,7 +70,6 @@ const Login = ({navigation}) => {
         <Text onPress={ () => { navigation.navigate("FindParty");}} styles={styles.fontEng}>ยังไม่มีสมาชิก</Text>
         <Text onPress={ () => { navigation.navigate("CreateNewParty");}} style={styles.fontTh} color="#4542C1">สมัครสมาชิกใหม่?</Text>
         <View styles={{ backgroundColor: '#FFFFFF' }}>
-
         </View>
       </View>
     </View>

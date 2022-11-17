@@ -33,39 +33,47 @@ const CreateNewParty = () => {
         return null;
     }
     const save = async () => {
+        //logined user
         const username = localStorage.getItem("Username")
+
         const ref = doc(db, "users", username);
         const snap = await getDoc(ref);
-
+        let user
         if (snap.exists()) {
-            console.log(snap.data().party);
-            let user = snap.data()
-            user.party.push("test")
-            console.log(user.party);
+        console.log(snap.data().party);
+        user = snap.data()
+        console.log(user.party);
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
         }
-        console.log(partyName, about, selectedPrivate, date)
-        // try {
-        //     const docRef = await addDoc(collection(db, "parties"), {
-        //         partyName: partyName,
-        //         about: about,
-        //         selectedPrivate: selectedPrivate,
-        //         date: date,
-        //         head: username
-        //     });
-        //     console.log("Document written with ID: ", docRef.id);
+        console.log(partyName, about, selectedPrivate, date,displayValue)
+        let code = 0;
+        if(selectedPrivate){
+            code = Math.floor(100000 + Math.random() * 900000)
+        }
+        try {
+            const partyref = await setDoc(doc(db, "parties",partyName), {
+                partyName: partyName,
+                about: about,
+                selectedPrivate: selectedPrivate,
+                date: date,
+                head: username,
+                type: displayValue,
+                enterCode : code
+            });
+            user.party.push(partyName)
 
-        // } catch (e) {
-        //     console.error("Error adding document: ", e);
-        // }
-        // const docRef = await setDoc(doc(db, "users","jjamee"), {
-        //     name:"jjamee",
-        //     username:"jame"
-        // });
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+        const docRef = await setDoc(doc(db, "users",username), {
+            ...user
+        });
 
     }
+
+    
     return (
         <View style={styles.container}>
             <Image

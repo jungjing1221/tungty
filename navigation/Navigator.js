@@ -9,14 +9,18 @@ import { Ionicons } from '@expo/vector-icons';
 import Login from "../frontend/LoginPage";
 import Register from "../frontend/reg";
 import Main_Page from "../frontend/MainPage";
+import MyParty from "../frontend/MyParty";
+import MyChat from "../frontend/MyChat";
 import FindParty from "../frontend/FindParty"
 import CreateNewParty from "../frontend/CreateParty"
 import EditParty from "../frontend/EditParty";
+import Notification from "../frontend/NotifyPage";
+import ChatScreen from "../frontend/ChatParty";
 import EditProfile from "../frontend/EditProfile";
 import PartyInfo from "../frontend/ShowPartyInfo";
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator();
-// const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 // const Drawer = createDrawerNavigator();
 // สร้าง function สำหรับการกำหนด Navigator แต่ละตัว เช่น
 function MainNavigator() {
@@ -26,7 +30,7 @@ function MainNavigator() {
       screenOptions={{ headerStyle: { backgroundColor: "#4542C1", borderBottomColor: "#4542C1" }, headerTintColor: "white", headerShown: true }}>
       <Stack.Screen
         name="Login"
-        component={EditProfile}
+        component={Login}
         options={{
           title: "",
         }}
@@ -43,6 +47,23 @@ function MainNavigator() {
       <Stack.Screen name="CreateNewParty" component={CreateNewParty} options={{
         title: "",
       }} />
+      <Stack.Screen name="MyParty" component={MyParty} options={{
+        title: "",
+      }} />
+      <Stack.Screen name="MyChat" component={MyChat} options={{
+        title: "",
+      }} />
+      <Stack.Screen name="Notification" component={Notification} options={{
+        title: "Notification",
+        headerTitleAlign: 'center'
+      }} />
+      {/* <Stack.Screen name="ChatScreen" component={ChatScreen} options={{
+        title: "",
+      }} /> */}
+      <Stack.Screen name="EditParty" component={EditParty} options={{
+        title: "",
+      }} />
+      
     </Stack.Navigator>
 
   );
