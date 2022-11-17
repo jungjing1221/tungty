@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
 import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/components';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
@@ -23,23 +23,29 @@ const MyParty = ({ navigation }) => {
     useEffect(() => {
         //FETCH PUBLIC PARTY DATA
         const partyList = async () => {
-          let puclicParty = []
-          let entered
-          const partySnapshot =await getDocs(collection(db, "parties"));
-          partySnapshot.forEach((doc) => {
-            if(!doc.data().selectedPrivate)
-            puclicParty.push(doc.data())
-          });
-    
-          //EX OF USING DATA
-          //LIST OF KEY : about,date,head,partyName,type
-          console.log(puclicParty[0].partyName)
-          setData([...puclicParty]);
-    
+            let user
+            const username = localStorage.getItem("Username")
+            const ref = doc(db, "users", username);
+            const snap = await getDoc(ref);
+            if (snap.exists()) {
+                user = snap.data()
+            }
+            let myParty = []
+            const partySnapshot = await getDocs(collection(db, "parties"));
+            partySnapshot.forEach((doc) => {
+                if (user.party.includes(doc.data().partyName))
+                myParty.push(doc.data())
+            });
+
+            //EX OF USING DATA
+            //LIST OF KEY : about,date,head,partyName,type
+            console.log(myParty)
+            setData([...myParty]);
+
         }
-        
+
         partyList()
-      },[])
+    }, [])
 
     let [fontsLoaded] = useFonts({
         Inter_900Black, OpenSans_500Medium, Kanit_400Regular
@@ -51,7 +57,7 @@ const MyParty = ({ navigation }) => {
     }
 
     return (
-        
+
         // <TabView style={[styles.tabView]}
         //   selectedIndex={selectedIndex}
         //   onSelect={index => setSelectedIndex(index)}>

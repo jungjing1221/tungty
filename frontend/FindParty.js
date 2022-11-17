@@ -134,7 +134,7 @@ const FindParty = ({ navigation }) => {
           <Text category='h1' style={[styles.fontTh, { color: '#FDC319', }]}>ปาร์ตี้ส่วนตัว</Text>
           <Text category='h6' style={[styles.fontTh, { color: '#4542C1', }]}>โค้ดสำหรับเข้าร่วมปาร์ตี้ส่วนตัว :</Text>
           <Input style={[styles.fontEng, styles.fontEngInput, { backgroundColor: '#D9D9D9' }]} onChangeText={text => setCode(text)} />
-          <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]}>join</Button>
+          <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={joinParty}>join</Button>
         </Layout>
       </Tab>
     </TabView>
