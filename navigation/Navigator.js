@@ -10,42 +10,40 @@ import Login from "../frontend/LoginPage";
 import Register from "../frontend/reg";
 import Main_Page from "../frontend/MainPage";
 import FindParty from "../frontend/FindParty"
-<<<<<<< HEAD
 import CreateNewParty from "../frontend/CreateParty"
 import EditParty from "../frontend/EditParty";
-=======
-import CreateNewParty from "../frontend/CreateParty";
->>>>>>> d7ed7e410201a20ff13014437fd7380ea8bd7ed8
+import EditProfile from "../frontend/EditProfile";
+import PartyInfo from "../frontend/ShowPartyInfo";
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator();
 // const Tab = createBottomTabNavigator();
 // const Drawer = createDrawerNavigator();
 // สร้าง function สำหรับการกำหนด Navigator แต่ละตัว เช่น
-function 	MainNavigator() {
+function MainNavigator() {
   return (
     // กำหนดรายละเอียดของ navigator
     <Stack.Navigator initialRouteName="Categories"
-      screenOptions={{ headerStyle: { backgroundColor: "#4542C1", borderBottomColor: "#4542C1" },headerTintColor: "white", headerShown:true}}>
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{
-            title: "",
-            }}
-        />
-        <Stack.Screen name="Register" component={Register} options={{
-            title: "",
-        }}/>
-        <Stack.Screen name="FindParty" component={FindParty} options={{
-            title: "",
-        }}/>
-        <Stack.Screen name="Main_Page" component={Main_Page} options={{
-            title: "",
-        }}/>
-        <Stack.Screen name="CreateNewParty" component={CreateNewParty} options={{
-            title: "",
-        }}/>
-      </Stack.Navigator>
+      screenOptions={{ headerStyle: { backgroundColor: "#4542C1", borderBottomColor: "#4542C1" }, headerTintColor: "white", headerShown: true }}>
+      <Stack.Screen
+        name="Login"
+        component={EditProfile}
+        options={{
+          title: "",
+        }}
+      />
+      <Stack.Screen name="Register" component={Register} options={{
+        title: "",
+      }} />
+      <Stack.Screen name="FindParty" component={FindParty} options={{
+        title: "",
+      }} />
+      <Stack.Screen name="Main_Page" component={Main_Page} options={{
+        title: "",
+      }} />
+      <Stack.Screen name="CreateNewParty" component={CreateNewParty} options={{
+        title: "",
+      }} />
+    </Stack.Navigator>
 
   );
 }
@@ -56,7 +54,7 @@ export default function MyNavigator() {
     <NavigationContainer>
       {/* รายละเอียดของ Navigator หลัก (MainNavigator) */}
       {/* <MealsFavTabNavigator /> */}
-      <MainNavigator/>
+      <MainNavigator />
     </NavigationContainer>
   );
 }
