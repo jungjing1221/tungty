@@ -18,7 +18,7 @@ const FindParty = ({navigation}) => {
 
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [code, setCode] = useState(0);
-  const [text, setText] = useState('');
+  const [text, setText] = useState('Hi Frame');
   const [data, setData] = useState([])
   useEffect(() => {
     //FETCH TARGET PARTY DATA
@@ -107,7 +107,7 @@ const FindParty = ({navigation}) => {
       onSelect={index => setSelectedIndex(index)}>
       <Tab title='PUBLIC PARTY' style={{ backgroundColor: 'white' }}>
         <Layout style={styles.tabContainer}>
-          <Searchbar onChangeText={text => setText(text)} findPartyProp={findParty}></Searchbar>
+          <Searchbar setTextProp={setText} findPartyProp={findParty}></Searchbar>
           <View style={styles.containerFilter}>
               <Text category='h1' style={[styles.fontTh, { color: '#FDC319', paddingRight: '150px' }]}>หาปาร์ตี้</Text>
               <Image source={require('../assets/filter_icon.png')} style={{ width: 30, height: 30 }} />
