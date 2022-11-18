@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
 import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/components';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 import { Kanit_400Regular } from '@expo-google-fonts/kanit';
+import { collection, getDoc, doc, getDocs, onSnapshot, setDoc } from "firebase/firestore";
+import { db } from '../firebase/firebase-config';
 
 
 import Searchbar from '../assets/component/searchbar';
@@ -18,6 +20,33 @@ const MyParty = ({ navigation }) => {
         { id: 4, name: "ไปตลาดหอในกัน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
         { id: 5, name: "เล่นเกมกันเพื่อนๆ", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
     ])
+    useEffect(() => {
+        //FETCH PUBLIC PARTY DATA
+        const partyList = async () => {
+            let user
+            const username = localStorage.getItem("Username")
+            const ref = doc(db, "users", username);
+            const snap = await getDoc(ref);
+            if (snap.exists()) {
+                user = snap.data()
+            }
+            let myParty = []
+            const partySnapshot = await getDocs(collection(db, "parties"));
+            partySnapshot.forEach((doc) => {
+                if (user.party.includes(doc.data().partyName))
+                myParty.push(doc.data())
+            });
+
+            //EX OF USING DATA
+            //LIST OF KEY : about,date,head,partyName,type
+            console.log(myParty)
+            setData([...myParty]);
+
+        }
+
+        partyList()
+    }, [])
+
     let [fontsLoaded] = useFonts({
         Inter_900Black, OpenSans_500Medium, Kanit_400Regular
 
@@ -28,7 +57,7 @@ const MyParty = ({ navigation }) => {
     }
 
     return (
-        
+
         // <TabView style={[styles.tabView]}
         //   selectedIndex={selectedIndex}
         //   onSelect={index => setSelectedIndex(index)}>

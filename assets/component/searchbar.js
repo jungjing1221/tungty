@@ -13,54 +13,20 @@ import {
 
 export default function Searchbar({ value, updateSearch, style }) {
 
-    const [query, setQuery] = useState();
-    const [error, setError] = useState()
     return (
         <View style={[styles.container]}>
             <View style={[styles.searchContainer]}>
 
                 <TextInput
-                    value={query}
                     placeholder="Search"
                     style={styles.textInput}
-                    onChangeText={(text) => {
-                        var letters = /^$|^[a-zA-Z._\b ]+$/;
-                        if (text.length > 12)
-                            setError("Query too long.")
-                        else if (text.match(letters)) {
-                            setQuery(text)
-                            updateSearch(text)
-                            if (error)
-                                setError(false)
-                        }
-                        else setError("Please only enter alphabets")
-                    }}
                 />
-                
-                {
-                    query ?
-                        <TouchableOpacity
-                            onPress={() => setQuery('')}
-                            style={styles.vwClear}>
-                            <Image
-                                style={styles.icClear}
-                                source={require('../component/search_icon.png')} />
-                        </TouchableOpacity>
-                        : <View style={styles.vwClear} />
-                }
-            <View style={styles.vwSearch}>
+                <View style={styles.vwSearch}>
                     <Image
                         style={styles.icSearch}
                         source={require('../component/search_icon.png')} />
                 </View>
             </View>
-            
-            {
-                error &&
-                <Text style={styles.txtError}>
-                    {error}
-                </Text>
-            }
         </View >
     )
 }
@@ -93,7 +59,7 @@ const styles = StyleSheet.create({
         borderRadius: '30px',
     },
     icSearch: {
-        height: 18, width: 18,backgroundColor: '#4542C1'
+        height: 18, width: 18, backgroundColor: '#4542C1'
     },
     searchContainer:
     {
@@ -101,12 +67,12 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         backgroundColor: '#4542C1',
-        borderRadius: '30px', 
+        borderRadius: '30px',
     },
     container: {
         alignItems: 'center',
         // height: '80%', 
-        width: '80%' ,
+        width: '80%',
         backgroundColor: 'white',
     },
 });
