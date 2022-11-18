@@ -22,19 +22,9 @@ const Searchbar = (props) => {
                 <TextInput
                     placeholder="Search"
                     style={styles.textInput}
-                    onChangeText={(text) => {
-                        var letters = /^$|^[a-zA-Z._\b ]+$/;
-                        if (text.length > 12)
-                            setError("Query too long.")
-                        else if (text.match(letters)) {
-                            setQuery(text)
-                            updateSearch(text)
-                            if (error)
-                                setError(false)
-                        }
-                        else setError("Please only enter alphabets")
-                    }}
+                    onChangeText={text => props.setTextProp(text)} 
                 />
+
                   
             <View style={styles.vwSearch}>
                 <TouchableHighlight onPress={props.findPartyProp}>
