@@ -7,7 +7,7 @@ import { db } from '../firebase/firebase-config';
 import images from '../assets/images';
 
 
-const PartyInfo = ({ navigation }) => {
+const ProfileInfo = ({ navigation }) => {
     let [fontsLoaded] = useFonts({
         Kanit_400Regular
     });
@@ -18,27 +18,19 @@ const PartyInfo = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 20, color: '#FDC319' }}>4 SEPTEMBER 2022 08:30</Text>
             <Image
-                style={{ width: 100, height: 100, marginTop: 45 }}
+                style={{ width: 230, height: 230, marginTop: 45 }}
                 source={images.image1}
             />
-            <View style={styles.row}>
-            <Icon
-                style={[styles.icon, {marginTop:10}]}
-                fill='#8F9BB3'
-                name='person-outline'/><Text style={{fontFamily: 'Kanit_400Regular', color:'grey', fontSize: 18, marginTop: 10}}>10</Text>
-                </View>
             <View style={{ marginTop: 10 }}>
-                <Divider style={styles.bgWhite} />
-                <Text style={styles.fontEngInputHeader}>ตื่นไปคณะด้วยกันไหมผองเพื่อนชาวไอที...</Text>
+                <Text style={[styles.fontEngInputHeader, {textAlign: 'center'}]}>สมสีส้ม</Text>
                 <Divider style={styles.bgWhite} />
                 <View>
-                    <Text style={{fontFamily: 'Kanit_400Regular', marginTop:10}}>เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไป เข้าเรียนสายบ่อยครั้ง อย่าลังเลที่จะเข้าร่วม กลุ่มของเรา มาตื่นไปเรียนวิชาที่เรารักไป...</Text>
+                    <Text style={{fontFamily: 'Kanit_400Regular', marginTop:10, fontSize:20, color: '#4542C1'}}>เรียนที่คณะเทคโนโลยีสารสนเทศสจล. ปี3 รุ่น 18 ชอบเล่นเกมมาก ชอบเล่นบาสมากชวนเล่นได้ค่ะ ขี้เซามาก ตื่นสาย หาตี้โทรปลุก ไปคณะค่ะ</Text>
                 </View>
             </View>
 
-            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 15 }]} onPress={"chat"}>{evaProps => <Text {...evaProps} style={{ color: "#ffffff", fontFamily: 'Kanit_400Regular', }}>Chat</Text>}</Button>
+            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 30 }]} onPress={"singout"}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', fontSize:20}}>SIGN OUT</Text>}</Button>
         </View>
     );
 };
@@ -54,7 +46,7 @@ const styles = StyleSheet.create({
     },
     fontEng: {
         fontFamily: 'Kanit_400Regular',
-        fontSize: 18,
+        fontSize: 20,
         color: '#4542C1',
     },
     fontEngInputHeader: {
@@ -82,7 +74,7 @@ const styles = StyleSheet.create({
         color: "#ffffff"
     },
     buttonStyle: {
-        backgroundColor: '#4542C1',
+        backgroundColor: '#D9D9D9',
         borderColor: 'transparent',
         borderWidth: 0,
         borderRadius: "9000px",
@@ -102,9 +94,9 @@ const styles = StyleSheet.create({
         backgroundColor: "grey"
     },
     icon: {
-        width: 32,
-        height: 32,
+        width: 35,
+        height: 35,
     },
 });
 
-export default PartyInfo
+export default ProfileInfo
