@@ -11,7 +11,10 @@ import { db } from '../firebase/firebase-config';
 import Searchbar from '../assets/component/searchbar';
 import { async } from '@firebase/util';
 
-const FindParty = ({ navigation }) => {
+const FindParty = ({navigation}) => {
+  const test = () => {
+    alert("jjjjjjj")
+  }
 
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [code, setCode] = useState(0);
@@ -47,21 +50,21 @@ const FindParty = ({ navigation }) => {
     return null;
   }
 
-  // const findParty = async () => {
-  //   let target = []
-  //     let entered
-  //     const partySnapshot =await getDocs(collection(db, "parties"));
-  //     partySnapshot.forEach((doc) => {
-  //       if(!doc.data().partyName.includes(text))
-  //       target.push(doc.data())
-  //     });
+  const findParty = async () => {
+    // let target = []
+    //   let entered
+    //   const partySnapshot =await getDocs(collection(db, "parties"));
+    //   partySnapshot.forEach((doc) => {
+    //     if(!doc.data().partyName.includes(text))
+    //     target.push(doc.data())
+    //   });
 
-  //     //EX OF USING DATA
-  //     //LIST OF KEY : about,date,head,partyName,type
-  //     console.log(target[0].partyName)
-  //     setData([...target]);
-
-  // }
+    //   //EX OF USING DATA
+    //   //LIST OF KEY : about,date,head,partyName,type
+    //   console.log(target[0].partyName)
+      alert("yeyeเย้เย้")
+      // setData([...target]);
+  }
 
   const joinParty = async () => {
     let user
@@ -104,7 +107,7 @@ const FindParty = ({ navigation }) => {
       onSelect={index => setSelectedIndex(index)}>
       <Tab title='PUBLIC PARTY' style={{ backgroundColor: 'white' }}>
         <Layout style={styles.tabContainer}>
-          <Searchbar onChangeText={text => setText(text)}></Searchbar>
+          <Searchbar onChangeText={text => setText(text)} findPartyProp={findParty}></Searchbar>
           <View style={styles.containerFilter}>
               <Text category='h1' style={[styles.fontTh, { color: '#FDC319', paddingRight: '150px' }]}>หาปาร์ตี้</Text>
               <Image source={require('../assets/filter_icon.png')} style={{ width: 30, height: 30 }} />
