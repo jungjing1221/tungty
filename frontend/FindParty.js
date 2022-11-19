@@ -27,6 +27,7 @@ const FindParty = ({ navigation }) => {
         let publicParties = value.filter(party => party.selectedPrivate == 0)
         let privateParties = value.filter(party => party.selectedPrivate == 1)
         setParties({ 0: [...publicParties], 1: [...privateParties] });
+        setData([...publicParties])
       }).catch(err => {
         console.log(err);
       });
@@ -44,21 +45,11 @@ const FindParty = ({ navigation }) => {
 
   const findParty = async () => {
     console.log(text)
-    // let target = []
-    //   let entered
-    //   const partySnapshot =await getDocs(collection(db, "parties"));
-    //   partySnapshot.forEach((doc) => {
-    //     if(!doc.data().partyName.includes(text))
-    //     target.push(doc.data())
-    //   });
-
-    //   //EX OF USING DATA
-    //   //LIST OF KEY : about,date,head,partyName,type
-    //   console.log(target[0].partyName)
-
-    // setData([...target]);
+    let target = parties[0].filter(party => party.partyName.includes(text))
+    console.log(target)
+    setData([...target]);
+    
   }
-
   const joinParty = async () => {
     let user
     const username = localStorage.getItem("Username")
@@ -69,18 +60,6 @@ const FindParty = ({ navigation }) => {
     } else {
       window.alert("มึงไม่มี USER")
     }
-
-    // let entered
-    //CHECK ENTER CODE WITH PARTY LIST
-    // parties[1].forEach((party) => {
-    //   if (code == party.enterCode) {
-    //     entered = party
-    //     console.log(entered)
-    //     user.party.push(party.partyName)
-    //     console.log(user.party)
-    //     return;
-    //   }
-    // })
 
     let entered = parties[1].find(party => party.enterCode == code)
     console.log(parties[1],entered)
@@ -96,8 +75,6 @@ const FindParty = ({ navigation }) => {
   }
 
 
-
-
   return (
     <TabView style={[styles.tabView]}
       selectedIndex={selectedIndex}
@@ -110,7 +87,7 @@ const FindParty = ({ navigation }) => {
             <Image source={require('../assets/filter_icon.png')} style={{ width: 30, height: 30 }} />
           </View>
           <View style={styles.containerCardparty}>
-            {parties[0].map((item, index) =>
+            {data.map((item, index) =>
               <View style={[{ paddingBottom: '10px' }]} key={index}>
                 <View style={[styles.row, styles.card]}>
                   <View style={[styles.column3, { padding: 5 }]}>
