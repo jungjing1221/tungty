@@ -88,7 +88,7 @@ const FindParty = ({ navigation }) => {
           </View>
           <View style={styles.containerCardparty}>
             {data.map((item, index) =>
-              <View style={[{ paddingBottom: '10px' }]} key={index}>
+              <TouchableOpacity style={[{ paddingBottom: '10px' }]} key={index} onPress={() => { navigation.navigate("PartyInfo",{partyID:data[index].partyName});}}>
                 <View style={[styles.row, styles.card]}>
                   <View style={[styles.column3, { padding: 5 }]}>
                     <Image source={require('../assets/foodparty_icon.png')} style={{ width: "50px", height: '50px', aspectRatio: "1/1", objectFit: "cover" }} />
@@ -101,7 +101,7 @@ const FindParty = ({ navigation }) => {
                     </View>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             )}
           </View>
         </Layout>

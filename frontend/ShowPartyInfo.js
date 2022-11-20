@@ -1,20 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { Input, Button, Text, Divider, Icon } from '@ui-kitten/components';
 import { useFonts, Kanit_400Regular } from '@expo-google-fonts/kanit';
-import { collection, addDoc, doc, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from '../firebase/firebase-config';
+import { party } from '../assets/Party';
 import images from '../assets/images';
 
 
-const PartyInfo = ({ navigation }) => {
+const PartyInfo = ({ route, navigation }) => {
+    const { partyID } = route.params;
+    const [joinStatus, setJoinStatus] = React.useState(0);
+    const [user, setUser] = React.useState();
+    console.log(partyID)
+    useEffect(() => {
+        const checkparty = async() => {
+            let loginUser;
+            const username = localStorage.getItem("Username")
+            const ref = doc(db, "users", username);
+            const snap = await getDoc(ref);
+            if (snap.exists()) {
+                loginUser = snap.data()
+                setUser(snap.data())
+            } else {
+                window.alert("เข้าสู่ระบบก่อนใช้งาน")
+            }
+            setJoinStatus(loginUser.party.includes(partyID))
+        }
+        checkparty()
+    }, [])
+
+    const joinParty = async () => {
+        // const ref = doc(db, "users", username);
+        //     const snap = await getDoc(ref);
+        //     if (snap.exists()) {
+        //         let user = snap.data()
+        //     } else {
+        //         window.alert("เข้าสู่ระบบก่อนใช้งาน")
+        //     }
+        console.log(partyID,user)
+        user.party.push(partyID)
+        
+    
+    
+        //ADD PARTY TO USER
+        const docRef = await setDoc(doc(db, "users", user.username), {
+          ...user
+        });
+        setJoinStatus(true)
+      }
+
     let [fontsLoaded] = useFonts({
         Kanit_400Regular
     });
-
     if (!fontsLoaded) {
         return null;
     }
+
 
     return (
         <View style={styles.container}>
@@ -24,21 +66,35 @@ const PartyInfo = ({ navigation }) => {
                 source={images.image1}
             />
             <View style={styles.row}>
-            <Icon
-                style={styles.icon}
-                fill='#8F9BB3'
-                name='person-outline'/><Text style={{fontFamily: 'Kanit_400Regular', color:'grey', fontSize: 18}}>10</Text>
-                </View>
+                <Icon
+                    style={styles.icon}
+                    fill='#8F9BB3'
+                    name='person-outline' /><Text style={{ fontFamily: 'Kanit_400Regular', color: 'grey', fontSize: 18 }}>10</Text>
+            </View>
             <View style={{ marginTop: 10 }}>
                 <Divider style={styles.bgWhite} />
                 <Text style={styles.fontEngInputHeader}>ตื่นไปคณะด้วยกันไหมผองเพื่อนชาวไอที...</Text>
                 <Divider style={styles.bgWhite} />
                 <View>
-                    <Text style={{fontFamily: 'Kanit_400Regular', marginTop:10}}>เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไป เข้าเรียนสายบ่อยครั้ง อย่าลังเลที่จะเข้าร่วม กลุ่มของเรา มาตื่นไปเรียนวิชาที่เรารักไป...</Text>
+                    <Text style={{ fontFamily: 'Kanit_400Regular', marginTop: 10 }}>เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไป เข้าเรียนสายบ่อยครั้ง อย่าลังเลที่จะเข้าร่วม กลุ่มของเรา มาตื่นไปเรียนวิชาที่เรารักไป...</Text>
                 </View>
             </View>
-
-            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 15 }]} onPress={"chat"}>{evaProps => <Text {...evaProps} style={{ color: "#ffffff", fontFamily: 'Kanit_400Regular', }}>Chat</Text>}</Button>
+            <View>
+                {(() => {
+                if (joinStatus){
+                    return (
+                        <Button style={[styles.fontEng, styles.buttonStyle, { margin: 15 }]} onPress={"chat"}>{evaProps => <Text {...evaProps} style={{ color: "#ffffff", fontFamily: 'Kanit_400Regular', }}>Chat</Text>}</Button>
+                    )
+                }
+                else{
+                    return (
+                        <Button style={[styles.fontEng, styles.buttonStyle, { margin: 15 }]} onPress={joinParty}>{evaProps => <Text {...evaProps} style={{ color: "#ffffff", fontFamily: 'Kanit_400Regular', }}>Join</Text>}</Button>
+                    )
+                }
+                })()}
+                
+            </View>
+            
         </View>
     );
 };

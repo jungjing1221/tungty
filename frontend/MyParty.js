@@ -12,13 +12,7 @@ import Searchbar from '../assets/component/searchbar';
 const MyParty = ({ navigation }) => {
 
     const [selectedIndex, setSelectedIndex] = React.useState(0);
-    const [data, setData] = useState([
-        { id: 1, name: "เราพวกผองชาวสจล.ไปหาข้าวกิน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-        { id: 2, name: "ไปเรียนคณะกันชาวไอที", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-        { id: 3, name: "ไปเตะบอลกัน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-        { id: 4, name: "ไปตลาดหอในกัน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-        { id: 5, name: "เล่นเกมกันเพื่อนๆ", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-    ])
+    const [data, setData] = useState([])
     useEffect(() => {
         //FETCH PUBLIC PARTY DATA
         const fetchAllparty = () => {
@@ -72,7 +66,7 @@ const MyParty = ({ navigation }) => {
                                 <Image source={require('../assets/foodparty_icon.png')} style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover" }} />
                             </View>
                             <View style={[styles.column9]}>
-                                <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px', fontWeight: 'bold' }]}>{item.name}</Text>
+                                <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px', fontWeight: 'bold' }]}>{item.partyName}</Text>
                             </View>
                         </View>
                     </View>

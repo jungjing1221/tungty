@@ -63,7 +63,9 @@ function MainNavigator() {
       <Stack.Screen name="EditParty" component={EditParty} options={{
         title: "",
       }} />
-      
+      <Stack.Screen name="PartyInfo" component={PartyInfo} options={{
+        title: "",
+      }} />
     </Stack.Navigator>
 
   );
