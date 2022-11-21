@@ -49,6 +49,9 @@ const PartyInfo = ({ route, navigation }) => {
         });
         setJoinStatus(true)
       }
+      const chatRoom = async()=>{
+        navigation.navigate("MyChat")
+      }
 
     let [fontsLoaded] = useFonts({
         Kanit_400Regular
@@ -83,7 +86,7 @@ const PartyInfo = ({ route, navigation }) => {
                 {(() => {
                 if (joinStatus){
                     return (
-                        <Button style={[styles.fontEng, styles.buttonStyle, { margin: 15 }]} onPress={"chat"}>{evaProps => <Text {...evaProps} style={{ color: "#ffffff", fontFamily: 'Kanit_400Regular', }}>Chat</Text>}</Button>
+                        <Button style={[styles.fontEng, styles.buttonStyle, { margin: 15 }]} onPress={chatRoom}>{evaProps => <Text {...evaProps} style={{ color: "#ffffff", fontFamily: 'Kanit_400Regular', }}>Chat</Text>}</Button>
                     )
                 }
                 else{

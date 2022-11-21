@@ -36,6 +36,7 @@ const Login = ({navigation}) => {
           console.log(user.username)
           setToken();
           //add codeไปหน้าหลัก
+          navigation.navigate("MyParty")
       }
       else{
         console.log("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง")
@@ -68,7 +69,7 @@ const Login = ({navigation}) => {
       <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={login}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>Sign In</Text>}</Button>
       <View style={{ marginTop: 10 }}>
         <Text onPress={ () => { navigation.navigate("FindParty");}} styles={styles.fontEng}>ยังไม่มีสมาชิก</Text>
-        <Text onPress={ () => { navigation.navigate("MyParty");}} style={styles.fontTh} color="#4542C1">สมัครสมาชิกใหม่?</Text>
+        <Text onPress={ () => { navigation.navigate("Register");}} style={styles.fontTh} color="#4542C1">สมัครสมาชิกใหม่?</Text>
         <View styles={{ backgroundColor: '#FFFFFF' }}>
         </View>
       </View>
