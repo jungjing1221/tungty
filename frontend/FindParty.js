@@ -64,7 +64,9 @@ const FindParty = ({ navigation }) => {
     let entered = parties[1].find(party => party.enterCode == code)
     console.log(parties[1],entered)
     if(!entered) return window.alert("โค้ดเข้าร่วมปาร์ตี้ไม่ถูกต้อง")
-    else user.party.push(entered.partyName)
+    else {user.party.push(entered.partyName)
+      navigation.navigate("PartyInfo",{partyID:entered.partyName});
+    }
 
 
 

@@ -12,6 +12,7 @@ const PartyInfo = ({ route, navigation }) => {
     const { partyID } = route.params;
     const [joinStatus, setJoinStatus] = React.useState(0);
     const [user, setUser] = React.useState();
+    const [data, setData] = useState([])
     console.log(partyID)
     useEffect(() => {
         const checkparty = async() => {
