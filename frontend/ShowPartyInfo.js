@@ -11,9 +11,9 @@ import images from '../assets/images';
 const PartyInfo = ({ route, navigation }) => {
     const { partyID } = route.params;
     const [joinStatus, setJoinStatus] = React.useState(0);
+    const [isHead, setIsHead] = React.useState(0);
     const [user, setUser] = React.useState();
-    const [data, setData] = useState([])
-    console.log(partyID)
+    const [data, setData] = useState([]);
     useEffect(() => {
         const checkparty = async() => {
             let loginUser;
@@ -28,6 +28,20 @@ const PartyInfo = ({ route, navigation }) => {
             }
             setJoinStatus(loginUser.party.includes(partyID))
         }
+        const fetchAllparty = () => {
+            let partyPromise = party()
+            partyPromise.then(async (value) => {
+                const username = localStorage.getItem("Username")
+                let targetparty = value.filter(party => party.partyName == partyID)
+                if(targetparty[0].head == username){
+                    setIsHead(1)
+                }
+              setData([...value])
+            }).catch(err => {
+              console.log(err);
+            });
+        }
+        fetchAllparty()
         checkparty()
     }, [])
 
@@ -53,7 +67,9 @@ const PartyInfo = ({ route, navigation }) => {
       const chatRoom = async()=>{
         navigation.navigate("MyChat")
       }
-
+      const editPage = async()=>{
+        navigation.navigate("EditParty",{partyID:partyID})
+      }
     let [fontsLoaded] = useFonts({
         Kanit_400Regular
     });
@@ -96,6 +112,18 @@ const PartyInfo = ({ route, navigation }) => {
                     )
                 }
                 })()}
+                
+            </View>
+            <View>
+                {(() => {
+                if (isHead){
+                    return (
+                        <Button style={[styles.fontEng, styles.buttonStyle, { margin: 15 }]} onPress={editPage}>{evaProps => <Text {...evaProps} style={{ color: "#ffffff", fontFamily: 'Kanit_400Regular', }}>Edit</Text>}</Button>
+                    )
+                }
+
+                })()}
+                
                 
             </View>
             
