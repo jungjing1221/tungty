@@ -15,9 +15,9 @@ import FindParty from "../frontend/FindParty"
 import CreateNewParty from "../frontend/CreateParty"
 import EditParty from "../frontend/EditParty";
 import Notification from "../frontend/NotifyPage";
-import ChatScreen from "../frontend/ChatParty";
 import EditProfile from "../frontend/EditProfile";
 import PartyInfo from "../frontend/ShowPartyInfo";
+import Chat from "../frontend/Chat";
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,7 +30,7 @@ function MainNavigator() {
       screenOptions={{ headerStyle: { backgroundColor: "#4542C1", borderBottomColor: "#4542C1" }, headerTintColor: "white", headerShown: true }}>
       <Stack.Screen
         name="Login"
-        component={Login}
+        component={Chat}
         options={{
           title: "",
         }}
