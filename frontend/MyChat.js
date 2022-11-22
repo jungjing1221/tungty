@@ -4,6 +4,7 @@ import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/comp
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 import { Kanit_400Regular } from '@expo-google-fonts/kanit';
+import BottomNavigtor from '../navigation/BottomNavigator';
 
 
 import Searchbar from '../assets/component/searchbar';
@@ -28,9 +29,8 @@ const MyChat = ({ navigation }) => {
     }
 
     return (
-        // <TabView style={[styles.tabView]}
-        //   selectedIndex={selectedIndex}
-        //   onSelect={index => setSelectedIndex(index)}>
+        <View style = {[styles.MainContainer, {backgroundColor: 'white'}]}>
+            <ScrollView style={styles.scrollView}>
         <View style={styles.tabContainer }>
             <Searchbar></Searchbar>
             <View style={[styles.containerCardparty]}>
@@ -48,6 +48,11 @@ const MyChat = ({ navigation }) => {
                         </View>
                     </View>
                 )}
+            </View>
+        </View>
+            </ScrollView>
+            <View style={ styles.bottomView} >
+                <BottomNavigtor/>
             </View>
         </View>
 
@@ -148,7 +153,23 @@ const styles = StyleSheet.create({
     },
     column9: {
         width: "75%"
-    }
+    },
+    MainContainer:
+    {
+        flex: 1,
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        // paddingTop: ( Platform.OS === 'ios' ) ? 20 : 0
+    },
+    bottomView:{
+ 
+      width: '100%', 
+      height: 50, 
+      justifyContent: 'center', 
+      alignItems: 'center',
+      position: 'absolute',
+      bottom: 0
+    },
 });
 
 export default MyChat

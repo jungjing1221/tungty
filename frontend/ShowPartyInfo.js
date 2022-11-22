@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
 import { Input, Button, Text, Divider, Icon } from '@ui-kitten/components';
 import { useFonts, Kanit_400Regular } from '@expo-google-fonts/kanit';
 import { collection, addDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from '../firebase/firebase-config';
 import { party } from '../assets/Party';
 import images from '../assets/images';
+import BottomNavigtor from '../navigation/BottomNavigator';
 
 
 const PartyInfo = ({ route, navigation }) => {
@@ -79,6 +80,8 @@ const PartyInfo = ({ route, navigation }) => {
 
 
     return (
+        <View style = {[styles.MainContainer, {backgroundColor: 'white'}]}>
+        <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
             <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 15, color: '#FDC319' }}>4 SEPTEMBER 2022 08:30</Text>
             <Image
@@ -127,6 +130,11 @@ const PartyInfo = ({ route, navigation }) => {
                 
             </View>
             
+        </View>
+        </ScrollView>
+        <View style={ styles.bottomView} >
+                <BottomNavigtor/>
+            </View>
         </View>
     );
 };
@@ -192,6 +200,22 @@ const styles = StyleSheet.create({
     icon: {
         width: 32,
         height: 32,
+    },
+    MainContainer:
+    {
+        flex: 1,
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        // paddingTop: ( Platform.OS === 'ios' ) ? 20 : 0
+    },
+    bottomView:{
+ 
+      width: '100%', 
+      height: 50, 
+      justifyContent: 'center', 
+      alignItems: 'center',
+      position: 'absolute',
+      bottom: 0
     },
 });
 
