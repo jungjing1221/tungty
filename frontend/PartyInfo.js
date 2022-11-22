@@ -1,20 +1,82 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { Input, Button, Text, Divider, Icon } from '@ui-kitten/components';
 import { useFonts, Kanit_400Regular } from '@expo-google-fonts/kanit';
-import { collection, addDoc, doc, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from '../firebase/firebase-config';
+import { party } from '../assets/Party';
 import images from '../assets/images';
 
 
-const PartyInfo = ({ navigation }) => {
+const PartyInfo = ({ route, navigation }) => {
+    const { partyID } = route.params;
+    const [joinStatus, setJoinStatus] = React.useState(0);
+    const [isHead, setIsHead] = React.useState(0);
+    const [user, setUser] = React.useState();
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        const checkparty = async() => {
+            let loginUser;
+            const username = localStorage.getItem("Username")
+            const ref = doc(db, "users", username);
+            const snap = await getDoc(ref);
+            if (snap.exists()) {
+                loginUser = snap.data()
+                setUser(snap.data())
+            } else {
+                window.alert("เข้าสู่ระบบก่อนใช้งาน")
+            }
+            setJoinStatus(loginUser.party.includes(partyID))
+        }
+        const fetchAllparty = () => {
+            let partyPromise = party()
+            partyPromise.then(async (value) => {
+                const username = localStorage.getItem("Username")
+                let targetparty = value.filter(party => party.partyName == partyID)
+                if(targetparty[0].head == username){
+                    setIsHead(1)
+                }
+              setData([...value])
+            }).catch(err => {
+              console.log(err);
+            });
+        }
+        fetchAllparty()
+        checkparty()
+    }, [])
+
+    const joinParty = async () => {
+        // const ref = doc(db, "users", username);
+        //     const snap = await getDoc(ref);
+        //     if (snap.exists()) {
+        //         let user = snap.data()
+        //     } else {
+        //         window.alert("เข้าสู่ระบบก่อนใช้งาน")
+        //     }
+        console.log(partyID,user)
+        user.party.push(partyID)
+        
+    
+    
+        //ADD PARTY TO USER
+        const docRef = await setDoc(doc(db, "users", user.username), {
+          ...user
+        });
+        setJoinStatus(true)
+      }
+      const chatRoom = async()=>{
+        navigation.navigate("MyChat")
+      }
+      const editPage = async()=>{
+        navigation.navigate("EditParty",{partyID:partyID})
+      }
     let [fontsLoaded] = useFonts({
         Kanit_400Regular
     });
-
     if (!fontsLoaded) {
         return null;
     }
+
 
     return (
         <View style={styles.container}>
@@ -34,11 +96,37 @@ const PartyInfo = ({ navigation }) => {
                 <Text style={styles.fontEngInputHeader}>ตื่นไปคณะด้วยกันไหมผองเพื่อนชาวไอที...</Text>
                 <Divider style={styles.bgWhite} />
                 <View>
-                    <Text style={{fontFamily: 'Kanit_400Regular', marginTop:10}}>เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไป เข้าเรียนสายบ่อยครั้ง อย่าลังเลที่จะเข้าร่วม กลุ่มของเรา มาตื่นไปเรียนวิชาที่เรารักไป...</Text>
+                    <Text style={{ fontFamily: 'Kanit_400Regular', marginTop: 10 }}>เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไป เข้าเรียนสายบ่อยครั้ง อย่าลังเลที่จะเข้าร่วม กลุ่มของเรา มาตื่นไปเรียนวิชาที่เรารักไป...</Text>
                 </View>
             </View>
+            <View>
+                {(() => {
+                if (joinStatus){
+                    return (
+                        <Button style={[styles.fontEng, styles.buttonStyle, { margin: 15 }]} onPress={chatRoom}>{evaProps => <Text {...evaProps} style={{ color: "#ffffff", fontFamily: 'Kanit_400Regular', }}>Chat</Text>}</Button>
+                    )
+                }
+                else{
+                    return (
+                        <Button style={[styles.fontEng, styles.buttonStyle, { margin: 15 }]} onPress={joinParty}>{evaProps => <Text {...evaProps} style={{ color: "#ffffff", fontFamily: 'Kanit_400Regular', }}>Join</Text>}</Button>
+                    )
+                }
+                })()}
+                
+            </View>
+            <View>
+                {(() => {
+                if (isHead){
+                    return (
+                        <Button style={[styles.fontEng, styles.buttonStyle, { margin: 15 }]} onPress={editPage}>{evaProps => <Text {...evaProps} style={{ color: "#ffffff", fontFamily: 'Kanit_400Regular', }}>Edit</Text>}</Button>
+                    )
+                }
 
-            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 15 }]} onPress={"chat"}>{evaProps => <Text {...evaProps} style={{ color: "#ffffff", fontFamily: 'Kanit_400Regular', }}>Chat</Text>}</Button>
+                })()}
+                
+                
+            </View>
+            
         </View>
     );
 };

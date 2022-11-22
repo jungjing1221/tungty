@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
@@ -6,15 +6,34 @@ import { collection, addDoc, doc, getDoc, onSnapshot, setDoc } from "firebase/fi
 import { db } from '../firebase/firebase-config';
 import { Radio, RadioGroup, IndexPath, Layout, Select, SelectItem, Input, Datepicker, Button } from '@ui-kitten/components';
 import images from '../assets/images';
+import { party } from '../assets/Party';
 
 
-const EditParty = () => {
+const EditParty = ({ route, navigation }) => {
+    const { partyID } = route.params;
     const [partyName, setPartyName] = useState('');
     const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
     const [about, setAbout] = useState('');
     const [selectedPrivate, setSelectedPrivate] = useState(0);
     const [date, setDate] = React.useState(new Date());
     const [RandomNumber] = useState(Math.floor(Math.random() * 5) + 1);
+    const [partyData, setPartyData] = useState()
+
+    useEffect(() => {
+        const fetchAllparty = () => {
+            let partyPromise = party()
+            partyPromise.then(async (value) => {
+                let targetparty = value.filter(party => party.partyName == partyID)
+                setPartyData(targetparty[0])
+                setPartyName(targetparty[0].partyName)
+                setAbout(targetparty[0].about)
+            }).catch(err => {
+              console.log(err);
+            });
+        }
+        fetchAllparty()
+    }, [])
+
     const data = [
         'อาหาร',
         'ท่องเที่ยว',
@@ -27,7 +46,7 @@ const EditParty = () => {
     let [fontsLoaded] = useFonts({
         Inter_900Black, OpenSans_500Medium
     });
-
+    
 
     if (!fontsLoaded) {
         return null;
@@ -94,11 +113,11 @@ const EditParty = () => {
             </View>
             <View style={styles.row}>
                 <Text style={styles.fontEngInputHeader}>Party Name :</Text>
-                <Input style={styles.fontEngInput} onChangeText={text => setPartyName(text)} />
+                <Input style={styles.fontEngInput} value={partyName} onChangeText={text => setPartyName(text)} />
             </View>
             <View style={styles.row}>
                 <Text style={styles.fontEngInputHeader}>About :</Text>
-                <Input style={[styles.fontEngInput, styles.fontTh, styles.textarea]} onChangeText={text => setAbout(text)} multiline='true' numberOfLines="4" />
+                <Input style={[styles.fontEngInput, styles.fontTh, styles.textarea]} value={about} onChangeText={text => setAbout(text)} multiline='true' numberOfLines="4" />
             </View>
             <View style={styles.row}>
                 <Text style={styles.fontEngInputHeader}>Date : </Text>

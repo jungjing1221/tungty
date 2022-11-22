@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
 import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/components';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
@@ -6,45 +6,36 @@ import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 import { Kanit_400Regular } from '@expo-google-fonts/kanit';
 import { collection, getDoc, doc, getDocs, onSnapshot, setDoc } from "firebase/firestore";
 import { db } from '../firebase/firebase-config';
-
-
+import { party } from '../assets/Party';
 import Searchbar from '../assets/component/searchbar';
 
 const MyParty = ({ navigation }) => {
 
     const [selectedIndex, setSelectedIndex] = React.useState(0);
-    const [data, setData] = useState([
-        { id: 1, name: "เราพวกผองชาวสจล.ไปหาข้าวกิน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-        { id: 2, name: "ไปเรียนคณะกันชาวไอที", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-        { id: 3, name: "ไปเตะบอลกัน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-        { id: 4, name: "ไปตลาดหอในกัน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-        { id: 5, name: "เล่นเกมกันเพื่อนๆ", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
-    ])
+    const [data, setData] = useState([])
     useEffect(() => {
         //FETCH PUBLIC PARTY DATA
-        const partyList = async () => {
-            let user
-            const username = localStorage.getItem("Username")
-            const ref = doc(db, "users", username);
-            const snap = await getDoc(ref);
-            if (snap.exists()) {
-                user = snap.data()
-            }
-            let myParty = []
-            const partySnapshot = await getDocs(collection(db, "parties"));
-            partySnapshot.forEach((doc) => {
-                if (user.party.includes(doc.data().partyName))
-                myParty.push(doc.data())
+        const fetchAllparty = () => {
+            let partyPromise = party()
+            partyPromise.then(async (value) => {
+                let user
+                const username = localStorage.getItem("Username")
+                const ref = doc(db, "users", username);
+                const snap = await getDoc(ref);
+                if (snap.exists()) {
+                    user = snap.data()
+                } else {
+                    window.alert("มึงไม่มี USER")
+                }
+
+                let myParty = value.filter(party => user.party.includes(party.partyName))
+                setData(myParty);
+                
+            }).catch(err => {
+                console.log(err);
             });
-
-            //EX OF USING DATA
-            //LIST OF KEY : about,date,head,partyName,type
-            console.log(myParty)
-            setData([...myParty]);
-
         }
-
-        partyList()
+        fetchAllparty()
     }, [])
 
     let [fontsLoaded] = useFonts({
@@ -69,16 +60,16 @@ const MyParty = ({ navigation }) => {
             </View>
             <View style={styles.containerCardparty}>
                 {data.map((item, index) =>
-                    <View style={[styles.column6, { padding: 10 }]}>
+                    <TouchableOpacity style={[styles.column6, { padding: 10 }]} onPress={() => { navigation.navigate("PartyInfo",{partyID:data[index].partyName});}}>
                         <View style={[styles.row, styles.card]}>
                             <View style={[styles.column3, { padding: 5 }]}>
                                 <Image source={require('../assets/foodparty_icon.png')} style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover" }} />
                             </View>
                             <View style={[styles.column9]}>
-                                <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px', fontWeight: 'bold' }]}>{item.name}</Text>
+                                <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px', fontWeight: 'bold' }]}>{item.partyName}</Text>
                             </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 )}
             </View>
 
