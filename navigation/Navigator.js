@@ -16,8 +16,9 @@ import CreateNewParty from "../frontend/CreateParty"
 import EditParty from "../frontend/EditParty";
 import Notification from "../frontend/NotifyPage";
 import EditProfile from "../frontend/EditProfile";
-import PartyInfo from "../frontend/ShowPartyInfo";
 import Chat from "../frontend/Chat";
+import PartyInfo from "../frontend/PartyInfo";
+import ProfileInfo from "../frontend/ProfileInfo";
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -60,9 +61,9 @@ function MainNavigator() {
         title: "Notification",
         headerTitleAlign: 'center'
       }} />
-      {/* <Stack.Screen name="ChatScreen" component={ChatScreen} options={{
+      <Stack.Screen name="Chat" component={Chat} options={{
         title: "",
-      }} /> */}
+      }} />
       <Stack.Screen name="EditParty" component={EditParty} options={{
         title: "",
       }} />
@@ -80,7 +81,7 @@ export default function MyNavigator() {
     <NavigationContainer>
       {/* รายละเอียดของ Navigator หลัก (MainNavigator) */}
       {/* <MealsFavTabNavigator /> */}
-      <MainNavigator />
+      <MainNavigator/>
     </NavigationContainer>
   );
 }

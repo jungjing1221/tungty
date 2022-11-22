@@ -6,6 +6,8 @@ import { collection, addDoc, doc, getDoc, onSnapshot, setDoc } from "firebase/fi
 import { db } from '../firebase/firebase-config';
 import { Radio, RadioGroup, IndexPath, Layout, Select, SelectItem, Input, Datepicker, Button } from '@ui-kitten/components';
 import images from '../assets/images';
+import { ScrollView } from 'react-native-web';
+import BottomNavigtor from '../navigation/BottomNavigator';
 
 
 const CreateNewParty = () => {
@@ -40,27 +42,27 @@ const CreateNewParty = () => {
         const snap = await getDoc(ref);
         let user
         if (snap.exists()) {
-        console.log(snap.data().party);
-        user = snap.data()
-        console.log(user.party);
+            console.log(snap.data().party);
+            user = snap.data()
+            console.log(user.party);
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
         }
-        console.log(partyName, about, selectedPrivate, date,displayValue)
+        console.log(partyName, about, selectedPrivate, date, displayValue)
         let code = 0;
-        if(selectedPrivate){
+        if (selectedPrivate) {
             code = Math.floor(100000 + Math.random() * 900000)
         }
         try {
-            const partyref = await setDoc(doc(db, "parties",partyName), {
+            const partyref = await setDoc(doc(db, "parties", partyName), {
                 partyName: partyName,
                 about: about,
                 selectedPrivate: selectedPrivate,
                 date: date,
                 head: username,
                 type: displayValue,
-                enterCode : code
+                enterCode: code
             });
             const chat = await setDoc(doc(db, "chats",partyName), {
                msg:[]
@@ -70,15 +72,17 @@ const CreateNewParty = () => {
         } catch (e) {
             console.error("Error adding document: ", e);
         }
-        const docRef = await setDoc(doc(db, "users",username), {
+        const docRef = await setDoc(doc(db, "users", username), {
             ...user
         });
 
     }
 
-    
+
     return (
-        <View style={styles.container}>
+        <View style = {[styles.MainContainer, {backgroundColor: 'white'}]}>
+        <ScrollView>
+        <View style={[styles.container, {paddingTop: '30px', paddingBottom: '60px'}]}>
             <Image
                 style={{ width: 100, height: 100 }}
                 source={images["image" + RandomNumber]}
@@ -129,7 +133,12 @@ const CreateNewParty = () => {
                 <Radio>Private</Radio>
             </RadioGroup>
             <View style={styles.row}>
-                <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={save}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>SAVE</Text>}</Button>
+                <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10,  }]} onPress={save}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>SAVE</Text>}</Button>
+            </View>
+        </View>
+        </ScrollView>
+        <View style={ styles.bottomView} >
+                <BottomNavigtor/>
             </View>
         </View>
     );
@@ -212,7 +221,23 @@ const styles = StyleSheet.create({
     },
     textBlack: {
         color: "black !important"
-    }
+    },
+    MainContainer:
+    {
+        flex: 1,
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        // paddingTop: ( Platform.OS === 'ios' ) ? 20 : 0
+    },
+    bottomView:{
+ 
+      width: '100%', 
+      height: 50, 
+      justifyContent: 'center', 
+      alignItems: 'center',
+      position: 'absolute',
+      bottom: 0
+    },
 });
 
 export default CreateNewParty

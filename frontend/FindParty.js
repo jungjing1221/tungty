@@ -8,6 +8,7 @@ import { collection, getDoc, doc, getDocs, onSnapshot, setDoc } from "firebase/f
 import { db } from '../firebase/firebase-config';
 import Searchbar from '../assets/component/searchbar';
 import { party } from '../assets/Party';
+import BottomNavigtor from '../navigation/BottomNavigator';
 
 const FindParty = ({ navigation }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -78,11 +79,14 @@ const FindParty = ({ navigation }) => {
 
 
   return (
+
+    <View style = {[styles.MainContainer, {backgroundColor: 'white'}]}>
+    <ScrollView style={styles.scrollView}>
     <TabView style={[styles.tabView]}
       selectedIndex={selectedIndex}
       onSelect={index => setSelectedIndex(index)}>
-      <Tab title='PUBLIC PARTY' style={{ backgroundColor: 'white' }}>
-        <Layout style={styles.tabContainer}>
+      <Tab title='PUBLIC PARTY' style={{ backgroundColor: 'white',}}>
+        <Layout style={[styles.tabContainer]}>
           <Searchbar setTextProp={setText} findPartyProp={findParty}></Searchbar>
           <View style={styles.containerFilter}>
             <Text category='h1' style={[styles.fontTh, { color: '#FDC319', paddingRight: '150px' }]}>หาปาร์ตี้</Text>
@@ -117,6 +121,16 @@ const FindParty = ({ navigation }) => {
         </Layout>
       </Tab>
     </TabView>
+    </ScrollView>
+
+ <View style={ styles.bottomView} >
+
+    <BottomNavigtor/>
+
+ </View>
+
+</View>
+    
   );
 };
 
@@ -208,7 +222,29 @@ const styles = StyleSheet.create({
   },
   column9: {
     width: "75%"
-  }
+  },
+  MainContainer:
+    {
+        flex: 1,
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        // paddingTop: ( Platform.OS === 'ios' ) ? 20 : 0
+    },
+    bottomView:{
+ 
+      width: '100%', 
+      height: 50, 
+      justifyContent: 'center', 
+      alignItems: 'center',
+      position: 'absolute',
+      bottom: 0
+    },
+ 
+    textStyle:{
+ 
+      color: '#fff',
+      fontSize:22
+    },
 });
 
 export default FindParty

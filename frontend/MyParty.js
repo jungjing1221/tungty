@@ -8,6 +8,7 @@ import { collection, getDoc, doc, getDocs, onSnapshot, setDoc } from "firebase/f
 import { db } from '../firebase/firebase-config';
 import { party } from '../assets/Party';
 import Searchbar from '../assets/component/searchbar';
+import BottomNavigtor from '../navigation/BottomNavigator';
 
 const MyParty = ({ navigation }) => {
 
@@ -30,7 +31,7 @@ const MyParty = ({ navigation }) => {
 
                 let myParty = value.filter(party => user.party.includes(party.partyName))
                 setData(myParty);
-                
+
             }).catch(err => {
                 console.log(err);
             });
@@ -52,32 +53,36 @@ const MyParty = ({ navigation }) => {
         // <TabView style={[styles.tabView]}
         //   selectedIndex={selectedIndex}
         //   onSelect={index => setSelectedIndex(index)}>
-        <View style={styles.tabContainer}>
-            <Searchbar></Searchbar>
-            <View style={styles.containerFilter}>
-                <Text style={[styles.fontTh, { color: '#FDC319', paddingRight: '100px', fontSize: '42px' }]}>ปาร์ตี้ของฉัน</Text>
-                <Image source={require('../assets/sort_icon.png')} style={{ width: 30, height: 30 }} />
-            </View>
-            <View style={styles.containerCardparty}>
-                {data.map((item, index) =>
-                    <TouchableOpacity style={[styles.column6, { padding: 10 }]} onPress={() => { navigation.navigate("PartyInfo",{partyID:data[index].partyName});}}>
-                        <View style={[styles.row, styles.card]}>
-                            <View style={[styles.column3, { padding: 5 }]}>
-                                <Image source={require('../assets/foodparty_icon.png')} style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover" }} />
+        <View style = {[styles.MainContainer, {backgroundColor: 'white'}]}>
+            <ScrollView style={styles.scrollView}>
+            <View style={styles.tabContainer}>
+                <Searchbar></Searchbar>
+                <View style={styles.containerFilter}>
+                    <Text style={[styles.fontTh, { color: '#FDC319', paddingRight: '100px', fontSize: '42px' }]}>ปาร์ตี้ของฉัน</Text>
+                    <Image source={require('../assets/sort_icon.png')} style={{ width: 30, height: 30 }} />
+                </View>
+                <View style={styles.containerCardparty}>
+                    {data.map((item, index) =>
+                        <TouchableOpacity style={[styles.column6, { padding: 10 }]} onPress={() => { navigation.navigate("PartyInfo", { partyID: data[index].partyName }); }}>
+                            <View style={[styles.row, styles.card]}>
+                                <View style={[styles.column3, { padding: 5 }]}>
+                                    <Image source={require('../assets/foodparty_icon.png')} style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover" }} />
+                                </View>
+                                <View style={[styles.column9]}>
+                                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px', fontWeight: 'bold' }]}>{item.partyName}</Text>
+                                </View>
                             </View>
-                            <View style={[styles.column9]}>
-                                <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px', fontWeight: 'bold' }]}>{item.partyName}</Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                )}
+                        </TouchableOpacity>
+                    )}
+                </View>
             </View>
-
+            </ScrollView>
+            <View style={ styles.bottomView} >
+                <BottomNavigtor/>
+            </View>
         </View>
 
 
-
-        // </TabView>
     );
 };
 
@@ -191,7 +196,29 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         width: '100%',
-    }
+    },
+    MainContainer:
+    {
+        flex: 1,
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        // paddingTop: ( Platform.OS === 'ios' ) ? 20 : 0
+    },
+    bottomView:{
+ 
+      width: '100%', 
+      height: 50, 
+      justifyContent: 'center', 
+      alignItems: 'center',
+      position: 'absolute',
+      bottom: 0
+    },
+ 
+    textStyle:{
+ 
+      color: '#fff',
+      fontSize:22
+    },
 });
 
 export default MyParty

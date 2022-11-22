@@ -5,7 +5,6 @@ import { useFonts, Kanit_400Regular } from '@expo-google-fonts/kanit';
 import { collection, addDoc, doc, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from '../firebase/firebase-config';
 
-
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -73,7 +72,9 @@ const Login = ({navigation}) => {
         <View styles={{ backgroundColor: '#FFFFFF' }}>
         </View>
       </View>
+      
     </View>
+    
   );
 };
 const styles = StyleSheet.create({
