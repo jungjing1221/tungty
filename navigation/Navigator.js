@@ -16,9 +16,9 @@ import CreateNewParty from "../frontend/CreateParty"
 import EditParty from "../frontend/EditParty";
 import Notification from "../frontend/NotifyPage";
 import EditProfile from "../frontend/EditProfile";
-import PartyInfo from "../frontend/ShowPartyInfo";
 import Chat from "../frontend/Chat";
-import BottomNavigtor from "./BottomNavigator";
+import PartyInfo from "../frontend/PartyInfo";
+import ProfileInfo from "../frontend/ProfileInfo";
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
