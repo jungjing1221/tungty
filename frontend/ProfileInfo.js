@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#000000',
         borderRadius: '30px',
-        padding: 10,
+        padding: 11,
         marginRight: 10,
     },
     row: {
