@@ -65,7 +65,7 @@ const PartyInfo = ({ route, navigation }) => {
         setJoinStatus(true)
       }
       const chatRoom = async()=>{
-        navigation.navigate("MyChat")
+        navigation.navigate("Chat",{partyID:partyID})
       }
       const editPage = async()=>{
         navigation.navigate("EditParty",{partyID:partyID})

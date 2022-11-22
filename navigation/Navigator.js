@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 // import { createDrawerNavigator } from "@react-navigation/drawer";
 // import screen ที่เกี่ยวข้อง
 import Login from "../frontend/LoginPage";
-import Register from "../frontend/reg";
+import Register from "../frontend/Reg";
 import Main_Page from "../frontend/MainPage";
 import MyParty from "../frontend/MyParty";
 import MyChat from "../frontend/MyChat";
@@ -30,7 +30,7 @@ function MainNavigator() {
       screenOptions={{ headerStyle: { backgroundColor: "#4542C1", borderBottomColor: "#4542C1" }, headerTintColor: "white", headerShown: true }}>
       <Stack.Screen
         name="Login"
-        component={Chat}
+        component={Login}
         options={{
           title: "",
         }}
@@ -51,6 +51,9 @@ function MainNavigator() {
         title: "",
       }} />
       <Stack.Screen name="MyChat" component={MyChat} options={{
+        title: "",
+      }} />
+      <Stack.Screen name="Chat" component={Chat} options={{
         title: "",
       }} />
       <Stack.Screen name="Notification" component={Notification} options={{

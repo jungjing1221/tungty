@@ -62,6 +62,9 @@ const CreateNewParty = () => {
                 type: displayValue,
                 enterCode : code
             });
+            const chat = await setDoc(doc(db, "chats",partyName), {
+               msg:[]
+            });
             user.party.push(partyName)
 
         } catch (e) {

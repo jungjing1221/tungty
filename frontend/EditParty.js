@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
-import { collection, addDoc, doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, onSnapshot, setDoc,getDocs } from "firebase/firestore";
 import { db } from '../firebase/firebase-config';
 import { Radio, RadioGroup, IndexPath, Layout, Select, SelectItem, Input, Datepicker, Button } from '@ui-kitten/components';
 import images from '../assets/images';
@@ -18,18 +18,31 @@ const EditParty = ({ route, navigation }) => {
     const [date, setDate] = React.useState(new Date());
     const [RandomNumber] = useState(Math.floor(Math.random() * 5) + 1);
     const [partyData, setPartyData] = useState()
+    const [EditingParty, setEditingParty] = useState()
 
     useEffect(() => {
         const fetchAllparty = () => {
             let partyPromise = party()
+            let typelist =  [
+                'อาหาร',
+                'ท่องเที่ยว',
+                'พักผ่อน',
+                'เรียน/ทำงาน',
+                'อื่น ๆ'
+            ];
             partyPromise.then(async (value) => {
                 let targetparty = value.filter(party => party.partyName == partyID)
-                setPartyData(targetparty[0])
+                setPartyData(value)
                 setPartyName(targetparty[0].partyName)
                 setAbout(targetparty[0].about)
+                setSelectedPrivate(targetparty[0].selectedPrivate)
+                setEditingParty(targetparty[0])
+                // console.log(typelist.indexOf(targetparty[0].type))
+                // setSelectedIndex(1)
             }).catch(err => {
               console.log(err);
             });
+            
         }
         fetchAllparty()
     }, [])
@@ -55,7 +68,6 @@ const EditParty = ({ route, navigation }) => {
         const username = localStorage.getItem("Username")
         const ref = doc(db, "users", username);
         const snap = await getDoc(ref);
-
         if (snap.exists()) {
             console.log(snap.data().party);
             let user = snap.data()
@@ -66,24 +78,56 @@ const EditParty = ({ route, navigation }) => {
             console.log("No such document!");
         }
         console.log(partyName, about, selectedPrivate, date)
-        // try {
-        //     const docRef = await addDoc(collection(db, "parties"), {
-        //         partyName: partyName,
-        //         about: about,
-        //         selectedPrivate: selectedPrivate,
-        //         date: date,
-        //         head: username
+        try {
+            const partyref = await setDoc(doc(db, "parties",partyID), {
+                partyName: partyName,
+                about: about,
+                selectedPrivate: selectedPrivate,
+                date: date,
+                head: EditingParty.username,
+                type: displayValue,
+                enterCode : EditingParty.code
+            });
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+    }
+
+    const delParty =async()=>{
+        //DEL PARTY FROM LIST
+        let leftParty = partyData.filter(party => party.partyName!= partyID)
+        console.log(leftParty)
+        // leftParty.forEach( async(party)=>{
+        //     const docRef = await setDoc(doc(db, "parties",party.partyName), {
+        //         ...party
         //     });
-        //     console.log("Document written with ID: ", docRef.id);
+        // })
+        await deleteDoc(doc(db, "parties", partyID));
 
-        // } catch (e) {
-        //     console.error("Error adding document: ", e);
-        // }
-        // const docRef = await setDoc(doc(db, "users","jjamee"), {
-        //     name:"jjamee",
-        //     username:"jame"
-        // });
 
+        let alluser = []
+        const userSnapshot = await getDocs(collection(db, "users"));
+        console.log(userSnapshot)
+        userSnapshot.forEach((user) => {
+            console.log(user.data().username)
+            alluser.push(user.data())
+        });
+
+        //DEL PARTY FROM ALL USER
+        alluser.forEach( async(user)=>{
+            for( var i = 0; i < user.party.length; i++){ 
+                if ( user.party[i] == partyID) { 
+                    user.party.splice(i, 1); 
+                    console.log("del",i)
+                    console.log(user.party)
+                }
+            }
+            const docRef = await setDoc(doc(db, "users",user.username), {
+                ...user
+            });
+        })
+        console.log(alluser)
+        navigation.navigate("FindParty");
     }
     return (
         <View style={styles.container}>
@@ -138,7 +182,7 @@ const EditParty = ({ route, navigation }) => {
             </RadioGroup>
             <View style={styles.row}>
                 <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={save}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>SAVE</Text>}</Button>
-                <Button style={[styles.fontEng, styles.buttonStyle2, { margin: 10 }]} onPress={'delete'}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>DELETE PARTY</Text>}</Button>
+                <Button style={[styles.fontEng, styles.buttonStyle2, { margin: 10 }]} onPress={delParty}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>DELETE PARTY</Text>}</Button>
             </View>
         </View>
     );

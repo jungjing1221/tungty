@@ -1,22 +1,75 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image, ImageBackground } from 'react-native';
 import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/components';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 import { Kanit_400Regular } from '@expo-google-fonts/kanit';
-
+import { collection, addDoc, doc, getDoc, onSnapshot,setDoc, updateDoc, arrayUnion, Timestamp,toDate } from "firebase/firestore";
+import { db } from '../firebase/firebase-config';
 import Searchbar from '../assets/component/searchbar';
 
-const Chat = ({ navigation }) => {
 
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
-    const [data, setData] = useState([
-        { id: 1, name: "User 1", description: "Hello 1", state: 'other' },
-        { id: 2, name: "User 2", description: "Hello 2", state: 'other' },
-        { id: 3, name: "User 3", description: "Hello 3", state: 'other' },
-        { id: 4, name: "User 4", description: "Hello 4", state: 'user' },
-        { id: 5, name: "User 5", description: "Hello 5", state: 'other' },
-    ])
+const Chat = ({ navigation,route }) => {
+    const { partyID } = route.params;
+    const [text, setText] = React.useState(0);
+    const [data, setData] = useState([])
+    
+    useEffect(()=>{
+        const fetchChat = async () => {
+            let user
+            const username = localStorage.getItem("Username")
+            const ref = doc(db, "users", username);
+            const snap = await getDoc(ref);
+            if (snap.exists()) {
+                user = snap.data()
+            } else {
+                window.alert("มึงไม่มี USER")
+            }
+            const chatref = doc(db, "chats", partyID);
+            const chat = await onSnapshot(chatref,(chatList)=>{
+            if(chatList){
+                let msgList
+            console.log(chatList.data().msg[0])
+            msgList = chatList.data().msg
+            msgList.forEach(msg => {
+                console.log(msg)
+                if(msg.sender == username){
+                    msg.state = "user"
+                }
+                else{
+                    msg.state = "other"
+                }
+                msg.time = (msg.time.toDate()).toString().slice(16,21) +", "+ (msg.time.toDate()).toString().slice(8,10)+" "+ (msg.time.toDate()).toString().slice(4,7)
+            });
+            
+            setData(msgList)}
+            });
+            
+        }
+        fetchChat()
+    },[])
+
+    const send = async () => {
+        console.log(text)
+        let user
+        const username = localStorage.getItem("Username")
+        const ref = doc(db, "users", username);
+        const snap = await getDoc(ref);
+        if (snap.exists()) {
+            user = snap.data()
+        } else {
+            window.alert("มึงไม่มี USER")
+        }
+        await updateDoc(doc(db, "chats",partyID),{
+            msg: arrayUnion({
+                text:text,
+                sender:username,
+                time:Timestamp.now()
+            })
+        })
+        setText()
+    }
+
     let [fontsLoaded] = useFonts({
         Inter_900Black, OpenSans_500Medium, Kanit_400Regular
 
@@ -35,7 +88,7 @@ const Chat = ({ navigation }) => {
                 <FlatList
                     data={data}
                     renderItem={({ item }) =>
-                        <View style={[styles.containerCardparty]}>
+                        <View style={[styles.containerCardparty,{marginTop:'10px'}]}>
                             <View style={[styles.row, { padding: '10px' }]}>
                                 <View>
                                     <ImageBackground source={require('../assets/circlebg.png')} style={{ width: '40px', height: '40px', justifyContent: 'center', alignItems: 'center', }}>
@@ -44,29 +97,30 @@ const Chat = ({ navigation }) => {
                                 </View>
 
                                 <View style={[{ alignContent: 'center', justifyContent: 'center', paddingLeft: '10px' }]}>
-                                    <Text style={{ fontWeight: 'bold' }}>{item.name}</Text>
+                                    <Text style={{ fontWeight: 'bold' }}>{item.sender} {item.time}</Text>
                                 </View>
                             </View>
 
                             {item.state === 'user' ?
                                 <View style={[styles.card, { width: 'auto', backgroundColor: '#4542C1' }]}>
-                                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '20px', fontWeight: 'bold' }]}>{item.description}</Text>
+                                    <Text style={[styles.fontTh, { color: '#ffffff', fontSize: '20px', fontWeight: 'bold' }]}>{item.text}</Text>
                                 </View> : <View style={[styles.card, { width: 'auto', }]}>
-                                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '20px', fontWeight: 'bold' }]}>{item.description}</Text>
+                                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '20px', fontWeight: 'bold' }]}>{item.text}</Text>
                                 </View>}
 
                         </View>}
                     keyExtractor={(item) => item.id}
                 />
 
-                <View style={[styles.searchContainer, {width: '100%'}]}>
+                <View style={[styles.searchContainer, { width: '100%' }]}>
 
-                    <TextInput
+                    <Input
                         // placeholder="Search"
                         style={styles.textInput}
+                        onChangeText={text => setText(text)}
                     />
-                    <View style={{justifyContent: 'center', }}>
-                        <Text>SENT</Text>
+                    <View style={{ justifyContent: 'center', }}>
+                        <Text onPress={send}>SENT</Text>
                     </View>
 
 
