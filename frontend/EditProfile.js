@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         fontFamily: 'Kanit_400Regular',
-        backgroundColor: '#121212',
+        backgroundColor: '#4542C1',
         alignItems: 'center',
         justifyContent: 'center',
         padding: 50,
