@@ -85,6 +85,7 @@ if (!fontsLoaded) {
 
 return (
     <View style={[styles.MainContainer, { backgroundColor: 'white' }]}>
+        <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 40, color: '#FDC319', textAlign:"center" }}>Chat Room ♥</Text>
         <ScrollView style={styles.scrollView}>
             <View style={styles.tabContainer}>
                 <Searchbar></Searchbar>
@@ -97,7 +98,7 @@ return (
                                         <Image source={require('../assets/foodparty_icon.png')} style={{ width: 50, height: 50, }} />
                                     </ImageBackground>
                                 </View>
-                                <View style={[styles.column9, { paddingLeft: '10px' }]}>
+                                <View style={[styles.column9, styles.container, { paddingLeft: '10px' }]}>
                                     <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '20px', fontWeight: 'bold' }]}>{item.party}</Text>
                                     <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '15px', fontWeight: 'bold' }]}>{item.msg}</Text>
                                 </View>
@@ -119,6 +120,11 @@ return (
 };
 
 const styles = StyleSheet.create({
+    container: {
+        fontFamily: 'Kanit_400Regular',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     tabView: {
         backgroundColor: 'white',
         flex: 1,
@@ -187,7 +193,7 @@ const styles = StyleSheet.create({
     },
     card: {
         padding: 10,
-        backgroundColor: '#FFF9E5',
+        backgroundColor: 'yellow',
         borderRadius: "30px",
         borderColor: "transparent",
     },
