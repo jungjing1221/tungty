@@ -61,7 +61,7 @@ const MyChat = ({ navigation }) => {
                 console.log(chatList)
                 chatList.forEach((chat)=>{
                     if(chat.msg[chat.msg.length-1])
-                    chat.msg = chat.msg[chat.msg.length-1].text
+                        chat.msg = '"' +chat.msg[chat.msg.length-1].text+'"'
                     else chat.msg = "ยังไม่มีข้อความในห้องสนทนานี้"
                     console.log(chat.msg)
                 })
@@ -122,8 +122,7 @@ return (
 const styles = StyleSheet.create({
     container: {
         fontFamily: 'Kanit_400Regular',
-        alignItems: 'center',
-        justifyContent: 'center',
+
     },
     tabView: {
         backgroundColor: 'white',

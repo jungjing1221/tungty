@@ -67,7 +67,7 @@ const FindParty = ({ navigation }) => {
       setData(workParty)
     }
     else if (selectedFilter.row == 5) {
-      let otherParty = parties[0].filter(party => party.type == "อื่นๆ")
+      let otherParty = parties[0].filter(party => party.type == "อื่น ๆ")
       setData(otherParty)
     }
     else{

@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#4542C1',
         borderColor: 'transparent',
         borderRadius: '30px',
+        padding:'15px'
     },
     vwSearch: {
         justifyContent: 'center',
