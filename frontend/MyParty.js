@@ -90,7 +90,7 @@ const MyParty = ({ navigation }) => {
                 <Button style={{ width: 50, height: 50, borderRadius: '100%', marginBottom: 150, marginLeft: 300 }}>
                     <Text style={[styles.buttonTextStyle, { fontSize: 100 }]}>+</Text>
                 </Button>
-                <BottomNavigtor />
+                <BottomNavigtor navigation={navigation} />
             </View>
         </View>
 
