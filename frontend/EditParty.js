@@ -36,7 +36,9 @@ const EditParty = ({ route, navigation }) => {
                 setPartyName(targetparty[0].partyName)
                 setAbout(targetparty[0].about)
                 setSelectedPrivate(targetparty[0].selectedPrivate)
+                setSelectedIndex(targetparty[0].type)
                 setEditingParty(targetparty[0])
+
                 // console.log(typelist.indexOf(targetparty[0].type))
                 // setSelectedIndex(1)
             }).catch(err => {
@@ -137,25 +139,12 @@ const EditParty = ({ route, navigation }) => {
             <View style={styles.row}>
                 <Text style={styles.fontEngInputHeader}>Party Type : </Text>
                 <View style={styles.container}>
-                    <Layout style={styles.container} level='1'>
-                        <Select
-                            style={{ width: "240px" }}
-                            value={displayValue}
-                            selectedIndex={selectedIndex}
-                            onSelect={index => setSelectedIndex(index)}>
-                            <SelectItem title='อาหาร' />
-                            <SelectItem title='ท่องเที่ยว' />
-                            <SelectItem title='พักผ่อน' />
-                            <SelectItem title='เรียน/ทำงาน' />
-                            <SelectItem title='อื่น ๆ' />
-                        </Select>
-                    </Layout>
-
+                    <Input style={styles.fontEngInput} value={selectedIndex} disabled={true} onChangeText={text => setPartyName(text)} />
                 </View>
             </View>
             <View style={styles.row}>
                 <Text style={styles.fontEngInputHeader}>Party Name :</Text>
-                <Input style={styles.fontEngInput} value={partyName} onChangeText={text => setPartyName(text)} />
+                <Input style={styles.fontEngInput} value={partyName} disabled={true} onChangeText={text => setPartyName(text)} />
             </View>
             <View style={styles.row}>
                 <Text style={styles.fontEngInputHeader}>About :</Text>
@@ -168,6 +157,7 @@ const EditParty = ({ route, navigation }) => {
                         date={date}
                         style={{ borderRadius: '30px' }}
                         onSelect={nextDate => setDate(nextDate)}
+                        disabled={true}
                     />
                 </Layout>
             </View>

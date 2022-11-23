@@ -42,6 +42,7 @@ const Register = () => {
             name: name,
             username:username,
             password:cipherpassword,
+            aboutMe:aboutMe,
             party:[]
           });
           navigation.navigate("Login")

@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { Input, Button, Text, Divider, Icon } from '@ui-kitten/components';
 import { useFonts, Kanit_400Regular } from '@expo-google-fonts/kanit';
-import { collection, addDoc, doc, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from '../firebase/firebase-config';
 import images from '../assets/images';
+import { async } from '@firebase/util';
 
 
 const ProfileInfo = ({ navigation }) => {
+    const [user, setUser] = useState('')
+
+    useEffect(() => {
+        //FETCH PUBLIC PARTY DATA
+        const fetchUser = async () => {
+            let user
+            const username = localStorage.getItem("Username")
+            const ref = doc(db, "users", username);
+            const snap = await getDoc(ref);
+            if (snap.exists()) {
+                user = snap.data()
+            } else {
+                window.alert("มึงไม่มี USER")
+            }
+            console.log(user)
+            setUser(user)
+
+        }
+        fetchUser()
+    }, [])
+
     let [fontsLoaded] = useFonts({
         Kanit_400Regular
     });
@@ -16,6 +38,7 @@ const ProfileInfo = ({ navigation }) => {
         return null;
     }
 
+
     return (
         <View style={styles.container}>
             <Image
@@ -23,14 +46,14 @@ const ProfileInfo = ({ navigation }) => {
                 source={images.image1}
             />
             <View style={{ marginTop: 10 }}>
-                <Text style={[styles.fontEngInputHeader, {textAlign: 'center'}]}>สมสีส้ม</Text>
+                <Text style={[styles.fontEngInputHeader, { textAlign: 'center' }]}>{user.name}</Text>
                 <Divider style={styles.bgWhite} />
                 <View>
-                    <Text style={{fontFamily: 'Kanit_400Regular', marginTop:10, fontSize:20, color: '#4542C1'}}>เรียนที่คณะเทคโนโลยีสารสนเทศสจล. ปี3 รุ่น 18 ชอบเล่นเกมมาก ชอบเล่นบาสมากชวนเล่นได้ค่ะ ขี้เซามาก ตื่นสาย หาตี้โทรปลุก ไปคณะค่ะ</Text>
+                    <Text style={{ fontFamily: 'Kanit_400Regular', marginTop: 10, fontSize: 20, color: '#4542C1' }}>{user.aboutMe}</Text>
                 </View>
             </View>
-            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={() =>  navigation.navigate("EditProfile")}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>Edit About Me</Text>}</Button>
-            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 30 }]} onPress={"singout"}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', fontSize:20}}>SIGN OUT</Text>}</Button>
+            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={() => navigation.navigate("EditProfile")}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>Edit About Me</Text>}</Button>
+            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 30 }]} onPress={"singout"}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', fontSize: 20 }}>SIGN OUT</Text>}</Button>
         </View>
     );
 };

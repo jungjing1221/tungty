@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
 import { Layout, Tab, TabView, Text, Input, Button, Card, IndexPath, Select, SelectItem, Icon } from '@ui-kitten/components';
@@ -10,6 +10,7 @@ import { db } from '../firebase/firebase-config';
 import Searchbar from '../assets/component/searchbar';
 import { party } from '../assets/Party';
 import BottomNavigtor from '../navigation/BottomNavigator';
+import { async } from '@firebase/util';
 
 const FindParty = ({ navigation }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -45,6 +46,36 @@ const FindParty = ({ navigation }) => {
       fetchAllparty()
     }
   }, [isFocused])
+
+  useEffect(() => {
+    console.log(selectedFilter.row)
+    console.log(data)
+    if (selectedFilter.row==1){
+      let foodParty = parties[0].filter(party=>party.type == "อาหาร")
+      setData(foodParty)
+    }
+    else if(selectedFilter.row==2){
+      let travelParty = parties[0].filter(party => party.type == "ท่องเที่ยว")
+      setData(travelParty)
+    }
+    else if (selectedFilter.row == 3) {
+      let restParty = parties[0].filter(party => party.type == "พักผ่อน")
+      setData(restParty)
+    }
+    else if (selectedFilter.row == 4) {
+      let workParty = parties[0].filter(party => party.type == "เรียน/ทำงาน")
+      setData(workParty)
+    }
+    else if (selectedFilter.row == 5) {
+      let otherParty = parties[0].filter(party => party.type == "อื่นๆ")
+      setData(otherParty)
+    }
+    else{
+      let allparty = parties[0]
+      setData(allparty)
+    }
+  }, [selectedFilter])
+
   let [fontsLoaded] = useFonts({
     Inter_900Black, OpenSans_500Medium, Kanit_400Regular
 
@@ -97,9 +128,13 @@ const FindParty = ({ navigation }) => {
       });
       navigation.navigate("PartyInfo", { partyID: entered.partyName });
     }
-
   }
 
+  const filterChange = async (index) => {
+    console.log("filter")
+    setSelectedFilter(index)
+
+  }
 
   return (
 
@@ -114,13 +149,13 @@ const FindParty = ({ navigation }) => {
               <View style={styles.containerFilter}>
                 <Text category='h1' style={[styles.fontTh, { color: '#FDC319', paddingRight: '50px' }]}>หาปาร์ตี้</Text>
                 <Icon
-                  style={[styles.icon, { marginTop: 10 }]}
+                  style={[styles.icon, { marginTop: 0 }]}
                   name='funnel-outline' />
                 <Layout level='1'>
                   <Select
                     selectedIndex={selectedFilter}
                     value={displayValue}
-                    onSelect={index => setSelectedFilter(index)}>
+                    onSelect={index => filterChange(index)}>
                     <SelectItem title='ทั้งหมด' />
                     <SelectItem title='อาหาร' />
                     <SelectItem title='ท่องเที่ยว' />

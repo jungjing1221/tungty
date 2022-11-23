@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
 import { Input, Button, Text, Divider, Icon } from '@ui-kitten/components';
 import { useFonts, Kanit_400Regular } from '@expo-google-fonts/kanit';
@@ -23,6 +24,7 @@ const PartyInfo = ({ route, navigation }) => {
         member:0,
         datetext:""
     });
+    const isFocused = useIsFocused()
     useEffect(() => {
         const checkparty = async() => {
             let loginUser;
@@ -51,9 +53,12 @@ const PartyInfo = ({ route, navigation }) => {
               console.log(err);
             });
         }
-        fetchAllparty()
-        checkparty()
-    }, [])
+        if(isFocused){
+            fetchAllparty()
+            checkparty()
+        }
+        
+    }, [isFocused])
 
     const joinParty = async () => {
         console.log(partyID,user)
