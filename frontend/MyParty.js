@@ -14,6 +14,7 @@ const MyParty = ({ navigation }) => {
 
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [data, setData] = useState([])
+    const [text, setText] = useState('');
     useEffect(() => {
         //FETCH PUBLIC PARTY DATA
         const fetchAllparty = () => {
@@ -39,6 +40,14 @@ const MyParty = ({ navigation }) => {
         fetchAllparty()
     }, [])
 
+    const findParty = async () => {
+        console.log(text)
+        let target = data.filter(party => party.partyName.includes(text))
+        console.log(target)
+        setData([...target]);
+        
+      }
+
     let [fontsLoaded] = useFonts({
         Inter_900Black, OpenSans_500Medium, Kanit_400Regular
 
@@ -56,7 +65,7 @@ const MyParty = ({ navigation }) => {
         <View style = {[styles.MainContainer, {backgroundColor: 'white'}]}>
             <ScrollView style={styles.scrollView}>
             <View style={styles.tabContainer}>
-                <Searchbar></Searchbar>
+                <Searchbar setTextProp={setText} findPartyProp={findParty}></Searchbar>
                 <View style={styles.containerFilter}>
                     <Text style={[styles.fontTh, { color: '#FDC319', paddingRight: '100px', fontSize: '42px' }]}>ปาร์ตี้ของฉัน</Text>
                     <Image source={require('../assets/sort_icon.png')} style={{ width: 30, height: 30 }} />
