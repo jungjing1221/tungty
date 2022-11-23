@@ -25,6 +25,7 @@ const Chat = ({ navigation, route }) => {
             } else {
                 window.alert("มึงไม่มี USER")
             }
+            console.log(partyID)
             const chatref = doc(db, "chats", partyID);
             const chat = await onSnapshot(chatref, (chatList) => {
                 if (chatList) {
