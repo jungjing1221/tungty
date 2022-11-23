@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
-import { collection, deleteDoc, doc, getDoc, onSnapshot, setDoc,getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, updateDoc, setDoc,getDocs } from "firebase/firestore";
 import { db } from '../firebase/firebase-config';
 import { Radio, RadioGroup, IndexPath, Layout, Select, SelectItem, Input, Datepicker, Button } from '@ui-kitten/components';
 import images from '../assets/images';
@@ -79,18 +79,16 @@ const EditParty = ({ route, navigation }) => {
         }
         console.log(partyName, about, selectedPrivate, date)
         try {
-            const partyref = await setDoc(doc(db, "parties",partyID), {
-                partyName: partyName,
+            const partyref = await updateDoc(doc(db, "parties",partyID), {
                 about: about,
                 selectedPrivate: selectedPrivate,
                 date: date,
-                head: EditingParty.username,
                 type: displayValue,
-                enterCode : EditingParty.code
             });
         } catch (e) {
             console.error("Error adding document: ", e);
         }
+        navigation.navigate("PartyInfo",{partyID:partyName});
     }
 
     const delParty =async()=>{

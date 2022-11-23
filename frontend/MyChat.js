@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image, ImageBackground} from 'react-native';
 import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/components';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 import { Kanit_400Regular } from '@expo-google-fonts/kanit';
 import BottomNavigtor from '../navigation/BottomNavigator';
+import { party } from '../assets/Party';
+import { collection, deleteDoc, doc, getDoc, updateDoc, setDoc,getDocs } from "firebase/firestore";
+import { db } from '../firebase/firebase-config';
 
 
 import Searchbar from '../assets/component/searchbar';
@@ -19,6 +22,32 @@ const MyChat = ({ navigation }) => {
         { id: 4, name: "ไปตลาดหอในกัน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
         { id: 5, name: "เล่นเกมกันเพื่อนๆ", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง" },
     ])
+
+    useEffect(() => {
+        //FETCH PUBLIC PARTY DATA
+        const fetchAllparty = () => {
+            let partyPromise = party()
+            partyPromise.then(async (value) => {
+                let user
+                const username = localStorage.getItem("Username")
+                const ref = doc(db, "users", username);
+                const snap = await getDoc(ref);
+                if (snap.exists()) {
+                    user = snap.data()
+                } else {
+                    window.alert("มึงไม่มี USER")
+                }
+
+                let myParty = value.filter(party => user.party.includes(party.partyName))
+                setData(myParty);
+
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+        fetchAllparty()
+    }, [])
+
     let [fontsLoaded] = useFonts({
         Inter_900Black, OpenSans_500Medium, Kanit_400Regular
 
@@ -43,7 +72,7 @@ const MyChat = ({ navigation }) => {
                                 </ImageBackground>
                             </View>
                             <View style={[styles.column9, {paddingLeft: '10px'}]}>
-                                <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '20px', fontWeight: 'bold' }]}>{item.name}</Text>
+                                <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '20px', fontWeight: 'bold' }]}>{item.partyName}</Text>
                             </View>
                         </View>
                     </View>
@@ -52,7 +81,7 @@ const MyChat = ({ navigation }) => {
         </View>
             </ScrollView>
             <View style={ styles.bottomView} >
-                <BottomNavigtor/>
+                <BottomNavigtor navigation={navigation} />
             </View>
         </View>
 

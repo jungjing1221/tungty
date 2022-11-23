@@ -11,10 +11,17 @@ import BottomNavigtor from '../navigation/BottomNavigator';
 
 const PartyInfo = ({ route, navigation }) => {
     const { partyID } = route.params;
-    const [joinStatus, setJoinStatus] = React.useState(0);
-    const [isHead, setIsHead] = React.useState(0);
-    const [user, setUser] = React.useState();
-    const [data, setData] = useState([]);
+    const [joinStatus, setJoinStatus] = useState(0);
+    const [isHead, setIsHead] = useState(0);
+    const [user, setUser] = useState();
+    const [data, setData] = useState({
+        head: "",
+        partyName:"",
+        date:"",
+        about:"",
+        type:"",
+        member:0
+    });
     useEffect(() => {
         const checkparty = async() => {
             let loginUser;
@@ -37,7 +44,8 @@ const PartyInfo = ({ route, navigation }) => {
                 if(targetparty[0].head == username){
                     setIsHead(1)
                 }
-              setData([...value])
+                targetparty[0].date= targetparty[0].date.toDate().toString().slice(4,15)
+                setData(targetparty[0])
             }).catch(err => {
               console.log(err);
             });
@@ -47,22 +55,17 @@ const PartyInfo = ({ route, navigation }) => {
     }, [])
 
     const joinParty = async () => {
-        // const ref = doc(db, "users", username);
-        //     const snap = await getDoc(ref);
-        //     if (snap.exists()) {
-        //         let user = snap.data()
-        //     } else {
-        //         window.alert("เข้าสู่ระบบก่อนใช้งาน")
-        //     }
         console.log(partyID,user)
         user.party.push(partyID)
-        
-    
-    
+        data.member.push(user.username )
         //ADD PARTY TO USER
         const docRef = await setDoc(doc(db, "users", user.username), {
           ...user
         });
+
+        const partyRef = await setDoc(doc(db, "parties", partyID), {
+            ...data
+          });
         setJoinStatus(true)
       }
       const chatRoom = async()=>{
@@ -83,7 +86,18 @@ const PartyInfo = ({ route, navigation }) => {
         <View style = {[styles.MainContainer, {backgroundColor: 'white'}]}>
         <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
-            <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 20, color: '#FDC319' }}>4 SEPTEMBER 2022 08:30</Text>
+            <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 20, color: '#FDC319' }}>{data.date}</Text>
+            <View>
+                {(() => {
+                if (data.selectedPrivate){
+                    return (
+                        <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 15, color: '#FDC319' }}>รหัสเข้าร่วม : {data.enterCode}</Text>
+                    )
+                }
+
+                })()}
+                
+            </View>
             <Image
                 style={{ width: 100, height: 100, marginTop: 45 }}
                 source={images.image1}
@@ -92,14 +106,14 @@ const PartyInfo = ({ route, navigation }) => {
             <Icon
                 style={[styles.icon, {marginTop:10}]}
                 fill='#8F9BB3'
-                name='person-outline'/><Text style={{fontFamily: 'Kanit_400Regular', color:'grey', fontSize: 18, marginTop: 10}}>10</Text>
+                name='person-outline'/><Text style={{fontFamily: 'Kanit_400Regular', color:'grey', fontSize: 18, marginTop: 10}}>{data.member.length}</Text>
                 </View>
             <View style={{ marginTop: 10 }}>
                 <Divider style={styles.bgWhite} />
-                <Text style={styles.fontEngInputHeader}>ตื่นไปคณะด้วยกันไหมผองเพื่อนชาวไอที...</Text>
+                <Text style={styles.fontEngInputHeader}>{data.partyName}</Text>
                 <Divider style={styles.bgWhite} />
                 <View>
-                    <Text style={{ fontFamily: 'Kanit_400Regular', marginTop: 10 }}>เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไป เข้าเรียนสายบ่อยครั้ง อย่าลังเลที่จะเข้าร่วม กลุ่มของเรา มาตื่นไปเรียนวิชาที่เรารักไป...</Text>
+                    <Text style={{ fontFamily: 'Kanit_400Regular', marginTop: 10 }}>{data.about}</Text>
                 </View>
             </View>
             <View>
@@ -133,7 +147,7 @@ const PartyInfo = ({ route, navigation }) => {
         </View>
         </ScrollView>
         <View style={ styles.bottomView} >
-                <BottomNavigtor/>
+                <BottomNavigtor navigation={navigation} />
             </View>
         </View>
     );
