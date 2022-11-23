@@ -38,10 +38,13 @@ const MyParty = ({ navigation }) => {
             }).catch(err => {
                 console.log(err);
             });
+            console.log("focus")
         }
-        if (isFocused)
-        fetchAllparty()
-    }, [])
+        if (isFocused){
+            fetchAllparty()
+        }
+        
+    }, [isFocused])
 
     const findParty = async () => {
         console.log(text)
@@ -92,7 +95,7 @@ const MyParty = ({ navigation }) => {
                 </View>
             </ScrollView>
             <View style={styles.bottomView} >
-            <Button style={[styles.buttonStyle, { width: 50, height: 50, borderRadius: '100%', alignSelf: 'flex-end', marginBottom: '140px', marginRight: '10px' }]}>
+                <Button style={[styles.buttonStyle, { width: 50, height: 50, borderRadius: '100%', alignSelf: 'flex-end', marginBottom: '140px', marginRight: '10px' }]} onPress={() => { navigation.navigate("CreateNewParty"); }}>
           <Text style={[styles.buttonTextStyle, { fontSize: 100 }]}>+</Text>
         </Button>
                 <BottomNavigtor navigation={navigation} />
