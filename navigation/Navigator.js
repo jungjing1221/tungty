@@ -70,6 +70,9 @@ function MainNavigator() {
       <Stack.Screen name="PartyInfo" component={PartyInfo} options={{
         title: "",
       }} />
+      <Stack.Screen name="ProfileInfo" component={ProfileInfo} options={{
+        title: "",
+      }} />
     </Stack.Navigator>
 
   );

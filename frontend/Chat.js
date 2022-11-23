@@ -11,7 +11,7 @@ import Searchbar from '../assets/component/searchbar';
 
 const Chat = ({ navigation, route }) => {
     const { partyID } = route.params;
-    const [text, setText] = React.useState(0);
+    const [text, setText] = React.useState('');
     const [data, setData] = useState([])
 
     useEffect(() => {
@@ -68,7 +68,7 @@ const Chat = ({ navigation, route }) => {
                 time: Timestamp.now()
             })
         })
-        setText()
+        setText("")
     }
 
     let [fontsLoaded] = useFonts({
@@ -113,8 +113,21 @@ const Chat = ({ navigation, route }) => {
                     keyExtractor={(item) => item.id}
                 />
 
-                
-                
+                <View style={[styles.searchContainer, { width: '100%' }]}>
+
+                    <Input
+                        // placeholder="Search"
+                        style={styles.textInput}
+                        value={text}
+                        onChangeText={text => setText(text)}
+                    />
+                    <View style={{ justifyContent: 'center', }}>
+                        <Text onPress={send}>SENT</Text>
+                    </View>
+
+
+                </View>
+
                 {/* Search Results Container */}
 
                 <View></View>

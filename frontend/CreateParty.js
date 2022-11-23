@@ -66,7 +66,8 @@ const CreateNewParty = ({navigation}) => {
                 member:[username]
             });
             const chat = await setDoc(doc(db, "chats",partyName), {
-               msg:[]
+               msg:[],
+               party:partyName
             });
             user.party.push(partyName)
 

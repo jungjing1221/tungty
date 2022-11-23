@@ -50,7 +50,7 @@ return (
                     <Image source={require('../assets/chat.png')} style={{ width: 35, height: 35, alignSelf:'center'}} />
                     <Text style={[{alignSelf:'center'}, styles.fontTh]}>แชท</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{width:'25%', height: '65px',alignContent: 'center', justifyContent: 'center'}} onPress={() => handleNavigate("MyProfile")} >
+                <TouchableOpacity style={{width:'25%', height: '65px',alignContent: 'center', justifyContent: 'center'}} onPress={() => handleNavigate("ProfileInfo")} >
                         <Image source={require('../assets/profile.png')} style={{ width: 35, height: 35, alignSelf:'center'}}/>
                         <Text style={[{alignSelf:'center'}, styles.fontTh ]} >โปรไฟล์</Text>
                 </TouchableOpacity>
