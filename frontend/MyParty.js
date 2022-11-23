@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
 import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/components';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
@@ -15,6 +16,7 @@ const MyParty = ({ navigation }) => {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [data, setData] = useState([])
     const [text, setText] = useState('');
+    const isFocused = useIsFocused()
     useEffect(() => {
         //FETCH PUBLIC PARTY DATA
         const fetchAllparty = () => {
@@ -37,6 +39,7 @@ const MyParty = ({ navigation }) => {
                 console.log(err);
             });
         }
+        if (isFocused)
         fetchAllparty()
     }, [])
 
@@ -46,7 +49,7 @@ const MyParty = ({ navigation }) => {
         console.log(target)
         setData([...target]);
         
-      }
+    }
 
     let [fontsLoaded] = useFonts({
         Inter_900Black, OpenSans_500Medium, Kanit_400Regular
