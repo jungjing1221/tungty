@@ -123,20 +123,18 @@ const Chat = ({ navigation, route }) => {
                 </View>
 
 
-            </ScrollView>
-            <View style={[styles.bottomView,]} >
-                <View style={{ width: '100%', position: 'absolute', bottom: '0', }}>
-                    <View style={[styles.searchContainer, { width: '100%' }]}>
-                        <Input
-                            // placeholder="Search"
-                            style={styles.textInput}
-                            onChangeText={text => setText(text)}
-                            value={text}
-                        />
-                        <View style={{ justifyContent: 'center', padding: '5px' }}>
-                            <View style={{ backgroundColor: '#4542C1', borderRadius: '20px', width: '50px', height: ' 40px', alignItems: 'center', justifyContent: 'center', }}>
-                                <Text onPress={send} style={{ color: 'white' }}>SENT</Text>
-                            </View>
+        </ScrollView>
+        <View style={ [styles.bottomView,]} >
+        <View style={{ width: '100%', position: 'absolute', bottom: '0', backgroundColor:'#FDC319', padding:'10px'}}>
+                <View style={[styles.searchContainer, { width: '100%' , paddingLeft:'10px'}]}>
+                    <Input
+                        // placeholder="Search"
+                        style={styles.textInput}
+                        onChangeText={text => setText(text)}
+                    />
+                    <View style={{ justifyContent: 'center', padding:'5px'}}>
+                        <View style={{backgroundColor:'#4542C1', borderRadius: '20px', width: '50px', height:' 40px', alignItems: 'center', justifyContent:'center', }}>
+                            <Text onPress={send} style={{color: 'white'}}>SENT</Text>
                         </View>
                     </View>
                 </View>
@@ -243,7 +241,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         // height: '80%', 
         width: '90%',
-        backgroundColor: 'white',
+        backgroundColor: 'black',
     },
     textInput: {
         // backgroundColor: 'green',
@@ -251,7 +249,7 @@ const styles = StyleSheet.create({
         color: 'white',
         width: '100%',
         height: '100%',
-        backgroundColor: '#FDC319',
+        backgroundColor: 'white',
         borderColor: 'transparent',
         borderRadius: '30px',
     },
