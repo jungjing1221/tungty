@@ -90,7 +90,7 @@ return (
                 <Searchbar></Searchbar>
                 <View style={[styles.containerCardparty]}>
                     {data.map((item, index) =>
-                        <TouchableOpacity key={index} style={[{ paddingBottom: '10px', paddingTop: '10px' }]} onPress={() => { navigation.navigate("Chat", { partyID: data[index].partyName }); }}>
+                        <TouchableOpacity key={index} style={[{ paddingBottom: '10px', paddingTop: '10px' }]} onPress={() => { navigation.navigate("Chat", { partyID: item.party }); }}>
                             <View style={[styles.row, styles.card,]}>
                                 <View style={[styles.column3, { padding: 5 }]}>
                                     <ImageBackground source={require('../assets/circlebg.png')} style={{ width: '80px', height: '80px', justifyContent: 'center', alignItems: 'center', }}>
