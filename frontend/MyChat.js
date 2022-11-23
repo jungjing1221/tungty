@@ -85,7 +85,7 @@ if (!fontsLoaded) {
 
 return (
     <View style={[styles.MainContainer, { backgroundColor: 'white' }]}>
-        <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 40, color: '#FDC319', textAlign:"center" }}>Chat Room ♥</Text>
+        <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 40, color: '#FDC319', textAlign:"center" }}>My Chat ♥</Text>
         <ScrollView style={styles.scrollView}>
             <View style={styles.tabContainer}>
                 <Searchbar></Searchbar>
