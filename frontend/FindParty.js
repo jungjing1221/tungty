@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
-import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/components';
+import { Layout, Tab, TabView, Text, Input, Button, Card, IndexPath, Select, SelectItem, Icon } from '@ui-kitten/components';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 import { Kanit_400Regular } from '@expo-google-fonts/kanit';
@@ -15,6 +15,7 @@ const FindParty = ({ navigation }) => {
   const [code, setCode] = useState(0);
   const [text, setText] = useState('Hi Frame');
   const [data, setData] = useState([])
+  const [selectedFilter, setSelectedFilter] = useState(new IndexPath(0));
   const [parties, setParties] = useState({
     0: [],
     1: []
@@ -50,13 +51,21 @@ const FindParty = ({ navigation }) => {
   if (!fontsLoaded) {
     return null;
   }
-
+  const filter = [
+        'ทั้งหมด',
+        'อาหาร',
+        'ท่องเที่ยว',
+        'พักผ่อน',
+        'เรียน/ทำงาน',
+        'อื่น ๆ'
+    ];
+  const displayValue = filter[selectedFilter.row];
   const findParty = async () => {
     console.log(text)
     let target = parties[0].filter(party => party.partyName.includes(text))
     console.log(target)
     setData([...target]);
-    
+
   }
   const joinParty = async () => {
     let user
@@ -101,9 +110,24 @@ const FindParty = ({ navigation }) => {
         <Layout style={[styles.tabContainer]}>
           <Searchbar setTextProp={setText} findPartyProp={findParty}></Searchbar>
           <View style={styles.containerFilter}>
-            <Text category='h1' style={[styles.fontTh, { color: '#FDC319', paddingRight: '150px' }]}>หาปาร์ตี้</Text>
-            <Image source={require('../assets/filter_icon.png')} style={{ width: 30, height: 30 }} />
-          </View>
+                <Text category='h1' style={[styles.fontTh, { color: '#FDC319', paddingRight: '50px' }]}>หาปาร์ตี้</Text>
+                <Icon
+                style={[styles.icon, {marginTop:10}]}
+                name='funnel-outline'/>
+                <Layout level='1'>
+                  <Select
+                    selectedIndex={selectedFilter}
+                    value={displayValue}
+                    onSelect={index => setSelectedFilter(index)}>
+                    <SelectItem title='ทั้งหมด' />
+                    <SelectItem title='อาหาร' />
+                    <SelectItem title='ท่องเที่ยว' />
+                    <SelectItem title='พักผ่อน' />
+                    <SelectItem title='เรียน/ทำงาน' />
+                    <SelectItem title='อื่น ๆ' />
+                  </Select>
+                </Layout>
+              </View>
           <View style={styles.containerCardparty}>
             {data.map((item, index) =>
               <TouchableOpacity style={[{ paddingBottom: '10px' }]} key={index} onPress={() => { navigation.navigate("PartyInfo",{partyID:data[index].partyName});}}>
@@ -112,13 +136,14 @@ const FindParty = ({ navigation }) => {
                     <Image source={require('../assets/foodparty_icon.png')} style={{ width: "50px", height: '50px', aspectRatio: "1/1", objectFit: "cover" }} />
                   </View>
                   <View style={[styles.column9]}>
-                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>{item.partyName}</Text>
-                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>{item.about}</Text>
+                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '18px' }]}>{item.partyName}</Text>
+                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px',opacity:0.5 }]}>{item.about}</Text>
                     <View style={{ alignSelf: 'flex-end' }}>
                       <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>👤 {item.member.length}</Text>
                     </View>
                   </View>
                 </View>
+                
               </TouchableOpacity>
             )}
           </View>
@@ -134,10 +159,13 @@ const FindParty = ({ navigation }) => {
       </Tab>
     </TabView>
     </ScrollView>
-
+ 
+    
  <View style={ styles.bottomView} >
-
-    <BottomNavigtor navigation={navigation} />
+  <Button style={{width:50, height:50, borderRadius:'100%', marginBottom:150, marginLeft:300}}>
+          <Text style={[styles.buttonTextStyle,{fontSize: 100}]}>+</Text>
+        </Button>
+    <BottomNavigtor/>
 
  </View>
 
@@ -180,6 +208,10 @@ const styles = StyleSheet.create({
   fontTh: {
     fontFamily: 'Kanit_400Regular',
   },
+  icon: {
+    width: 32,
+    height: 32,
+},
   buttonStyle: {
     backgroundColor: '#4542C1',
     borderColor: 'transparent',
@@ -257,6 +289,11 @@ const styles = StyleSheet.create({
       color: '#fff',
       fontSize:22
     },
+    buttonTextStyle : {
+      color:'white',
+      fontSize: 100,
+      marginBottom: 6
+    }
 });
 
 export default FindParty
