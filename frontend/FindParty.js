@@ -125,7 +125,7 @@ const FindParty = ({ navigation }) => {
       });
 
       const partyRef = await setDoc(doc(db, "parties", entered.partyName), {
-        ...data
+        ...entered
       });
       navigation.navigate("PartyInfo", { partyID: entered.partyName });
     }
