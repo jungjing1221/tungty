@@ -73,6 +73,9 @@ function MainNavigator() {
       <Stack.Screen name="ProfileInfo" component={ProfileInfo} options={{
         title: "",
       }} />
+      <Stack.Screen name="EditProfile" component={EditProfile} options={{
+        title: "",
+      }} />
     </Stack.Navigator>
 
   );

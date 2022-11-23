@@ -29,7 +29,7 @@ const ProfileInfo = ({ navigation }) => {
                     <Text style={{fontFamily: 'Kanit_400Regular', marginTop:10, fontSize:20, color: '#4542C1'}}>เรียนที่คณะเทคโนโลยีสารสนเทศสจล. ปี3 รุ่น 18 ชอบเล่นเกมมาก ชอบเล่นบาสมากชวนเล่นได้ค่ะ ขี้เซามาก ตื่นสาย หาตี้โทรปลุก ไปคณะค่ะ</Text>
                 </View>
             </View>
-
+            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={() =>  navigation.navigate("EditProfile")}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>Edit About Me</Text>}</Button>
             <Button style={[styles.fontEng, styles.buttonStyle, { margin: 30 }]} onPress={"singout"}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', fontSize:20}}>SIGN OUT</Text>}</Button>
         </View>
     );
