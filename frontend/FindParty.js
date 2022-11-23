@@ -136,8 +136,8 @@ const FindParty = ({ navigation }) => {
                     <Image source={require('../assets/foodparty_icon.png')} style={{ width: "50px", height: '50px', aspectRatio: "1/1", objectFit: "cover" }} />
                   </View>
                   <View style={[styles.column9]}>
-                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>{item.partyName}</Text>
-                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>{item.about}</Text>
+                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '18px' }]}>{item.partyName}</Text>
+                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px',opacity:0.5 }]}>{item.about}</Text>
                     <View style={{ alignSelf: 'flex-end' }}>
                       <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>👤 {item.member.length}</Text>
                     </View>
