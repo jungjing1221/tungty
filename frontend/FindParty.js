@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
 import { Layout, Tab, TabView, Text, Input, Button, Card, IndexPath, Select, SelectItem, Icon } from '@ui-kitten/components';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
@@ -25,6 +26,8 @@ const FindParty = ({ navigation }) => {
     setSelectedIndex(0)
   }
 
+  const isFocused = useIsFocused()
+
   useEffect(() => {
     //SET ALL PARTY FROM RETURN PROMISE VALUE
     const fetchAllparty = () => {
@@ -38,11 +41,10 @@ const FindParty = ({ navigation }) => {
         console.log(err);
       });
     }
-    fetchAllparty()
-    return () => {
-      setSelectedIndex(0)
+    if(isFocused){
+      fetchAllparty()
     }
-  }, [])
+  }, [isFocused])
   let [fontsLoaded] = useFonts({
     Inter_900Black, OpenSans_500Medium, Kanit_400Regular
 
@@ -90,7 +92,7 @@ const FindParty = ({ navigation }) => {
         ...user
       });
 
-      const partyRef = await setDoc(doc(db, "parties", partyID), {
+      const partyRef = await setDoc(doc(db, "parties", entered.partyName), {
         ...data
       });
       navigation.navigate("PartyInfo", { partyID: entered.partyName });
@@ -164,7 +166,7 @@ const FindParty = ({ navigation }) => {
 
 
       <View style={styles.bottomView} >
-        <Button style={[styles.buttonStyle, { width: 50, height: 50, borderRadius: '100%', alignSelf: 'flex-end', marginBottom: '140px', marginRight: '10px' }]}>
+        <Button style={[styles.buttonStyle, { width: 50, height: 50, borderRadius: '100%', alignSelf: 'flex-end', marginBottom: '140px', marginRight: '10px' }]} onPress={()=>{ navigation.navigate("CreateNewParty"); }}>
           <Text style={[styles.buttonTextStyle, { fontSize: 100 }]}>+</Text>
         </Button>
         <BottomNavigtor navigation={navigation} />

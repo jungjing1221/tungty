@@ -20,7 +20,8 @@ const PartyInfo = ({ route, navigation }) => {
         date:"",
         about:"",
         type:"",
-        member:0
+        member:0,
+        datetext:""
     });
     useEffect(() => {
         const checkparty = async() => {
@@ -44,7 +45,7 @@ const PartyInfo = ({ route, navigation }) => {
                 if(targetparty[0].head == username){
                     setIsHead(1)
                 }
-                targetparty[0].date= targetparty[0].date.toDate().toString().slice(4,15)
+                targetparty[0].datetext = targetparty[0].date.toDate().toString().slice(4,15)
                 setData(targetparty[0])
             }).catch(err => {
               console.log(err);
@@ -86,7 +87,7 @@ const PartyInfo = ({ route, navigation }) => {
         <View style = {[styles.MainContainer, {backgroundColor: 'white'}]}>
         <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
-            <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 20, color: '#FDC319' }}>{data.date}</Text>
+            <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 20, color: '#FDC319' }}>{data.datetext}</Text>
             <View>
                 {(() => {
                 if (data.selectedPrivate){

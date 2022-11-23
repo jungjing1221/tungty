@@ -83,61 +83,64 @@ const Chat = ({ navigation, route }) => {
 
     return (
 
-        <View style = {[styles.MainContainer, {backgroundColor: 'white'}]}>
-        <ScrollView style={styles.scrollView}>
-        <View style={styles.tabContainer}>
-            <View style={[styles.containerCardparty]}>
-                <FlatList
-                    data={data}
-                    renderItem={({ item }) =>
-                        <View style={[styles.containerCardparty, { marginTop: '10px' }]}>
-                            <View style={[styles.row, { padding: '10px' }]}>
-                                <View>
-                                    <ImageBackground source={require('../assets/circlebg.png')} style={{ width: '40px', height: '40px', justifyContent: 'center', alignItems: 'center', }}>
-                                        <Image source={require('../assets/foodparty_icon.png')} style={{ width: 25, height: 25, }} />
-                                    </ImageBackground>
-                                </View>
+        <View style={[styles.MainContainer, { backgroundColor: 'white' }]}>
+            <ScrollView style={styles.scrollView} >
+                <View style={styles.tabContainer}>
+                    <View style={[styles.containerCardparty]}>
+                        <FlatList
+                            data={data}
+                            renderItem={({ item }) =>
+                                <View style={[styles.containerCardparty, { marginTop: '10px' }]}>
+                                    <View style={[styles.row, { padding: '10px' }]}>
+                                        <View>
+                                            <ImageBackground source={require('../assets/circlebg.png')} style={{ width: '40px', height: '40px', justifyContent: 'center', alignItems: 'center', }}>
+                                                <Image source={require('../assets/foodparty_icon.png')} style={{ width: 25, height: 25, }} />
+                                            </ImageBackground>
+                                        </View>
 
-                                <View style={[{ alignContent: 'center', justifyContent: 'center', paddingLeft: '10px' }]}>
-                                    <Text style={{ fontWeight: 'bold'}}>{item.sender} <Text style={{color:'gray', fontSize:'10px'}}>{item.time}</Text> </Text>
-                                </View>
-                            </View>
+                                        <View style={[{ alignContent: 'center', justifyContent: 'center', paddingLeft: '10px' }]}>
+                                            <Text style={{ fontWeight: 'bold' }}>{item.sender} <Text style={{ color: 'gray', fontSize: '10px' }}>{item.time}</Text> </Text>
+                                        </View>
+                                    </View>
 
-                            {item.state === 'user' ?
-                                <View style={[styles.card, { width: 'auto', backgroundColor: '#4542C1' }]}>
-                                    <Text style={[styles.fontTh, { color: '#ffffff', fontSize: '20px', fontWeight: 'bold' }]}>{item.text}</Text>
-                                </View> : <View style={[styles.card, { width: 'auto', }]}>
-                                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '20px', fontWeight: 'bold' }]}>{item.text}</Text>
+                                    {item.state === 'user' ?
+                                        <View style={[styles.card, { width: 'fit-content', backgroundColor: '#4542C1' }]}>
+                                            <Text style={[styles.fontTh, { color: '#ffffff', fontSize: '20px', fontWeight: 'bold' }]}>{item.text}</Text>
+                                        </View>
+                                        :
+                                        <View style={[styles.card, { width: 'fit-content', }]}>
+                                            <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '20px', fontWeight: 'bold' }]}>{item.text}</Text>
+                                        </View>}
+
                                 </View>}
+                            keyExtractor={(item) => item.id}
+                        />
 
-                        </View>}
-                    keyExtractor={(item) => item.id}
-                />
+                        {/* Search Results Container */}
 
-                {/* Search Results Container */}
-
-                <View></View>
-            </View >
-        </View>
+                        <View></View>
+                    </View >
+                </View>
 
 
-        </ScrollView>
-        <View style={ [styles.bottomView,]} >
-        <View style={{ width: '100%', position: 'absolute', bottom: '0', }}>
-                <View style={[styles.searchContainer, { width: '100%' }]}>
-                    <Input
-                        // placeholder="Search"
-                        style={styles.textInput}
-                        onChangeText={text => setText(text)}
-                    />
-                    <View style={{ justifyContent: 'center', padding:'5px'}}>
-                        <View style={{backgroundColor:'#4542C1', borderRadius: '20px', width: '50px', height:' 40px', alignItems: 'center', justifyContent:'center', }}>
-                            <Text onPress={send} style={{color: 'white'}}>SENT</Text>
+            </ScrollView>
+            <View style={[styles.bottomView,]} >
+                <View style={{ width: '100%', position: 'absolute', bottom: '0', }}>
+                    <View style={[styles.searchContainer, { width: '100%' }]}>
+                        <Input
+                            // placeholder="Search"
+                            style={styles.textInput}
+                            onChangeText={text => setText(text)}
+                            value={text}
+                        />
+                        <View style={{ justifyContent: 'center', padding: '5px' }}>
+                            <View style={{ backgroundColor: '#4542C1', borderRadius: '20px', width: '50px', height: ' 40px', alignItems: 'center', justifyContent: 'center', }}>
+                                <Text onPress={send} style={{ color: 'white' }}>SENT</Text>
+                            </View>
                         </View>
                     </View>
                 </View>
-                </View>
-        </View>
+            </View>
         </View>
     );
 };
@@ -275,18 +278,18 @@ const styles = StyleSheet.create({
     //     width: '80%' ,
     //     backgroundColor: 'white',
     // },
-    bottomView:{
-      width: '100%', 
-      height: 50, 
-      borderColor: 'black',
-      justifyContent: 'center', 
-      alignItems: 'center',
-    //   position: 'absolute',
-      bottom: 0
+    bottomView: {
+        width: '100%',
+        height: 50,
+        borderColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center',
+        //   position: 'absolute',
+        bottom: 0
     },
-    textStyle:{
-      color: '#fff',
-      fontSize:22
+    textStyle: {
+        color: '#fff',
+        fontSize: 22
     }
     ,
     MainContainer:
