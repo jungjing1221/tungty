@@ -113,21 +113,6 @@ const Chat = ({ navigation, route }) => {
                     keyExtractor={(item) => item.id}
                 />
 
-                <View style={[styles.searchContainer, { width: '100%' }]}>
-
-                    <Input
-                        // placeholder="Search"
-                        style={styles.textInput}
-                        value={text}
-                        onChangeText={text => setText(text)}
-                    />
-                    <View style={{ justifyContent: 'center', }}>
-                        <Text onPress={send}>SENT</Text>
-                    </View>
-
-
-                </View>
-
                 {/* Search Results Container */}
 
                 <View></View>
