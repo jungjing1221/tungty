@@ -26,12 +26,13 @@ const Notification = ({ navigation }) => {
     }
 
     return (
-        <View style={[styles.containerCardparty]}>
+        <View >
             <View style={{alignItems: 'flex-end', paddingRight: '10px', height: '25px', shadowColor: '#000000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.3,shadowRadius: 3,}}>
                 <Text style={[styles.fontTh, { color: 'black', fontSize: '15px', fontWeight: 'bold' }]}>Read all({data.length})</Text>
             </View>
+            <View style={{alignItems: 'center'}}>
             {data.map((item, index) =>
-                <View style={[{ paddingBottom: '2px', paddingTop: '5px'}]}>
+                <View style={[{ paddingBottom: '2px', paddingTop: '5px'}, styles.containerCardparty]}>
                     <View style={[styles.row, styles.card]}>
                         <View style={[styles.column3, { padding: 5 }]}>
                             <Image source={require('../assets/foodparty_icon.png')} style={{ width: 40, height: 40, }} />
@@ -46,6 +47,7 @@ const Notification = ({ navigation }) => {
                     </View>
                 </View>
             )}
+            </View>
         </View>
     );
 };
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
     },
     containerCardparty: {
-        width: '100%',
+        width: '90%',
     },
     row: {
         flexWrap: "wrap",
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         width: '100%',
-        height: '100px'
+        height: '100%'
     },
     column3: {
         width: "25%"
