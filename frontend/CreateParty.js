@@ -137,9 +137,9 @@ const CreateNewParty = () => {
             </View>
         </View>
         </ScrollView>
-        <View style={ styles.bottomView} >
+        {/* <View style={ styles.bottomView} >
                 <BottomNavigtor/>
-            </View>
+            </View> */}
         </View>
     );
 };

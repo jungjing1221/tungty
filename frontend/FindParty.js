@@ -107,6 +107,7 @@ const FindParty = ({ navigation }) => {
                     </View>
                   </View>
                 </View>
+                
               </TouchableOpacity>
             )}
           </View>
@@ -122,9 +123,12 @@ const FindParty = ({ navigation }) => {
       </Tab>
     </TabView>
     </ScrollView>
-
+ 
+    
  <View style={ styles.bottomView} >
-
+  <Button style={{width:50, height:50, borderRadius:'100%', marginBottom:150, marginLeft:300}}>
+          <Text style={[styles.buttonTextStyle,{fontSize: 100}]}>+</Text>
+        </Button>
     <BottomNavigtor/>
 
  </View>
@@ -245,6 +249,11 @@ const styles = StyleSheet.create({
       color: '#fff',
       fontSize:22
     },
+    buttonTextStyle : {
+      color:'white',
+      fontSize: 100,
+      marginBottom: 6
+    }
 });
 
 export default FindParty

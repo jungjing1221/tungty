@@ -61,9 +61,6 @@ function MainNavigator() {
         title: "Notification",
         headerTitleAlign: 'center'
       }} />
-      <Stack.Screen name="Chat" component={Chat} options={{
-        title: "",
-      }} />
       <Stack.Screen name="EditParty" component={EditParty} options={{
         title: "",
       }} />

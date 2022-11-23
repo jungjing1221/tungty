@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image, ImageBackground} from 'react-native';
+import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image, ImageBackground } from 'react-native';
 import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/components';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
@@ -29,30 +29,33 @@ const MyChat = ({ navigation }) => {
     }
 
     return (
-        <View style = {[styles.MainContainer, {backgroundColor: 'white'}]}>
+        <View style={[styles.MainContainer, { backgroundColor: 'white' }]}>
             <ScrollView style={styles.scrollView}>
-        <View style={styles.tabContainer }>
-            <Searchbar></Searchbar>
-            <View style={[styles.containerCardparty]}>
-                {data.map((item, index) =>
-                    <View style={[{ paddingBottom: '10px' , paddingTop: '10px'}]}>
-                        <View style={[styles.row, styles.card, ]}>
-                            <View style={[styles.column3, { padding: 5 }]}>
-                                <ImageBackground source={require('../assets/circlebg.png')} style={{ width: '80px', height: '80px', justifyContent: 'center', alignItems: 'center',}}>
-                                    <Image source={require('../assets/foodparty_icon.png')} style={{ width: 50, height: 50, }} />
-                                </ImageBackground>
+                <View style={styles.tabContainer}>
+                    <Searchbar></Searchbar>
+                    <View style={[styles.containerCardparty]}>
+                        {data.map((item, index) =>
+                            <View style={[{ paddingBottom: '10px', paddingTop: '10px' }]}>
+                                <View style={[styles.row, styles.card,]}>
+                                    <View style={[styles.column3, { padding: 5 }]}>
+                                        <ImageBackground source={require('../assets/circlebg.png')} style={{ width: '80px', height: '80px', justifyContent: 'center', alignItems: 'center', }}>
+                                            <Image source={require('../assets/foodparty_icon.png')} style={{ width: 50, height: 50, }} />
+                                        </ImageBackground>
+                                    </View>
+                                    <View style={[styles.column9, { paddingLeft: '10px' }]}>
+                                        <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '20px', fontWeight: 'bold' }]}>{item.name}</Text>
+                                    </View>
+                                </View>
                             </View>
-                            <View style={[styles.column9, {paddingLeft: '10px'}]}>
-                                <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '20px', fontWeight: 'bold' }]}>{item.name}</Text>
-                            </View>
-                        </View>
+                        )}
                     </View>
-                )}
-            </View>
-        </View>
+                </View>
             </ScrollView>
-            <View style={ styles.bottomView} >
-                <BottomNavigtor/>
+            <View style={styles.bottomView} >
+                <Button style={{ width: 50, height: 50, borderRadius: '100%', marginBottom: 150, marginLeft: 300 }}>
+                    <Text style={[styles.buttonTextStyle, { fontSize: 100 }]}>+</Text>
+                </Button>
+                <BottomNavigtor />
             </View>
         </View>
 
@@ -161,14 +164,14 @@ const styles = StyleSheet.create({
         // justifyContent: 'center',
         // paddingTop: ( Platform.OS === 'ios' ) ? 20 : 0
     },
-    bottomView:{
- 
-      width: '100%', 
-      height: 50, 
-      justifyContent: 'center', 
-      alignItems: 'center',
-      position: 'absolute',
-      bottom: 0
+    bottomView: {
+
+        width: '100%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 0
     },
 });
 
