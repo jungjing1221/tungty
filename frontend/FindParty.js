@@ -21,7 +21,7 @@ const FindParty = ({ navigation }) => {
     1: []
   })
 
-  if(isNaN(selectedIndex)) {
+  if (isNaN(selectedIndex)) {
     setSelectedIndex(0)
   }
 
@@ -52,13 +52,13 @@ const FindParty = ({ navigation }) => {
     return null;
   }
   const filter = [
-        'ทั้งหมด',
-        'อาหาร',
-        'ท่องเที่ยว',
-        'พักผ่อน',
-        'เรียน/ทำงาน',
-        'อื่น ๆ'
-    ];
+    'ทั้งหมด',
+    'อาหาร',
+    'ท่องเที่ยว',
+    'พักผ่อน',
+    'เรียน/ทำงาน',
+    'อื่น ๆ'
+  ];
   const displayValue = filter[selectedFilter.row];
   const findParty = async () => {
     console.log(text)
@@ -79,21 +79,21 @@ const FindParty = ({ navigation }) => {
     }
 
     let entered = parties[1].find(party => party.enterCode == code)
-    console.log(parties[1],entered)
-    if(!entered) return window.alert("โค้ดเข้าร่วมปาร์ตี้ไม่ถูกต้อง")
+    console.log(parties[1], entered)
+    if (!entered) return window.alert("โค้ดเข้าร่วมปาร์ตี้ไม่ถูกต้อง")
     else {
       user.party.push(entered.partyName)
       entered.member.push(user.username)
-      
-    //ADD PARTY TO USER
-    const docRef = await setDoc(doc(db, "users", username), {
-      ...user
-    });
 
-    const partyRef = await setDoc(doc(db, "parties", partyID), {
-      ...data
-    });
-      navigation.navigate("PartyInfo",{partyID:entered.partyName});
+      //ADD PARTY TO USER
+      const docRef = await setDoc(doc(db, "users", username), {
+        ...user
+      });
+
+      const partyRef = await setDoc(doc(db, "parties", partyID), {
+        ...data
+      });
+      navigation.navigate("PartyInfo", { partyID: entered.partyName });
     }
 
   }
@@ -101,19 +101,19 @@ const FindParty = ({ navigation }) => {
 
   return (
 
-    <View style = {[styles.MainContainer, {backgroundColor: 'white'}]}>
-    <ScrollView style={styles.scrollView}>
-    <TabView style={[styles.tabView]}
-      selectedIndex={selectedIndex}
-      onSelect={index => setSelectedIndex(index)}>
-      <Tab title='PUBLIC PARTY' style={{ backgroundColor: 'white',}}>
-        <Layout style={[styles.tabContainer]}>
-          <Searchbar setTextProp={setText} findPartyProp={findParty}></Searchbar>
-          <View style={styles.containerFilter}>
+    <View style={[styles.MainContainer, { backgroundColor: 'white' }]}>
+      <ScrollView style={styles.scrollView}>
+        <TabView style={[styles.tabView]}
+          selectedIndex={selectedIndex}
+          onSelect={index => setSelectedIndex(index)}>
+          <Tab title='PUBLIC PARTY' style={{ backgroundColor: 'white', }}>
+            <Layout style={[styles.tabContainer]}>
+              <Searchbar setTextProp={setText} findPartyProp={findParty}></Searchbar>
+              <View style={styles.containerFilter}>
                 <Text category='h1' style={[styles.fontTh, { color: '#FDC319', paddingRight: '50px' }]}>หาปาร์ตี้</Text>
                 <Icon
-                style={[styles.icon, {marginTop:10}]}
-                name='funnel-outline'/>
+                  style={[styles.icon, { marginTop: 10 }]}
+                  name='funnel-outline' />
                 <Layout level='1'>
                   <Select
                     selectedIndex={selectedFilter}
@@ -128,49 +128,51 @@ const FindParty = ({ navigation }) => {
                   </Select>
                 </Layout>
               </View>
-          <View style={styles.containerCardparty}>
-            {data.map((item, index) =>
-              <TouchableOpacity style={[{ paddingBottom: '10px' }]} key={index} onPress={() => { navigation.navigate("PartyInfo",{partyID:data[index].partyName});}}>
-                <View style={[styles.row, styles.card]}>
-                  <View style={[styles.column3, { padding: 5 }]}>
-                    <Image source={require('../assets/foodparty_icon.png')} style={{ width: "50px", height: '50px', aspectRatio: "1/1", objectFit: "cover" }} />
-                  </View>
-                  <View style={[styles.column9]}>
-                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '18px' }]}>{item.partyName}</Text>
-                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px',opacity:0.5 }]}>{item.about}</Text>
-                    <View style={{ alignSelf: 'flex-end' }}>
-                      <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>👤 {item.member.length}</Text>
+              <View style={styles.containerCardparty}>
+                {data.map((item, index) =>
+                  <TouchableOpacity style={[{ paddingBottom: '10px' }]} key={index} onPress={() => { navigation.navigate("PartyInfo", { partyID: data[index].partyName }); }}>
+                    <View style={[styles.row, styles.card]}>
+                      <View style={[styles.column3, { padding: 5 }]}>
+                        <Image source={require('../assets/foodparty_icon.png')} style={{ width: "50px", height: '50px', aspectRatio: "1/1", objectFit: "cover" }} />
+                      </View>
+                      <View style={[styles.column9]}>
+                        <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '18px' }]}>{item.partyName}</Text>
+                        <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px', opacity: 0.5 }]}>{item.about}</Text>
+                        <View style={{ alignSelf: 'flex-end' }}>
+                          <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>👤 {item.member.length}</Text>
+                        </View>
+                      </View>
                     </View>
-                  </View>
-                </View>
-                
-              </TouchableOpacity>
-            )}
-          </View>
-        </Layout>
-      </Tab>
-      <Tab title='PRIVATE PARTY' style={{ backgroundColor: 'white' }}>
-        <Layout style={styles.tabContainer}>
-          <Text category='h1' style={[styles.fontTh, { color: '#FDC319', }]}>ปาร์ตี้ส่วนตัว</Text>
-          <Text category='h6' style={[styles.fontTh, { color: '#4542C1', }]}>โค้ดสำหรับเข้าร่วมปาร์ตี้ส่วนตัว :</Text>
-          <Input style={[styles.fontEng, styles.fontEngInput, { backgroundColor: '#D9D9D9' }]} onChangeText={text => setCode(text)} />
-          <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={joinParty}>Join</Button>
-        </Layout>
-      </Tab>
-    </TabView>
-    </ScrollView>
- 
-    
- <View style={ styles.bottomView} >
-  <Button style={{width:50, height:50, borderRadius:'100%', marginBottom:150, marginLeft:300}}>
-          <Text style={[styles.buttonTextStyle,{fontSize: 100}]}>+</Text>
+
+
+
+                  </TouchableOpacity>
+                )}
+              </View>
+            </Layout>
+          </Tab>
+          <Tab title='PRIVATE PARTY' style={{ backgroundColor: 'white' }}>
+            <Layout style={styles.tabContainer}>
+              <Text category='h1' style={[styles.fontTh, { color: '#FDC319', }]}>ปาร์ตี้ส่วนตัว</Text>
+              <Text category='h6' style={[styles.fontTh, { color: '#4542C1', }]}>โค้ดสำหรับเข้าร่วมปาร์ตี้ส่วนตัว :</Text>
+              <Input style={[styles.fontEng, styles.fontEngInput, { backgroundColor: '#D9D9D9' }]} onChangeText={text => setCode(text)} />
+              <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={joinParty}>join</Button>
+            </Layout>
+          </Tab>
+        </TabView>
+      </ScrollView>
+
+
+      <View style={styles.bottomView} >
+        <Button style={[styles.buttonStyle, { width: 50, height: 50, borderRadius: '100%', alignSelf: 'flex-end', marginBottom: '140px', marginRight: '10px' }]}>
+          <Text style={[styles.buttonTextStyle, { fontSize: 100 }]}>+</Text>
         </Button>
-    <BottomNavigtor navigation={navigation} />
+        <BottomNavigtor />
 
- </View>
+      </View>
 
-</View>
-    
+    </View>
+
   );
 };
 
@@ -211,7 +213,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 32,
     height: 32,
-},
+  },
   buttonStyle: {
     backgroundColor: '#4542C1',
     borderColor: 'transparent',
@@ -268,32 +270,32 @@ const styles = StyleSheet.create({
     width: "75%"
   },
   MainContainer:
-    {
-        flex: 1,
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        // paddingTop: ( Platform.OS === 'ios' ) ? 20 : 0
-    },
-    bottomView:{
- 
-      width: '100%', 
-      height: 50, 
-      justifyContent: 'center', 
-      alignItems: 'center',
-      position: 'absolute',
-      bottom: 0
-    },
- 
-    textStyle:{
- 
-      color: '#fff',
-      fontSize:22
-    },
-    buttonTextStyle : {
-      color:'white',
-      fontSize: 100,
-      marginBottom: 6
-    }
+  {
+    flex: 1,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // paddingTop: ( Platform.OS === 'ios' ) ? 20 : 0
+  },
+  bottomView: {
+
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0
+  },
+
+  textStyle: {
+
+    color: '#fff',
+    fontSize: 22
+  },
+  buttonTextStyle: {
+    color: 'white',
+    fontSize: 100,
+    marginBottom: 6
+  }
 });
 
 export default FindParty
