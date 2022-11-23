@@ -167,7 +167,7 @@ const FindParty = ({ navigation }) => {
         <Button style={[styles.buttonStyle, { width: 50, height: 50, borderRadius: '100%', alignSelf: 'flex-end', marginBottom: '140px', marginRight: '10px' }]}>
           <Text style={[styles.buttonTextStyle, { fontSize: 100 }]}>+</Text>
         </Button>
-        <BottomNavigtor />
+        <BottomNavigtor navigation={navigation} />
 
       </View>
 
