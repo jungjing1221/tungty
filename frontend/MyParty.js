@@ -78,9 +78,9 @@ const MyParty = ({ navigation }) => {
                 </View>
             </ScrollView>
             <View style={styles.bottomView} >
-                <Button style={{ width: 50, height: 50, borderRadius: '100%', marginBottom: 150, marginLeft: 300 }}>
-                    <Text style={[styles.buttonTextStyle, { fontSize: 100 }]}>+</Text>
-                </Button>
+            <Button style={[styles.buttonStyle, { width: 50, height: 50, borderRadius: '100%', alignSelf: 'flex-end', marginBottom: '140px', marginRight: '10px' }]}>
+          <Text style={[styles.buttonTextStyle, { fontSize: 100 }]}>+</Text>
+        </Button>
                 <BottomNavigtor />
             </View>
         </View>
@@ -228,6 +228,14 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 22
     },
+  buttonStyle: {
+    backgroundColor: '#4542C1',
+    borderColor: 'transparent',
+    borderWidth: 0,
+    borderRadius: "9000px",
+    width: 240,
+    color: 'red'
+  },
 });
 
 export default MyParty
