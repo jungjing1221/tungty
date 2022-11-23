@@ -19,11 +19,14 @@ import EditProfile from "../frontend/EditProfile";
 import Chat from "../frontend/Chat";
 import PartyInfo from "../frontend/PartyInfo";
 import ProfileInfo from "../frontend/ProfileInfo";
+import BottomNavigtor from "./BottomNavigator";
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 // const Drawer = createDrawerNavigator();
 // สร้าง function สำหรับการกำหนด Navigator แต่ละตัว เช่น
+
+
 function MainNavigator() {
   return (
     // กำหนดรายละเอียดของ navigator
@@ -60,9 +63,6 @@ function MainNavigator() {
       <Stack.Screen name="Notification" component={Notification} options={{
         title: "Notification",
         headerTitleAlign: 'center'
-      }} />
-      <Stack.Screen name="Chat" component={Chat} options={{
-        title: "",
       }} />
       <Stack.Screen name="EditParty" component={EditParty} options={{
         title: "",

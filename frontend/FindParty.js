@@ -11,7 +11,7 @@ import { party } from '../assets/Party';
 import BottomNavigtor from '../navigation/BottomNavigator';
 
 const FindParty = ({ navigation }) => {
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [code, setCode] = useState(0);
   const [text, setText] = useState('Hi Frame');
   const [data, setData] = useState([])
@@ -19,6 +19,10 @@ const FindParty = ({ navigation }) => {
     0: [],
     1: []
   })
+
+  if(isNaN(selectedIndex)) {
+    setSelectedIndex(0)
+  }
 
   useEffect(() => {
     //SET ALL PARTY FROM RETURN PROMISE VALUE
@@ -34,6 +38,9 @@ const FindParty = ({ navigation }) => {
       });
     }
     fetchAllparty()
+    return () => {
+      setSelectedIndex(0)
+    }
   }, [])
   let [fontsLoaded] = useFonts({
     Inter_900Black, OpenSans_500Medium, Kanit_400Regular
@@ -65,16 +72,21 @@ const FindParty = ({ navigation }) => {
     let entered = parties[1].find(party => party.enterCode == code)
     console.log(parties[1],entered)
     if(!entered) return window.alert("โค้ดเข้าร่วมปาร์ตี้ไม่ถูกต้อง")
-    else {user.party.push(entered.partyName)
-      navigation.navigate("PartyInfo",{partyID:entered.partyName});
-    }
-
-
-
+    else {
+      user.party.push(entered.partyName)
+      entered.member.push(user.username)
+      
     //ADD PARTY TO USER
     const docRef = await setDoc(doc(db, "users", username), {
       ...user
     });
+
+    const partyRef = await setDoc(doc(db, "parties", partyID), {
+      ...data
+    });
+      navigation.navigate("PartyInfo",{partyID:entered.partyName});
+    }
+
   }
 
 
@@ -103,7 +115,7 @@ const FindParty = ({ navigation }) => {
                     <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>{item.partyName}</Text>
                     <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>{item.about}</Text>
                     <View style={{ alignSelf: 'flex-end' }}>
-                      <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>👤 18</Text>
+                      <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>👤 {item.member.length}</Text>
                     </View>
                   </View>
                 </View>
@@ -125,7 +137,7 @@ const FindParty = ({ navigation }) => {
 
  <View style={ styles.bottomView} >
 
-    <BottomNavigtor/>
+    <BottomNavigtor navigation={navigation} />
 
  </View>
 

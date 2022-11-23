@@ -63,7 +63,7 @@ const MyParty = ({ navigation }) => {
                 </View>
                 <View style={styles.containerCardparty}>
                     {data.map((item, index) =>
-                        <TouchableOpacity style={[styles.column6, { padding: 10 }]} onPress={() => { navigation.navigate("PartyInfo", { partyID: data[index].partyName }); }}>
+                        <TouchableOpacity key={index} style={[styles.column6, { padding: 10 }]} onPress={() => { navigation.navigate("PartyInfo", { partyID: data[index].partyName }); }}>
                             <View style={[styles.row, styles.card]}>
                                 <View style={[styles.column3, { padding: 5 }]}>
                                     <Image source={require('../assets/foodparty_icon.png')} style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover" }} />
@@ -78,7 +78,7 @@ const MyParty = ({ navigation }) => {
             </View>
             </ScrollView>
             <View style={ styles.bottomView} >
-                <BottomNavigtor/>
+                <BottomNavigtor navigation={navigation} />
             </View>
         </View>
 
