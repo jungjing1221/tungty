@@ -83,7 +83,7 @@ const Chat = ({ navigation, route }) => {
 
     return (
 
-        <View style = {[styles.MainContainer, {backgroundColor: '#FDC319'}]}>
+        <View style = {[styles.MainContainer, {backgroundColor: 'white'}]}>
         <ScrollView style={styles.scrollView}>
         <View style={styles.tabContainer}>
             <View style={[styles.containerCardparty]}>
@@ -123,7 +123,7 @@ const Chat = ({ navigation, route }) => {
 
         </ScrollView>
         <View style={ [styles.bottomView,]} >
-        <View style={{ width: '100%', position: 'absolute', bottom: '0', }}>
+        <View style={{ width: '100%', position: 'absolute', bottom: '0', backgroundColor:'#FDC319', padding:'10px'}}>
                 <View style={[styles.searchContainer, { width: '100%' , paddingLeft:'10px'}]}>
                     <Input
                         // placeholder="Search"
