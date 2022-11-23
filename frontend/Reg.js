@@ -8,6 +8,7 @@ import { Input, Button} from '@ui-kitten/components';
 
 const Register = () => {
   const [name, setName] = useState('');
+  const [aboutMe, setAboutMe] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmpassword, setConfirmPassword] = useState('');
@@ -64,6 +65,10 @@ const Register = () => {
       <View style={{ marginTop: 25 }}>
         <Text style={styles.fontEngInputHeader}>Name</Text>
         <Input style={styles.fontEngInput} onChangeText={text => setName(text)} />
+      </View>
+      <View style={styles.row}>
+                <Text style={styles.fontEngInputHeader}>About Me</Text>
+                <Input style={[styles.fontEngInput, styles.fontTh, styles.textarea]} onChangeText={text => setAboutMe(text)} multiline='true' numberOfLines="4" />
       </View>
       <View style={{ marginTop: 20 }}>
         <Text style={styles.fontEngInputHeader}>Username</Text>
