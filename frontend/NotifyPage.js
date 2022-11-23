@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
     },
     containerCardparty: {
         width: '90%',
+        marginTop:20
     },
     row: {
         flexWrap: "wrap",
