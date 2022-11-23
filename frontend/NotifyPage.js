@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image, ImageBackground } from 'react-native';
 import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/components';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 import { Kanit_400Regular } from '@expo-google-fonts/kanit';
 import Searchbar from '../assets/component/searchbar';
+import { collection, getDoc, doc, getDocs, onSnapshot, setDoc,Timestamp } from "firebase/firestore";
+import { db } from '../firebase/firebase-config';
+import { party } from '../assets/Party';
 
 const Notification = ({ navigation }) => {
 
@@ -16,6 +20,41 @@ const Notification = ({ navigation }) => {
         { id: 4, name: "ไปตลาดหอในกัน", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง", datetimeNoti: "4 SEPTEMBER 2022 08:30" },
         { id: 5, name: "เล่นเกมกันเพื่อนๆ", description: "เป็นปาร์ตี้ปลุกความขยันในตัวคุณหากคุณเคยประสบปัญหาการลืมตั้งนาฬิกาปลุก ทำให้ไปเข้าเรียนสายบ่อยครั้ง", datetimeNoti: "4 SEPTEMBER 2022 08:30" },
     ])
+    const isFocused = useIsFocused()
+    useEffect(() => {
+        //FETCH PUBLIC PARTY DATA
+        const fetchAllparty = () => {
+            let partyPromise = party()
+            partyPromise.then(async (value) => {
+                let user
+                const username = localStorage.getItem("Username")
+                const ref = doc(db, "users", username);
+                const snap = await getDoc(ref);
+                if (snap.exists()) {
+                    user = snap.data()
+                } else {
+                    window.alert("มึงไม่มี USER")
+                }
+                let myParty = value.filter(party => user.party.includes(party.partyName))
+                myParty.forEach(party=>{
+                    party.date = party.date.toDate().toString().slice(4, 15)
+                    
+                })
+                console.log(myParty)
+                console.log(Timestamp.now().toDate().toString().slice(4, 15))
+                let today = Timestamp.now().toDate().toString().slice(4, 15)
+                let notiParty = myParty.filter(party => party.date == today)
+                console.log(notiParty)
+                setData(notiParty);
+
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+        if (isFocused)
+            fetchAllparty()
+    }, [])
+
     let [fontsLoaded] = useFonts({
         Inter_900Black, OpenSans_500Medium, Kanit_400Regular
 
@@ -38,8 +77,8 @@ const Notification = ({ navigation }) => {
                             <Image source={require('../assets/foodparty_icon.png')} style={{ width: 40, height: 40, }} />
                         </View>
                         <View style={[styles.column9,]}>
-                            <Text style={[styles.fontTh, { color: 'black', fontSize: '20px', fontWeight: 'bold' }]}>{item.name}</Text>
-                            <Text style={[styles.fontTh, { color: 'black', fontSize: '15px', fontWeight: 'bold' }]}>ปลุกแจ้งเตือนแบบกลุ่มแล้ว</Text>
+                            <Text style={[styles.fontTh, { color: 'black', fontSize: '20px', fontWeight: 'bold' }]}>{item.partyName}</Text>
+                            <Text style={[styles.fontTh, { color: 'black', fontSize: '15px', fontWeight: 'bold' }]}>แจ้งเตือนทุกคนในปาร์ตี้แล้ว</Text>
                             <View style={{alignItems: 'flex-end'}}>
                                 <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '14px', fontWeight: 'bold', }]}>{item.datetimeNoti}</Text>
                             </View>

@@ -71,7 +71,9 @@ const MyParty = ({ navigation }) => {
                 <Searchbar setTextProp={setText} findPartyProp={findParty}></Searchbar>
                 <View style={styles.containerFilter}>
                     <Text style={[styles.fontTh, { color: '#FDC319', paddingRight: '100px', fontSize: '42px' }]}>ปาร์ตี้ของฉัน</Text>
-                    <Image source={require('../assets/bell-outline.png')} style={{ width: 30, height: 30 }} />
+                        <TouchableOpacity onPress={() => { navigation.navigate("Notification"); }}>
+                            <Image source={require('../assets/bell-outline.png')} style={{ width: 30, height: 30 }} />
+                        </TouchableOpacity>
                 </View>
                 <View style={styles.containerCardparty}>
                     {data.map((item, index) =>
