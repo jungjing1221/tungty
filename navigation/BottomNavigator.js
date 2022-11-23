@@ -25,32 +25,35 @@ const BottomNavigtor = ({navigation}) => {
     return null;
   }
 
-    return (
+  const handleNavigate = (pathName) => {
+    console.log("test")
+      console.log(navigation)
+      navigation.navigate(pathName)
+}
+
+return (
         <View style={{ width: '100%', position: 'absolute', bottom: '0' }}>
             <View style={{
                 width:'100%', 
                 flex: 1,
                 flexDirection: 'row', backgroundColor:'#FDC319'
             }}>
-                <View style={{width:'25%', height: '65px',alignContent: 'center', justifyContent: 'center'}}>
+                <TouchableOpacity style={{width:'25%', height: '65px',alignContent: 'center', justifyContent: 'center'}} onPress={() => handleNavigate("FindParty")}>
                     <Image source={require('../assets/find_party.png')} style={{ width: 35, height: 35, alignSelf:'center'}} />
                     <Text style={[{alignSelf:'center'}, styles.fontTh]}>หาปาร์ตี้</Text>
-                </View>
-                <View style={{width:'25%', height: '65px',alignContent: 'center', justifyContent: 'center'}}>
+                </TouchableOpacity>
+                <TouchableOpacity style={{width:'25%', height: '65px',alignContent: 'center', justifyContent: 'center'}} onPress={() => handleNavigate("MyParty")}>
                     <Image source={require('../assets/myparty.png')} style={{ width: 35, height: 35, alignSelf:'center'}} />
                     <Text style={[{alignSelf:'center'}, styles.fontTh]}>ปาร์ตี้ของฉัน</Text>
-                </View>
-                <View style={{width:'25%', height: '65px',alignContent: 'center', justifyContent: 'center'}}>
+                </TouchableOpacity>
+                <TouchableOpacity style={{width:'25%', height: '65px',alignContent: 'center', justifyContent: 'center'}} onPress={() => handleNavigate("MyChat")}>
                     <Image source={require('../assets/chat.png')} style={{ width: 35, height: 35, alignSelf:'center'}} />
                     <Text style={[{alignSelf:'center'}, styles.fontTh]}>แชท</Text>
-                </View>
-                <View style={{width:'25%', height: '65px',alignContent: 'center', justifyContent: 'center'}} >
+                </TouchableOpacity>
+                <TouchableOpacity style={{width:'25%', height: '65px',alignContent: 'center', justifyContent: 'center'}} onPress={() => handleNavigate("MyProfile")} >
                         <Image source={require('../assets/profile.png')} style={{ width: 35, height: 35, alignSelf:'center'}}/>
-                    <TouchableOpacity onPress={ () => {  }}>
                         <Text style={[{alignSelf:'center'}, styles.fontTh ]} >โปรไฟล์</Text>
-                    </TouchableOpacity>
-
-                </View>
+                </TouchableOpacity>
             </View>
         </View>
 

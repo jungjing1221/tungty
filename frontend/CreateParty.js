@@ -10,7 +10,7 @@ import { ScrollView } from 'react-native-web';
 import BottomNavigtor from '../navigation/BottomNavigator';
 
 
-const CreateNewParty = () => {
+const CreateNewParty = ({navigation}) => {
     const [partyName, setPartyName] = useState('');
     const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
     const [about, setAbout] = useState('');
@@ -62,7 +62,8 @@ const CreateNewParty = () => {
                 date: date,
                 head: username,
                 type: displayValue,
-                enterCode: code
+                enterCode: code,
+                member:[username]
             });
             const chat = await setDoc(doc(db, "chats",partyName), {
                msg:[]
@@ -75,6 +76,7 @@ const CreateNewParty = () => {
         const docRef = await setDoc(doc(db, "users", username), {
             ...user
         });
+        navigation.navigate("PartyInfo",{partyID:partyName})
 
     }
 
@@ -137,9 +139,9 @@ const CreateNewParty = () => {
             </View>
         </View>
         </ScrollView>
-        {/* <View style={ styles.bottomView} >
-                <BottomNavigtor/>
-            </View> */}
+        <View style={ styles.bottomView} >
+                <BottomNavigtor navigation={navigation} />
+            </View>
         </View>
     );
 };

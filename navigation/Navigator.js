@@ -19,11 +19,14 @@ import EditProfile from "../frontend/EditProfile";
 import Chat from "../frontend/Chat";
 import PartyInfo from "../frontend/PartyInfo";
 import ProfileInfo from "../frontend/ProfileInfo";
+import BottomNavigtor from "./BottomNavigator";
 // สร้าง navigator ตามโจทย์กำหนด
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 // const Drawer = createDrawerNavigator();
 // สร้าง function สำหรับการกำหนด Navigator แต่ละตัว เช่น
+
+
 function MainNavigator() {
   return (
     // กำหนดรายละเอียดของ navigator

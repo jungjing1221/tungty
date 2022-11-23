@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, StatusBar, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
-import { Layout, Tab, TabView, Text, Input, Button, Card } from '@ui-kitten/components';
+import { Layout, Tab, TabView, Text, Input, Button, Card, IndexPath, Select, SelectItem, Icon } from '@ui-kitten/components';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { OpenSans_500Medium, } from '@expo-google-fonts/open-sans';
 import { Kanit_400Regular } from '@expo-google-fonts/kanit';
@@ -11,14 +11,19 @@ import { party } from '../assets/Party';
 import BottomNavigtor from '../navigation/BottomNavigator';
 
 const FindParty = ({ navigation }) => {
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [code, setCode] = useState(0);
   const [text, setText] = useState('Hi Frame');
   const [data, setData] = useState([])
+  const [selectedFilter, setSelectedFilter] = useState(new IndexPath(0));
   const [parties, setParties] = useState({
     0: [],
     1: []
   })
+
+  if(isNaN(selectedIndex)) {
+    setSelectedIndex(0)
+  }
 
   useEffect(() => {
     //SET ALL PARTY FROM RETURN PROMISE VALUE
@@ -34,6 +39,9 @@ const FindParty = ({ navigation }) => {
       });
     }
     fetchAllparty()
+    return () => {
+      setSelectedIndex(0)
+    }
   }, [])
   let [fontsLoaded] = useFonts({
     Inter_900Black, OpenSans_500Medium, Kanit_400Regular
@@ -43,13 +51,21 @@ const FindParty = ({ navigation }) => {
   if (!fontsLoaded) {
     return null;
   }
-
+  const filter = [
+        'ทั้งหมด',
+        'อาหาร',
+        'ท่องเที่ยว',
+        'พักผ่อน',
+        'เรียน/ทำงาน',
+        'อื่น ๆ'
+    ];
+  const displayValue = filter[selectedFilter.row];
   const findParty = async () => {
     console.log(text)
     let target = parties[0].filter(party => party.partyName.includes(text))
     console.log(target)
     setData([...target]);
-    
+
   }
   const joinParty = async () => {
     let user
@@ -65,16 +81,21 @@ const FindParty = ({ navigation }) => {
     let entered = parties[1].find(party => party.enterCode == code)
     console.log(parties[1],entered)
     if(!entered) return window.alert("โค้ดเข้าร่วมปาร์ตี้ไม่ถูกต้อง")
-    else {user.party.push(entered.partyName)
-      navigation.navigate("PartyInfo",{partyID:entered.partyName});
-    }
-
-
-
+    else {
+      user.party.push(entered.partyName)
+      entered.member.push(user.username)
+      
     //ADD PARTY TO USER
     const docRef = await setDoc(doc(db, "users", username), {
       ...user
     });
+
+    const partyRef = await setDoc(doc(db, "parties", partyID), {
+      ...data
+    });
+      navigation.navigate("PartyInfo",{partyID:entered.partyName});
+    }
+
   }
 
 
@@ -89,9 +110,24 @@ const FindParty = ({ navigation }) => {
         <Layout style={[styles.tabContainer]}>
           <Searchbar setTextProp={setText} findPartyProp={findParty}></Searchbar>
           <View style={styles.containerFilter}>
-            <Text category='h1' style={[styles.fontTh, { color: '#FDC319', paddingRight: '150px' }]}>หาปาร์ตี้</Text>
-            <Image source={require('../assets/filter_icon.png')} style={{ width: 30, height: 30 }} />
-          </View>
+                <Text category='h1' style={[styles.fontTh, { color: '#FDC319', paddingRight: '50px' }]}>หาปาร์ตี้</Text>
+                <Icon
+                style={[styles.icon, {marginTop:10}]}
+                name='funnel-outline'/>
+                <Layout level='1'>
+                  <Select
+                    selectedIndex={selectedFilter}
+                    value={displayValue}
+                    onSelect={index => setSelectedFilter(index)}>
+                    <SelectItem title='ทั้งหมด' />
+                    <SelectItem title='อาหาร' />
+                    <SelectItem title='ท่องเที่ยว' />
+                    <SelectItem title='พักผ่อน' />
+                    <SelectItem title='เรียน/ทำงาน' />
+                    <SelectItem title='อื่น ๆ' />
+                  </Select>
+                </Layout>
+              </View>
           <View style={styles.containerCardparty}>
             {data.map((item, index) =>
               <TouchableOpacity style={[{ paddingBottom: '10px' }]} key={index} onPress={() => { navigation.navigate("PartyInfo",{partyID:data[index].partyName});}}>
@@ -100,10 +136,10 @@ const FindParty = ({ navigation }) => {
                     <Image source={require('../assets/foodparty_icon.png')} style={{ width: "50px", height: '50px', aspectRatio: "1/1", objectFit: "cover" }} />
                   </View>
                   <View style={[styles.column9]}>
-                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>{item.partyName}</Text>
-                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>{item.about}</Text>
+                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '18px' }]}>{item.partyName}</Text>
+                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px',opacity:0.5 }]}>{item.about}</Text>
                     <View style={{ alignSelf: 'flex-end' }}>
-                      <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>👤 18</Text>
+                      <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px' }]}>👤 {item.member.length}</Text>
                     </View>
                   </View>
                 </View>
@@ -172,6 +208,10 @@ const styles = StyleSheet.create({
   fontTh: {
     fontFamily: 'Kanit_400Regular',
   },
+  icon: {
+    width: 32,
+    height: 32,
+},
   buttonStyle: {
     backgroundColor: '#4542C1',
     borderColor: 'transparent',

@@ -55,26 +55,26 @@ const MyParty = ({ navigation }) => {
         //   onSelect={index => setSelectedIndex(index)}>
         <View style={[styles.MainContainer, { backgroundColor: 'white' }]}>
             <ScrollView style={styles.scrollView}>
-                <View style={styles.tabContainer}>
-                    <Searchbar></Searchbar>
-                    <View style={styles.containerFilter}>
-                        <Text style={[styles.fontTh, { color: '#FDC319', paddingRight: '100px', fontSize: '42px' }]}>ปาร์ตี้ของฉัน</Text>
-                        <Image source={require('../assets/sort_icon.png')} style={{ width: 30, height: 30 }} />
-                    </View>
-                    <View style={styles.containerCardparty}>
-                        {data.map((item, index) =>
-                            <TouchableOpacity style={[styles.column6, { padding: 10 }]} onPress={() => { navigation.navigate("PartyInfo", { partyID: data[index].partyName }); }}>
-                                <View style={[styles.row, styles.card]}>
-                                    <View style={[styles.column3, { padding: 5 }]}>
-                                        <Image source={require('../assets/foodparty_icon.png')} style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover" }} />
-                                    </View>
-                                    <View style={[styles.column9]}>
-                                        <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px', fontWeight: 'bold' }]}>{item.partyName}</Text>
-                                    </View>
+            <View style={styles.tabContainer}>
+                <Searchbar></Searchbar>
+                <View style={styles.containerFilter}>
+                    <Text style={[styles.fontTh, { color: '#FDC319', paddingRight: '100px', fontSize: '42px' }]}>ปาร์ตี้ของฉัน</Text>
+                    <Image source={require('../assets/sort_icon.png')} style={{ width: 30, height: 30 }} />
+                </View>
+                <View style={styles.containerCardparty}>
+                    {data.map((item, index) =>
+                        <TouchableOpacity key={index} style={[styles.column6, { padding: 10 }]} onPress={() => { navigation.navigate("PartyInfo", { partyID: data[index].partyName }); }}>
+                            <View style={[styles.row, styles.card]}>
+                                <View style={[styles.column3, { padding: 5 }]}>
+                                    <Image source={require('../assets/foodparty_icon.png')} style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover" }} />
                                 </View>
-                            </TouchableOpacity>
-                        )}
-                    </View>
+                                <View style={[styles.container, styles.column9]}>
+                                    <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '13px', fontWeight: 'bold' }]}>{item.partyName}</Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    )}
+                </View>
                 </View>
             </ScrollView>
             <View style={styles.bottomView} >
@@ -90,6 +90,12 @@ const MyParty = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    container: {
+        fontFamily: 'Kanit_400Regular',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: "100%"
+    },
     tabView: {
         backgroundColor: 'white',
         flex: 1,
