@@ -22,14 +22,10 @@ const Register = () => {
   }
 
   const signup = async () => {
-    // const user = "jame";
-
-    console.log(name, username, password)
     let validUsername = true
 
     const userSnapshot = await getDocs(collection(db, "users"));
     userSnapshot.forEach((doc) => {
-      console.log(doc.data().username);
       if (doc.data().username == username) {
         validUsername = false
       }
