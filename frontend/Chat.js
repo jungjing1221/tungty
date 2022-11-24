@@ -52,24 +52,26 @@ const Chat = ({ navigation, route }) => {
     }, [])
 
     const send = async () => {
-        console.log(text)
-        let user
-        const username = localStorage.getItem("Username")
-        const ref = doc(db, "users", username);
-        const snap = await getDoc(ref);
-        if (snap.exists()) {
-            user = snap.data()
-        } else {
-            window.alert("มึงไม่มี USER")
-        }
-        await updateDoc(doc(db, "chats", partyID), {
-            msg: arrayUnion({
-                text: text,
-                sender: username,
-                time: Timestamp.now()
+        if (text) {
+            console.log(text)
+            let user
+            const username = localStorage.getItem("Username")
+            const ref = doc(db, "users", username);
+            const snap = await getDoc(ref);
+            if (snap.exists()) {
+                user = snap.data()
+            } else {
+                window.alert("มึงไม่มี USER")
+            }
+            await updateDoc(doc(db, "chats", partyID), {
+                msg: arrayUnion({
+                    text: text,
+                    sender: username,
+                    time: Timestamp.now()
+                })
             })
-        })
-        setText("")
+            setText("")
+        }
     }
 
     let [fontsLoaded] = useFonts({

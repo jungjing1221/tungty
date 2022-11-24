@@ -17,6 +17,7 @@ const CreateNewParty = ({navigation}) => {
     const [selectedPrivate, setSelectedPrivate] = useState(0);
     const [date, setDate] = useState(new Date());
     const [RandomNumber] = useState(Math.floor(Math.random() * 5) + 1);
+    const [alert, setAlert] = useState('');
     const data = [
         'อาหาร',
         'ท่องเที่ยว',
@@ -36,6 +37,9 @@ const CreateNewParty = ({navigation}) => {
     }
     const save = async () => {
         //logined user
+        if (!(partyName && about)){
+            return(setAlert("กรุณากรอกข้อมูลให้ครบ"))
+        }
         const username = localStorage.getItem("Username")
 
         const ref = doc(db, "users", username);
@@ -135,6 +139,7 @@ const CreateNewParty = ({navigation}) => {
                 <Radio>Public</Radio>
                 <Radio>Private</Radio>
             </RadioGroup>
+                    <Text style={[styles.fontTh, { color: '#4542C1' }]}>{alert}</Text>
             <View style={styles.row}>
                 <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10,  }]} onPress={save}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>SAVE</Text>}</Button>
             </View>

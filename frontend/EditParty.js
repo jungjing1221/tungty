@@ -84,8 +84,6 @@ const EditParty = ({ route, navigation }) => {
             const partyref = await updateDoc(doc(db, "parties",partyID), {
                 about: about,
                 selectedPrivate: selectedPrivate,
-                date: date,
-                type: displayValue,
             });
         } catch (e) {
             console.error("Error adding document: ", e);

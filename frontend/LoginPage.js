@@ -8,6 +8,7 @@ import { db } from '../firebase/firebase-config';
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [alert,setAlert] = useState('');
   let [fontsLoaded] = useFonts({
     Kanit_400Regular
   });
@@ -34,10 +35,10 @@ const Login = ({navigation}) => {
       if(passwordText==password){
           console.log(user.username)
           setToken();
-          //add codeไปหน้าหลัก
           navigation.navigate("MyParty")
       }
       else{
+        setAlert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง")
         console.log("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง")
       }
   }
@@ -65,10 +66,11 @@ const Login = ({navigation}) => {
         <Text onPress={ () => { navigation.navigate("Register");}} style={styles.fontTh} color="#4542C1">สมัครสมาชิกใหม่?</Text>
         <View styles={{backgroundColor:'#FFFFFF'}}> */}
         
+      <Text style={[styles.fontTh, { color: '#F73C3C'}]}>{alert}</Text>
       <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={login}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>Sign In</Text>}</Button>
       <View style={{ marginTop: 10 }}>
-        <Text onPress={ () => { navigation.navigate("FindParty");}} styles={styles.fontTh} color="#4542C1">ยังไม่มีสมาชิก</Text>
-        <Text onPress={ () => { navigation.navigate("Register");}} style={styles.fontTh} color="#4542C1">สมัครสมาชิกใหม่?</Text>
+        <Text onPress={() => { navigation.navigate("FindParty"); }} style={{ color:"#ffffff"}} >ยังไม่มีสมาชิก</Text>
+        <Text onPress={() => { navigation.navigate("Register"); }} style={{ color:"#ffffff"}}>สมัครสมาชิกใหม่?</Text>
         <View styles={{ backgroundColor: '#FFFFFF' }}>
         </View>
       </View>
