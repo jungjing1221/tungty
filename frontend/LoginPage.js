@@ -23,17 +23,18 @@ const Login = ({navigation}) => {
     
     const userSnapshot = await getDocs(collection(db, "users"));
     userSnapshot.forEach((doc) => {
-      console.log(doc.data().username);
       if (doc.data().username == username) {
         var decryptpassword  = CryptoJS.AES.decrypt(doc.data().password, 'tungty');
         passwordText = decryptpassword.toString(CryptoJS.enc.Utf8);
         user = doc.data()
-        console.log(passwordText)
+        setUsername("")
+        setPassword("")
+        setAlert("")
         return;
+        
       }});
       
       if(passwordText==password){
-          console.log(user.username)
           setToken();
           navigation.navigate("MyParty")
       }
@@ -53,18 +54,13 @@ const Login = ({navigation}) => {
     <View style={styles.container}>
       <Text style={{ fontFamily: 'Kanit_400Regular', fontSize: 70, color: '#FDC319' }}>TungTY</Text>
       <View style={{ marginTop: 25 }}>
-        <Text style={styles.fontEngInputHeader}>Username</Text>
-        <Input style={[styles.fontEng, styles.fontEngInput]} onChangeText={text => setUsername(text)} />
+        <Text style={styles.fontEngInputHeader} >Username</Text>
+        <Input style={[styles.fontEng, styles.fontEngInput]} value={username} onChangeText={text => setUsername(text)} />
       </View>
       <View style={{ marginTop: 10 }}>
         <Text style={styles.fontEngInputHeader}>Password</Text>
-        <Input secureTextEntry={true} style={styles.fontEngInput} onChangeText={text => setPassword(text)} />
+        <Input secureTextEntry={true} style={styles.fontEngInput} value={password} onChangeText={text => setPassword(text)} />
       </View>
-      {/* <Button style = {{marginTop:10}} title="SIGN IN" titleStyle={styles.fontEng} buttonStyle={styles.buttonStyle} onPress={login}></Button>
-      <View style = {{marginTop:10}}>
-        <Text style={styles.fontTh}>ยังไม่มีสมาชิก</Text>
-        <Text onPress={ () => { navigation.navigate("Register");}} style={styles.fontTh} color="#4542C1">สมัครสมาชิกใหม่?</Text>
-        <View styles={{backgroundColor:'#FFFFFF'}}> */}
         
       <Text style={[styles.fontTh, { color: '#F73C3C'}]}>{alert}</Text>
       <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={login}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>Sign In</Text>}</Button>

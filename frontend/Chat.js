@@ -25,15 +25,12 @@ const Chat = ({ navigation, route }) => {
             } else {
                 window.alert("มึงไม่มี USER")
             }
-            console.log(partyID)
             const chatref = doc(db, "chats", partyID);
             const chat = await onSnapshot(chatref, (chatList) => {
                 if (chatList) {
                     let msgList
-                    console.log(chatList.data().msg[0])
                     msgList = chatList.data().msg
                     msgList.forEach(msg => {
-                        console.log(msg)
                         if (msg.sender == username) {
                             msg.state = "user"
                         }
@@ -53,7 +50,6 @@ const Chat = ({ navigation, route }) => {
 
     const send = async () => {
         if (text) {
-            console.log(text)
             let user
             const username = localStorage.getItem("Username")
             const ref = doc(db, "users", username);

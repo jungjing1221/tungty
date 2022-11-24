@@ -26,8 +26,6 @@ const BottomNavigtor = ({navigation}) => {
   }
 
   const handleNavigate = (pathName) => {
-    console.log("test")
-      console.log(navigation)
       navigation.navigate(pathName)
 }
 

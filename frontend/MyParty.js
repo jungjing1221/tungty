@@ -38,7 +38,6 @@ const MyParty = ({ navigation }) => {
             }).catch(err => {
                 console.log(err);
             });
-            console.log("focus")
         }
         if (isFocused){
             fetchAllparty()
@@ -47,9 +46,7 @@ const MyParty = ({ navigation }) => {
     }, [isFocused])
 
     const findParty = async () => {
-        console.log(text)
         let target = data.filter(party => party.partyName.includes(text))
-        console.log(target)
         setData([...target]);
         
     }

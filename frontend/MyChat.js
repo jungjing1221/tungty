@@ -45,25 +45,20 @@ const MyChat = ({ navigation }) => {
                 let myParty = value.filter(party => user.party.includes(party.partyName))
                 let partyNameList =[]
                 myParty.forEach((party)=>{
-                    console.log(party.partyName)
                     partyNameList.push(party.partyName)
                 })
-                console.log(partyNameList)
                 let chatList = []
                 const chatListsnap = await getDocs(collection(db, "chats"));
                 chatListsnap.forEach((doc) => {
-                    console.log(partyNameList.includes("ไปนอนริมทะเลโง่ๆ"))
                     if(partyNameList.includes(doc.data().party)){
                         chatList.push(doc.data())
                         
                     }
                 });
-                console.log(chatList)
                 chatList.forEach((chat)=>{
                     if(chat.msg[chat.msg.length-1])
                         chat.msg = '"' +chat.msg[chat.msg.length-1].text+'"'
                     else chat.msg = "ยังไม่มีข้อความในห้องสนทนานี้"
-                    console.log(chat.msg)
                 })
                 setData(chatList);
 

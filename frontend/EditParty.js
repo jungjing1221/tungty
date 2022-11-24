@@ -71,15 +71,12 @@ const EditParty = ({ route, navigation }) => {
         const ref = doc(db, "users", username);
         const snap = await getDoc(ref);
         if (snap.exists()) {
-            console.log(snap.data().party);
             let user = snap.data()
             user.party.push("test")
-            console.log(user.party);
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
         }
-        console.log(partyName, about, selectedPrivate, date)
         try {
             const partyref = await updateDoc(doc(db, "parties",partyID), {
                 about: about,
@@ -94,7 +91,6 @@ const EditParty = ({ route, navigation }) => {
     const delParty =async()=>{
         //DEL PARTY FROM LIST
         let leftParty = partyData.filter(party => party.partyName!= partyID)
-        console.log(leftParty)
         // leftParty.forEach( async(party)=>{
         //     const docRef = await setDoc(doc(db, "parties",party.partyName), {
         //         ...party

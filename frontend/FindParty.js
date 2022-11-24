@@ -41,7 +41,6 @@ const FindParty = ({ navigation }) => {
       }).catch(err => {
         console.log(err);
       });
-      console.log("focus")
     }
     if(isFocused){
       fetchAllparty()
@@ -49,8 +48,6 @@ const FindParty = ({ navigation }) => {
   }, [isFocused])
 
   useEffect(() => {
-    console.log(selectedFilter.row)
-    console.log(data)
     if (selectedFilter.row==1){
       let foodParty = parties[0].filter(party=>party.type == "อาหาร")
       setData(foodParty)
@@ -95,9 +92,7 @@ const FindParty = ({ navigation }) => {
   ];
   const displayValue = filter[selectedFilter.row];
   const findParty = async () => {
-    console.log(text)
     let target = parties[0].filter(party => party.partyName.includes(text))
-    console.log(target)
     setData([...target]);
 
   }
@@ -113,7 +108,6 @@ const FindParty = ({ navigation }) => {
     }
 
     let entered = parties[1].find(party => party.enterCode == code)
-    console.log(parties[1], entered)
     if (!entered) return window.alert("โค้ดเข้าร่วมปาร์ตี้ไม่ถูกต้อง")
     else {
       user.party.push(entered.partyName)
@@ -132,7 +126,6 @@ const FindParty = ({ navigation }) => {
   }
 
   const filterChange = async (index) => {
-    console.log("filter")
     setSelectedFilter(index)
 
   }

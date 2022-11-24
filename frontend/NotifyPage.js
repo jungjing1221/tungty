@@ -40,11 +40,8 @@ const Notification = ({ navigation }) => {
                     party.date = party.date.toDate().toString().slice(4, 15)
                     
                 })
-                console.log(myParty)
-                console.log(Timestamp.now().toDate().toString().slice(4, 15))
                 let today = Timestamp.now().toDate().toString().slice(4, 15)
                 let notiParty = myParty.filter(party => party.date == today)
-                console.log(notiParty)
                 setData(notiParty);
 
             }).catch(err => {
@@ -80,7 +77,7 @@ const Notification = ({ navigation }) => {
                             <Text style={[styles.fontTh, { color: 'black', fontSize: '20px', fontWeight: 'bold' }]}>{item.partyName}</Text>
                             <Text style={[styles.fontTh, { color: 'black', fontSize: '15px', fontWeight: 'bold' }]}>แจ้งเตือนทุกคนในปาร์ตี้แล้ว</Text>
                             <View style={{alignItems: 'flex-end'}}>
-                                <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '14px', fontWeight: 'bold', }]}>{item.datetimeNoti}</Text>
+                                <Text style={[styles.fontTh, { color: '#4542C1', fontSize: '14px', fontWeight: 'bold', }]}>{item.date}</Text>
                             </View>
                         </View>
                     </View>
@@ -123,7 +120,7 @@ const styles = StyleSheet.create({
     },
     containerCardparty: {
         width: '90%',
-        marginTop:20
+        marginTop:10
     },
     row: {
         flexWrap: "wrap",

@@ -61,7 +61,6 @@ const PartyInfo = ({ route, navigation }) => {
     }, [isFocused])
 
     const joinParty = async () => {
-        console.log(partyID,user)
         user.party.push(partyID)
         data.member.push(user.username )
         //ADD PARTY TO USER

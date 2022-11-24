@@ -23,7 +23,6 @@ const ProfileInfo = ({ navigation }) => {
             } else {
                 window.alert("มึงไม่มี USER")
             }
-            console.log(user)
             setUser(user)
 
         }
@@ -52,8 +51,8 @@ const ProfileInfo = ({ navigation }) => {
                     <Text style={{ fontFamily: 'Kanit_400Regular', marginTop: 10, fontSize: 20, color: '#4542C1' }}>{user.aboutMe}</Text>
                 </View>
             </View>
-            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={() => navigation.navigate("EditProfile")}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>Edit About Me</Text>}</Button>
-            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 30 }]} onPress={"singout"}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', fontSize: 20 }}>SIGN OUT</Text>}</Button>
+            {/* <Button style={[styles.fontEng, styles.buttonStyle, { margin: 10 }]} onPress={() => navigation.navigate("EditProfile")}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', }}>Edit About Me</Text>}</Button> */}
+            <Button style={[styles.fontEng, styles.buttonStyle, { margin: 30 }]} onPress={() => { navigation.navigate("Login"); }}>{evaProps => <Text {...evaProps} style={{ color: "#4542C1", fontFamily: 'Kanit_400Regular', fontSize: 20 }}>SIGN OUT</Text>}</Button>
         </View>
     );
 };

@@ -46,14 +46,11 @@ const CreateNewParty = ({navigation}) => {
         const snap = await getDoc(ref);
         let user
         if (snap.exists()) {
-            console.log(snap.data().party);
             user = snap.data()
-            console.log(user.party);
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
         }
-        console.log(partyName, about, selectedPrivate, date, displayValue)
         let code = 0;
         if (selectedPrivate) {
             code = Math.floor(100000 + Math.random() * 900000)
